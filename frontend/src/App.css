@@ -1,0 +1,32 @@
+/* Ensure the body and html take up the full height */
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%; /* Ensure body takes full height of the viewport */
+}
+
+/* Main wrapper for the app */
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Ensures the body fills the viewport */
+}
+
+/* Main content area */
+.main-content {
+  flex: 1; /* Takes all remaining space to push footer down */
+}
+
+/* Footer styles */
+.footer {
+  background-color: #2d572c;
+  color: white;
+  text-align: center;
+  display: flex; /* Center content vertically and horizontally */
+  justify-content: center;
+  align-items: center;
+  height: 40px; /* Reduced height */
+  width: 100%;
+  box-sizing: border-box;
+  font-size: 0.9rem;
+}

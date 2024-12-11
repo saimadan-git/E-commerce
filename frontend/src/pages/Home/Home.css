@@ -1,0 +1,145 @@
+/* Home.css */
+.home {
+    font-family: Arial, sans-serif;
+  }
+  
+  .home-intro h1 {
+    font-size: 3rem;
+    color: #2d572c;
+  }
+  
+  .home-intro p {
+    font-size: 1.2rem;
+    margin: 10px 0;
+  }
+  
+  .home-features {
+    text-align: center;
+    padding: 50px 20px;
+    background-color: #fff;
+  }
+  
+  .features-list {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+  }
+  
+  .feature {
+    max-width: 200px;
+  }
+  
+  .feature img {
+    width: 100px; /* Fixed width */
+    height: 100px; /* Fixed height */
+    object-fit: contain; /* Ensures the image fits while preserving aspect ratio */
+    margin-bottom: 10px;
+  }
+  
+  .home-testimonials {
+    text-align: center;
+    padding: 50px 20px;
+    background-color: #f2f2f2;
+  }
+  
+  .testimonials {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+  }
+  
+  .testimonial {
+    max-width: 200px;
+    font-style: italic;
+  }
+  
+
+  /* General Header Styling */
+.home-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  padding: 40px;
+  background-color: #fef9f3; /* Light background for a warm feel */
+  border-bottom: 3px solid #2d572c;
+}
+
+/* Text Section */
+.home-intro {
+  flex: 1 1 60%;
+  max-width: 600px;
+  text-align: left;
+  padding: 20px;
+}
+
+.home-title {
+  font-size: 3rem;
+  font-weight: bold;
+  color: #2d572c;
+  margin-bottom: 10px;
+}
+
+.home-tagline {
+  font-size: 1.2rem;
+  color: #555;
+  line-height: 1.8;
+  margin-bottom: 20px;
+}
+
+/* Highlights List */
+.home-highlights {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 20px;
+  color: #444;
+}
+
+.home-highlights li {
+  font-size: 1.1rem;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Button Styling */
+.btn-shop {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: white;
+  background-color: #2d572c;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.btn-shop:hover {
+  background-color: #1b3e1e;
+}
+
+/* Image Section */
+.home-image {
+  flex: 1 1 40%;
+  max-width: 360px;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Bachelor's Corner */
+.bachelors-corner {
+  padding: 40px;
+  text-align: center;
+  background: linear-gradient(to right, #ffe082, #ffd54f);
+  color: #333;
+}
+
+.bachelors-corner img {
+  width: 100%;
+  max-width: 200px;
+  margin-top: 20px;
+  border-radius: 10px;
+}

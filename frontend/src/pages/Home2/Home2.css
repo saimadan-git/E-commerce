@@ -1,0 +1,128 @@
+.home-container {
+    font-family: 'Arial', sans-serif;
+    color: #333;
+  }
+  
+  /* Hero Section */
+  .hero-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 40px;
+    background: linear-gradient(to right, #4caf50, #81c784);
+    color: white;
+  }
+  
+  .hero-content {
+    max-width: 50%;
+  }
+  
+  .hero-content h1 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+  }
+  
+  .hero-content p {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+  }
+  
+  .cta-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    margin-right: 10px;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+  
+  .shop-now-btn {
+    background-color: white;
+    color: #4caf50;
+  }
+  
+  .learn-more-btn {
+    background-color: #4caf50;
+    color: white;
+  }
+  
+  .hero-image img {
+    width: 400px;
+    border-radius: 10px;
+  }
+  
+  /* USP Section */
+  .usp-section {
+    text-align: center;
+    padding: 40px;
+    background-color: #f9f9f9;
+  }
+  
+  .usp-container {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+  }
+  
+  .usp-item img {
+    width: 50px;
+    margin-bottom: 10px;
+  }
+  
+  .usp-item p {
+    font-size: 1rem;
+  }
+  
+  
+  
+  /* Featured Products */
+  .featured-products {
+    padding: 40px;
+    background-color: #f9f9f9;
+  }
+  
+  .products-grid {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+  }
+  
+  .product-item img {
+    width: 150px;
+    border-radius: 10px;
+  }
+  
+  .product-item p {
+    margin-top: 10px;
+    font-weight: bold;
+  }
+  
+  /* Reviews Section */
+  .reviews-section {
+    padding: 40px;
+    text-align: center;
+    background-color: #fffde7;
+  }
+  
+  .reviews-grid {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+  }
+  
+  .review-item {
+    max-width: 300px;
+    background-color: white;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .review-item span {
+    display: block;
+    margin-top: 10px;
+    font-size: 0.9rem;
+    color: #777;
+  }
+  

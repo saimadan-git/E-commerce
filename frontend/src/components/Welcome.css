@@ -1,0 +1,35 @@
+/* src/WelcomePage.css */
+.welcome-container {
+    text-align: center;
+    padding: 20px;
+    font-family: 'Arial', sans-serif;
+  }
+  
+  .welcome-header h1 {
+    font-size: 3em;
+    color: #3e8e41; /* Pickle green */
+  }
+  
+  .welcome-header p {
+    font-size: 1.2em;
+    color: #6b8e23; /* Olive green */
+  }
+  
+  .pickle-image img {
+    max-width: 300px;
+    margin-top: 20px;
+  }
+  
+  .slogan {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #8b0000; /* Dark red for a fun touch */
+    margin-top: 20px;
+  }
+  
+  footer {
+    /* margin-top: 50px; */
+    font-size: 1em;
+    color: #333;
+  }
+  

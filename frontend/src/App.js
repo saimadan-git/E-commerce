@@ -1,0 +1,35 @@
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Home from "./pages/Home";
+import './App.css';
+import WelcomePage from "./components/Welcome";
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import Shop from "./pages/Shop";
+import ForgetPassword from "./pages/ForgetPassword";
+import Home2 from "./pages/Home2/Home2.js";
+
+function App() {
+  return (
+    <Router>
+      <div className="app">
+        <Navbar />
+        <div className="main-content">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="login" element={<Login />} />
+            <Route path="register" element={<Register />} />
+            <Route path="shop" element={<Shop />} />
+            <Route path="forget-password" element={<ForgetPassword />} />
+            <Route path="home2" element={<Home2 />} />
+          </Routes>
+        </div>
+        <Footer />
+      </div>
+    </Router>
+  );
+}
+
+export default App;

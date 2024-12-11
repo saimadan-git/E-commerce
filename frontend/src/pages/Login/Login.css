@@ -1,0 +1,139 @@
+  /* Login Page */
+  .login-page {
+    display: flex;
+    justify-content:space-around;  /* Center horizontally */
+    align-items: center; 
+    width: 100%;
+    /* background-image: url("https://www.shutterstock.com/image-photo/andhra-traditional-home-made-raw-260nw-2336772483.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover; */
+    height: 100%;
+  }
+  
+  /* Login Card */
+  .login-card {
+    background-color: white;
+    padding: 40px 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    /* text-align: center; */
+    width: 100%;
+    max-width: 400px;
+    margin-top: 35px;
+  }
+  
+  .login-card h2 {
+    margin: 0 0 10px;
+    font-size: 1.8rem;
+    color: #2d572c;
+  }
+  
+  .login-card p {
+    margin: 0 0 20px;
+    font-size: 1rem;
+    color: #555;
+  }
+  
+  .login-card .login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .login-card .login-form input {
+    padding: 10px 15px;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  
+  .login-card .login-form input:focus {
+    outline: none;
+    border-color: #2d572c;
+    box-shadow: 0 0 5px rgba(45, 87, 44, 0.5);
+  }
+  
+  .login-card .login-button {
+    padding: 10px 15px;
+    font-size: 1rem;
+    background-color: #2d572c;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100px;
+  }
+  
+  .login-card .login-button:hover {
+    background-color: #1b3e1e;
+  }
+  
+  .login-footer {
+    margin-top: 20px;
+    font-size: 0.9rem;
+    color: #555;
+  }
+  
+  .login-footer a {
+    color: #2d572c;
+    text-decoration: none;
+  }
+  
+  .login-footer a:hover {
+    text-decoration: underline;
+  }  
+
+  .login-btn-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .pickle-image {
+    height: 350px;
+    width: 600px;
+    border-radius: 15px;
+  }
+
+  .or-text {
+    text-align: center;
+    margin: 15px 0;
+    font-size: 1rem;
+    color: #777;
+    font-family: Arial, sans-serif;
+  }
+  
+  .google-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 10px 15px;
+    background-color: #606064; /* Updated background color to green */
+    color: white;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.3s ease;
+    font-family: Arial, sans-serif;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  }
+  
+  .google-btn:hover {
+    background-color: #424244; /* Slightly darker green on hover */
+  }
+  
+  .google-btn:active {
+    background-color: #252527; /* Even darker green on click */
+    transform: scale(0.98); /* Slight shrink on click for feedback */
+  }
+  
+  .google-icon {
+    width: 20px; /* Adjust size of the Google logo */
+    margin-right: 10px; /* Space between icon and text */
+  }
+  
+  

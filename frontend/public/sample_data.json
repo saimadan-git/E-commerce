@@ -1,0 +1,30 @@
+[
+    {
+      "id": 1,
+      "name": "Ginger Pickle",
+      "price": 150,
+      "weight": "500g",
+      "image": "https://i0.wp.com/nativespecial.com/in/wp-content/uploads/sites/3/2019/12/Guntur-Ginger-pickle-DP.jpg?fit=800%2C800&ssl=1",
+      "description": "Traditional ginger pickle with authentic Hyderabadi spices.",
+      "location": "Hyderabad, Telangana"
+    },
+    {
+      "id": 2,
+      "name": "Mango Pickle",
+      "price": 200,
+      "weight": "1kg",
+      "image": "https://www.kushaspices.com/wp-content/uploads/2023/05/Very-Spicy-Mango-Pickle-1-e1688322358823.png",
+      "description": "Tangy and spicy mango pickle from Hyderabad.",
+      "location": "Hyderabad, Telangana"
+    },
+    {
+      "id": 3,
+      "name": "Lemon Pickle",
+      "price": 180,
+      "weight": "750g",
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5FkCUgyA-Vqnki7ACm45129PmUaaLzZNDwA&s",
+      "description": "Citrusy lemon pickle with a touch of Hyderabadi flair.",
+      "location": "Hyderabad, Telangana"
+    }
+  ]
+  

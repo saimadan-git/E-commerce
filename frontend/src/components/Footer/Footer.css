@@ -1,0 +1,13 @@
+/* Footer styles */
+.footer {
+  background-color: #2d572c;
+  color: white;
+  text-align: center;
+  display: flex; /* Use flexbox for vertical and horizontal centering */
+  justify-content: center;
+  align-items: center;
+  height: 40px; /* Reduced height */
+  width: 100%; /* Ensure the footer spans the full width */
+  box-sizing: border-box; /* Includes padding in height calculation */
+  font-size: 0.9rem; /* Adjust text size */
+}
