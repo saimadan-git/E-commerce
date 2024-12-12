@@ -51,7 +51,7 @@ const Home = () => {
         </div>
       </section>
       <section className="bachelors-corner">
-        <h2>Bachelor’s Corner</h2>
+        <h2>Bachelor’s Corner Heelo</h2>
         <p>
           Missing home-cooked meals? We've got you covered! Our pickles bring the taste of home to your plate,
           wherever you are.
