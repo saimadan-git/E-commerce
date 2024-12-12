@@ -2,13 +2,9 @@ import React, { useState } from "react";
 import axios from "axios";
 const Register = () => {
   const [formData, setFormData] = useState({
-    //consumerId: "",
-    title: "",
-    customerName: "",
+    name: "",
     email: "",
-    countryCode: "",
     mobileNumber: "",
-    userId: "",
     password: "",
     confirmPassword: "",
   });
@@ -79,13 +75,9 @@ const Register = () => {
 
   const handleReset = () => {
     setFormData({
-      //consumerId: "",
-      title: "",
-      customerName: "",
+      name: "",
       email: "",
-      countryCode: "+1",
       mobileNumber: "",
-      userId: "",
       password: "",
       confirmPassword: "",
     });
@@ -123,97 +115,75 @@ const Register = () => {
   }
 
   return (
-    <form onSubmit={handleSubmit} style={{ width: "400px", margin: "0 auto" }}>
-       {/* <!--<h2>Consumer Registration</h2>
-     <div>
-        <label>Consumer ID:</label>
-        <input
-          type="text"
-          value={formData.consumerId}
-          onChange={(e) => setFormData({ ...formData, consumerId: e.target.value })}
-        />
-        {errors.consumerId && <p style={{ color: "red" }}>{errors.consumerId}</p>}
-      </div>--> */}
-      <div>
-        <label>Title:</label>
-        <select
-          value={formData.title}
-          onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-        >
-          <option value="">Select</option>
-          <option value="Mr">Mr</option>
-          <option value="Ms">Ms</option>
-          <option value="Mrs">Mrs</option>
-        </select>
+    <div className="login-page">
+      <div className="login-card">
+        <form onSubmit={handleSubmit} className="login-form">
+          <h2>Join the Pickle Party</h2>
+          <p>Your Taste Buds are Invited!</p>
+          <div>
+            <input            
+              type="text"
+              name="name"
+              value={formData.name}
+              placeholder="Name"
+              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+              required
+            />
+            {errors.customerName && <p style={{ color: "red" }}>{errors.customerName}</p>}
+          </div>
+          <div>
+            <input
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+              placeholder="Email"
+              required
+            />
+            {errors.email && <p style={{ color: "red" }}>{errors.email}</p>}
+          </div>
+          <div>
+            <input
+              type="text"
+              name="mobileNumber"
+              value={formData.mobileNumber}
+              onChange={(e) => setFormData({ ...formData, mobileNumber: e.target.value })}
+              placeholder="Mobile Number"
+              required
+            />
+            {errors.mobileNumber && <p style={{ color: "red" }}>{errors.mobileNumber}</p>}
+          </div>
+          <div>
+            <input
+              type="password"
+              name="password"
+              value={formData.password}
+              onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+              placeholder="Password"
+              required
+            />
+            {errors.password && <p style={{ color: "red" }}>{errors.password}</p>}
+          </div>
+          <div>
+            <input
+              type="password"
+              name="confirmPassword"
+              value={formData.confirmPassword}
+              onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
+              placeholder="Confirm Password"
+              required
+            />
+            {errors.confirmPassword && <p style={{ color: "red" }}>{errors.confirmPassword}</p>}
+          </div>
+          <div className="login-btn-container">
+            <button type="submit" className="login-button">Register</button>
+            <button type="button" onClick={handleReset} className="login-button">
+              Reset
+            </button>
+          </div>
+        </form>
       </div>
-      <div>
-        <label>Customer Name:</label>
-        <input
-          type="text"
-          value={formData.customerName}
-          onChange={(e) => setFormData({ ...formData, customerName: e.target.value })}
-        />
-        {errors.customerName && <p style={{ color: "red" }}>{errors.customerName}</p>}
-      </div>
-      <div>
-        <label>Email:</label>
-        <input
-          type="email"
-          value={formData.email}
-          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-        />
-        {errors.email && <p style={{ color: "red" }}>{errors.email}</p>}
-      </div>
-      <div>
-        <label>Mobile Number:</label>
-        <select
-          value={formData.countryCode}
-          onChange={(e) => setFormData({ ...formData, countryCode: e.target.value })}
-        >
-          <option value="+1">+1</option>
-          <option value="+91">+91</option>
-          <option value="+44">+44</option>
-        </select>
-        <input
-          type="text"
-          value={formData.mobileNumber}
-          onChange={(e) => setFormData({ ...formData, mobileNumber: e.target.value })}
-        />
-        {errors.mobileNumber && <p style={{ color: "red" }}>{errors.mobileNumber}</p>}
-      </div>
-      <div>
-        <label>User ID:</label>
-        <input
-          type="text"
-          value={formData.userId}
-          onChange={(e) => setFormData({ ...formData, userId: e.target.value })}
-        />
-      </div>
-      <div>
-        <label>Password:</label>
-        <input
-          type="password"
-          value={formData.password}
-          onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-        />
-        {errors.password && <p style={{ color: "red" }}>{errors.password}</p>}
-      </div>
-      <div>
-        <label>Confirm Password:</label>
-        <input
-          type="password"
-          value={formData.confirmPassword}
-          onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
-        />
-        {errors.confirmPassword && <p style={{ color: "red" }}>{errors.confirmPassword}</p>}
-      </div>
-      <div>
-        <button type="submit">Register</button>
-        <button type="button" onClick={handleReset}>
-          Reset
-        </button>
-      </div>
-    </form>
+    </div>
   );
 };
 
