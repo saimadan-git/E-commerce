@@ -13,7 +13,7 @@ const Login = () => {
   };
   return (
     <div className="login-page">
-        <img src="https://t4.ftcdn.net/jpg/02/34/03/09/360_F_234030991_AFwQNyBq58UHYHoRFGNJxVAtFuX7DeJD.jpg" />
+        {/* <img src="https://t4.ftcdn.net/jpg/02/34/03/09/360_F_234030991_AFwQNyBq58UHYHoRFGNJxVAtFuX7DeJD.jpg" /> */}
         {/* <img src="https://kandrafoods.com/wp-content/uploads/2021/06/Mango-Pickle-Product-Image-247x296.png" />
         <img src="https://static.vecteezy.com/system/resources/thumbnails/044/430/404/small_2x/mango-green-mango-illustration-vector.jpg" />
         {/* <img src="https://images.jdmagicbox.com/quickquotes/listicle/listicle_1685227340738_2rjfy_1040x500.jpg" className="pickle-image"/> */}
@@ -22,13 +22,19 @@ const Login = () => {
         <p>Please login to your account</p>
         
         <form className="login-form">
-          <input type="text" placeholder="Username" required />
-          <input type="password" placeholder="Password" required />
-          <div className="login-btn-container">
-            <p className="login-footer">
-                <a href="/forget-password">Forget Password?</a>
+          <div class="form-group">
+            <input type="text" id="username" placeholder=" " required />
+            <label for="username">Username</label>
+          </div>
+          <div class="form-group">
+            <input type="password" id="password" placeholder=" " required />
+            <label for="password">Password</label>
+          </div>
+          <div class="login-btn-container">
+            <p class="login-footer">
+              <a href="/forget-password">Forget Password?</a>
             </p>
-            <button type="submit" className="login-button">Login</button>
+            <button type="submit" class="login-button">Login</button>
           </div>
         </form>
 
