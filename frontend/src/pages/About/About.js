@@ -1,7 +1,7 @@
 import React from "react";
-import "./AboutPage.css"; // For styling
+import "./About.css"; // For styling
 
-const AboutPage = () => {
+const About = () => {
   return (
     <div className="about-page">
       <div className="about-hero">
@@ -50,4 +50,4 @@ const AboutPage = () => {
   );
 };
 
-export default AboutPage;
+export default About;
