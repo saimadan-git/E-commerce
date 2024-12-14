@@ -24,7 +24,7 @@ const Register = () => {
       newErrors.consumerId = "Consumer ID must be a 13-digit number.";
     }*/
     if (!formData.name || formData.name.length > 50) {
-      newErrors.name = "name must be under 50 characters.";
+      newErrors.name = "Name must be under 50 characters.";
     }
     if (!formData.email.includes("@")) {
       newErrors.email = "Invalid email address.";

@@ -141,8 +141,9 @@
   justify-content: center;
   width: 100%;
   padding: 10px 15px;
-  background-color: #606064;
-  color: white;
+  /* background-color: #606064; */
+  background-color: #ebebf3;
+  color: rgb(13, 2, 109);
   font-size: 1rem;
   border: none;
   border-radius: 5px;
