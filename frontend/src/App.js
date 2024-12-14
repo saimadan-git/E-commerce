@@ -9,6 +9,7 @@ import Register from "./pages/Register";
 import Shop from "./pages/Shop";
 import ForgetPassword from "./pages/ForgetPassword";
 import Home2 from "./pages/Home2/Home2.js";
+import About from "./pages/About";
 
 function App() {
   return (
@@ -23,6 +24,8 @@ function App() {
             <Route path="shop" element={<Shop />} />
             <Route path="forget-password" element={<ForgetPassword />} />
             <Route path="home2" element={<Home2 />} />
+            <Route path="about" element={<About/>} />
+
           </Routes>
         </div>
         <Footer />
