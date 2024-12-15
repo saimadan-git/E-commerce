@@ -1,7 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Login.css";
 
 const Login = () => {
+  const [formData, setFormData] = useState({ email: "", password: "" });
+  const [passwordVisible, setPasswordVisible] = useState(false);
+  const [errors, setErrors] = useState({ email: "", password: "" });
+
+  const togglePasswordVisibility = () => {
+    setPasswordVisible(!passwordVisible);
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
   const handleGoogleSignIn = async () => {
     // const provider = new GoogleAuthProvider();
     // try {
@@ -11,6 +24,46 @@ const Login = () => {
     //   setError(err.message);
     // }
   };
+
+  const validateEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    let hasErrors = false;
+
+    const newErrors = { email: "", password: "" };
+
+    // Email validation
+    if (!formData.email) {
+      newErrors.email = "Email is required.";
+      hasErrors = true;
+    } else if (!validateEmail(formData.email)) {
+      newErrors.email = "Please enter a valid email.";
+      hasErrors = true;
+    }
+
+    // Password validation
+    if (!formData.password) {
+      newErrors.password = "Password is required.";
+      hasErrors = true;
+    } else if (formData.password.length < 6) {
+      newErrors.password = "Password must be at least 6 characters.";
+      hasErrors = true;
+    }
+
+    setErrors(newErrors);
+
+    // If no errors, proceed (e.g., call API)
+    if (!hasErrors) {
+      console.log("Form submitted:", formData);
+      // Perform your login logic here
+    }
+  };
+
+
   return (
     <div className="login-page">
         {/* <img src="https://t4.ftcdn.net/jpg/02/34/03/09/360_F_234030991_AFwQNyBq58UHYHoRFGNJxVAtFuX7DeJD.jpg" /> */}
@@ -21,14 +74,46 @@ const Login = () => {
         <h2>Welcome Back!</h2>
         <p>Please login to your account</p>
         
-        <form className="login-form">
+        <form className="login-form" onSubmit={handleSubmit}>
           <div class="form-group">
-            <input type="text" id="email" placeholder=" " required />
-            <label for="email">Email</label>
+            <input 
+              type="text" 
+              id="email" 
+              name="email"
+              placeholder=" " 
+              value={formData.email}
+              onChange={handleInputChange} 
+            />
+            <label htmlFor="email">Email</label>
+            {errors.email && <p className="error-message">{errors.email}</p>}
           </div>
-          <div class="form-group">
-            <input type="password" id="password" placeholder=" " required />
-            <label for="password">Password</label>
+          <div class="form-group" style={{ position: "relative" }}>
+            <div className="password-wrapper">
+              <input 
+                type={passwordVisible ? "text" : "password"} 
+                id="password"
+                name="password"
+                placeholder=" " 
+                value={formData.password}
+                onChange={handleInputChange}
+              />
+              <label htmlFor="password">Password</label>
+              <span
+                className="password-toggle-icon"
+                onClick={togglePasswordVisibility}
+                style={{
+                  position: "absolute",
+                  right: "10px",
+                  top: "50%",
+                  transform: "translateY(-50%)",
+                  cursor: "pointer",
+                  fontSize: "14px",
+                }}
+              >
+                {passwordVisible ? "👁️" : "🙈"}
+              </span>
+            </div>
+            {errors.password && (<p className="error-message">{errors.password}</p>)}
           </div>
           <div class="login-btn-container">
             <p class="login-footer">

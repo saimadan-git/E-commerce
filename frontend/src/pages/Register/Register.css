@@ -165,3 +165,30 @@
   width: 20px;
   margin-right: 10px;
 }
+
+/* Ensure proper alignment of the password field and icon */
+.password-wrapper {
+  display: flex;
+  align-items: center; /* Align input and icon vertically */
+  position: relative;
+}
+
+.password-wrapper input {
+  flex: 1; /* Let the input take up all available space */
+}
+
+.password-toggle-icon {
+  position: absolute;
+  right: 10px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #333;
+  user-select: none;
+}
+
+/* Style error messages */
+.form-group .error-message {
+  color: red;
+  font-size: 12px;
+  margin-top: 5px; /* Add spacing below input fields */
+}

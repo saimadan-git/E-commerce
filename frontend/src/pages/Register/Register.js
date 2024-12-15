@@ -17,6 +17,18 @@ const Register = () => {
   const [isRegistered, setIsRegistered] = useState(false);
   const [generatedCustomerId, setGeneratedCustomerId] = useState("");
 
+  const [visibility, setVisibility] = useState({
+    password: false,
+    confirmPassword: false,
+  });
+
+  const toggleVisibility = (field) => {
+    setVisibility((prev) => ({
+      ...prev,
+      [field]: !prev[field],
+    }));
+  };
+
   const validateForm = () => {
     const newErrors = {};
 
@@ -130,10 +142,10 @@ const Register = () => {
               placeholder=" "
               value={formData.name}
               onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-              required
+              // required
             />
             <label for="name">Name</label>
-            {errors.customerName && <p style={{ color: "red" }}>{errors.customerName}</p>}
+            {errors.name && (<p className="error-message">{errors.name}</p>)}
           </div>
           <div class="form-group">
             <input
@@ -143,10 +155,10 @@ const Register = () => {
               value={formData.email}
               onChange={(e) => setFormData({ ...formData, email: e.target.value })}
               placeholder=" "
-              required
+              // required
             />
             <label for="email">Email</label>
-            {errors.email && <p style={{ color: "red" }}>{errors.email}</p>}
+            {errors.email && (<p className="error-message">{errors.email}</p>)}
           </div>
           <div class="form-group">
             <input
@@ -156,36 +168,68 @@ const Register = () => {
               value={formData.mobileNumber}
               onChange={(e) => setFormData({ ...formData, mobileNumber: e.target.value })}
               placeholder=" "
-              required
+              // required
             />
             <label for="mobileNumber">Mobile Number</label>
-            {errors.mobileNumber && <p style={{ color: "red" }}>{errors.mobileNumber}</p>}
+            {errors.mobileNumber && (<p className="error-message">{errors.mobileNumber}</p>)}
           </div>
           <div class="form-group"> 
-            <input
-              type="password"
-              name="password"
-              id="password"
-              value={formData.password}
-              onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-              placeholder=" "
-              required
-            />
-            <label for="password">Password</label>
-            {errors.password && <p style={{ color: "red" }}>{errors.password}</p>}
+            <div className="password-wrapper">
+              <input
+                type={visibility.password ? "text" : "password"}
+                name="password"
+                id="password"
+                value={formData.password}
+                onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                placeholder=" "
+                // required
+              />
+              <label for="password">Password</label>
+              <span
+                className="password-toggle-icon"
+                onClick={() => toggleVisibility("password")}
+                style={{
+                  position: "absolute",
+                  right: "10px",
+                  top: "50%",
+                  transform: "translateY(-50%)",
+                  cursor: "pointer",
+                  fontSize: "14px",
+                }}
+              >
+                {visibility.password ? "🐵" : "🙈"}
+              </span>
+            </div>
+            {errors.password && (<p className="error-message">{errors.password}</p>)}
           </div>
           <div class="form-group">
-            <input
-              type="password"
-              name="confirmPassword"
-              id="confirmPassword"
-              value={formData.confirmPassword}
-              onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
-              placeholder=" "
-              required
-            />
-            <label for="confirmPassword">Confirm Password</label>
-            {errors.confirmPassword && <p style={{ color: "red" }}>{errors.confirmPassword}</p>}
+            <div className="password-wrapper">
+              <input
+                type={visibility.confirmPassword ? "text" : "password"}
+                name="confirmPassword"
+                id="confirmPassword"
+                value={formData.confirmPassword}
+                onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
+                placeholder=" "
+                // required
+              />
+              <label for="confirmPassword">Confirm Password</label>
+              <span
+                className="password-toggle-icon"
+                onClick={() => toggleVisibility("confirmPassword")}
+                style={{
+                  position: "absolute",
+                  right: "10px",
+                  top: "50%",
+                  transform: "translateY(-50%)",
+                  cursor: "pointer",
+                  fontSize: "14px",
+                }}
+              >
+                {visibility.confirmPassword ? "🙉" : "🙈"}
+              </span>
+            </div>
+            {errors.confirmPassword && (<p className="error-message">{errors.confirmPassword}</p>)}
           </div>
           <div className="login-btn-container">
             <button type="button" onClick={handleReset} className="login-button">

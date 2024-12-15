@@ -23,29 +23,31 @@ mongoose
 // Routes
 app.post('/register', async (req, res) => {
     console.log("Mahi is Smart")
-  const { title, customerName, email, countryCode, mobileNumber, userId, password } = req.body;
+  const { name, email, mobileNumber, password } = req.body;
 
   try {
-    const randomCustomerId = Math.floor(1000000000000 + Math.random() * 9000000000000).toString();
+    // const randomCustomerId = Math.floor(1000000000000 + Math.random() * 9000000000000).toString();
 
     // Create a new user
     const newUser = new User({
-      title,
-      customerName,
+      // title,
+      // customerName,
+      name,
       email,
-      countryCode,
+      // countryCode,
       mobileNumber,
-      userId,
+      // userId,
       password,
-      customerId: randomCustomerId,
+      // customerId: randomCustomerId,
     });
 
-    await newUser.save();
+    // await newUser.save();
+    console.log(newUser);
     res.status(201).json({
-      message: 'Consumer Registration Successful!',
-      customerId: randomCustomerId,
-      customerName,
-      email,
+      message: 'User Registration Successful!',
+      // customerId: randomCustomerId,
+      // customerName,
+      // email,
     });
   } catch (err) {
     res.status(400).json({ error: err.message });
