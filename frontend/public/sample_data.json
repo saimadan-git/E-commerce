@@ -4,7 +4,7 @@
       "name": "Ginger Pickle",
       "price": 150,
       "weight": "500g",
-      "image": "https://i0.wp.com/nativespecial.com/in/wp-content/uploads/sites/3/2019/12/Guntur-Ginger-pickle-DP.jpg?fit=800%2C800&ssl=1",
+      "image": "https://img3.exportersindia.com/product_images/bc-full/2023/3/836437/ginger-pickle-1678873790-6803828.jpeg",
       "description": "Traditional ginger pickle with authentic Hyderabadi spices.",
       "location": "Hyderabad, Telangana"
     },
@@ -17,13 +17,29 @@
       "description": "Tangy and spicy mango pickle from Hyderabad.",
       "location": "Hyderabad, Telangana"
     },
-    {
-      "id": 3,
+    {"id": 3,
+      "name": "Chicken Pickle",
+      "price": 900,
+      "weight": "1kg",
+      "image": "https://tse2.mm.bing.net/th?id=OIP.t8OhSKjdaeen2HMtH0l_BQAAAA&pid=Api&P=0&h=180",
+      "description": "Tasty Chicken Pickle of Konaseema.",
+      "location": "Hyderabad, Telangana"
+    },
+      {
+      "id": 4,
       "name": "Lemon Pickle",
       "price": 180,
       "weight": "750g",
       "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5FkCUgyA-Vqnki7ACm45129PmUaaLzZNDwA&s",
       "description": "Citrusy lemon pickle with a touch of Hyderabadi flair.",
+      "location": "Hyderabad, Telangana"
+    },
+    {"id": 5,
+      "name": "Gongura Pickle",
+      "price": 500,
+      "weight": "1kg",
+      "image": "https://i0.wp.com/aarogyamastu.in/wp-content/uploads/2022/06/gongura-pickle-e1671970585808.jpg?fit=600%2C600&ssl=1",
+      "description": "Tasty Gongura Pickle of Guntur.",
       "location": "Hyderabad, Telangana"
     }
   ]
