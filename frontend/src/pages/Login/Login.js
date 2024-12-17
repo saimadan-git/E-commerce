@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
+import axios from "axios"
+import { useState } from "react"; 
 import "./Login.css";
 
 const Login = () => {
@@ -10,7 +12,7 @@ const Login = () => {
     setPasswordVisible(!passwordVisible);
   };
 
-  const handleInputChange = (e) => {
+  const handleInputChange = async (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
@@ -30,8 +32,16 @@ const Login = () => {
     return emailRegex.test(email);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
+    try {
+      const response = await axios.post("http://localhost:3000/login", formData);
+      alert("Successful")
+      setMessage(`Welcome, ${response.data.user.customerName}!`);
+    } catch (err) {
+      alert("UnSuccessful")
+      setMessage(err.response?.data?.message || "Login failed.");
+    }
     let hasErrors = false;
 
     const newErrors = { email: "", password: "" };
