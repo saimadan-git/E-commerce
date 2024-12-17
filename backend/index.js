@@ -22,7 +22,7 @@ mongoose
 
 // Routes
 app.post('/register', async (req, res) => {
-    console.log("Mahi is Smart")
+  console.log("Mahi is Smart")
   const { name, email, mobileNumber, password } = req.body;
 
   try {
@@ -41,7 +41,7 @@ app.post('/register', async (req, res) => {
       // customerId: randomCustomerId,
     });
 
-    // await newUser.save();
+    await newUser.save();
     console.log(newUser);
     res.status(201).json({
       message: 'User Registration Successful!',
@@ -49,8 +49,34 @@ app.post('/register', async (req, res) => {
       // customerName,
       // email,
     });
+
   } catch (err) {
     res.status(400).json({ error: err.message });
+  }
+});
+app.post("/login", async (req, res) => {
+  const { email, password } = req.body;
+
+  try {
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ message: "User not found." });
+    }
+    if (password != user.password) {
+      return res.status(401).json({ message: "Invalid credentials." });
+    }
+
+    // Successful login
+    res.status(200).json({
+      message: "Login successful.",
+      user: {
+        customerName: user.customerName,
+        email: user.email,
+      },
+    });
+  } catch (err) {
+    console.error("Login error:", err);
+    res.status(500).json({ message: "Internal server error." });
   }
 });
 
