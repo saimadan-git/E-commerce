@@ -2,6 +2,7 @@ import React from "react";
 import axios from "axios"
 import { useState } from "react"; 
 import "./Login.css";
+import { notifyError, notifySuccess } from "../../utils/toastUtils";
 
 const Login = () => {
   const [formData, setFormData] = useState({ email: "", password: "" });
@@ -36,11 +37,13 @@ const Login = () => {
     e.preventDefault();
     try {
       const response = await axios.post("http://localhost:3000/login", formData);
-      alert("Successful")
-      setMessage(`Welcome, ${response.data.user.customerName}!`);
+      if (response.status === "success") {
+        notifySuccess(response.message);
+      } else {
+        notifyError(response.message);
+      }  
     } catch (err) {
-      alert("UnSuccessful")
-      setMessage(err.response?.data?.message || "Login failed.");
+      console.log(err.message);
     }
     let hasErrors = false;
 
@@ -85,7 +88,7 @@ const Login = () => {
         <p>Please login to your account</p>
         
         <form className="login-form" onSubmit={handleSubmit}>
-          <div class="form-group">
+          <div className="form-group">
             <input 
               type="text" 
               id="email" 
@@ -97,7 +100,7 @@ const Login = () => {
             <label htmlFor="email">Email</label>
             {errors.email && <p className="error-message">{errors.email}</p>}
           </div>
-          <div class="form-group" style={{ position: "relative" }}>
+          <div className="form-group" style={{ position: "relative" }}>
             <div className="password-wrapper">
               <input 
                 type={passwordVisible ? "text" : "password"} 
@@ -125,11 +128,11 @@ const Login = () => {
             </div>
             {errors.password && (<p className="error-message">{errors.password}</p>)}
           </div>
-          <div class="login-btn-container">
-            <p class="login-footer">
+          <div className="login-btn-container">
+            <p className="login-footer">
               <a href="/forget-password">Forget Password?</a>
             </p>
-            <button type="submit" class="login-button">Login</button>
+            <button type="submit" className="login-button">Login</button>
           </div>
         </form>
 

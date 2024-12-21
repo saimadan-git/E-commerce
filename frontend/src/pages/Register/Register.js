@@ -1,7 +1,10 @@
 import React, { useState } from "react";
+
 import { Link } from 'react-router-dom';
 import axios from "axios";
 import "./Register.css";
+import { notifyError, notifySuccess } from "../../utils/toastUtils";
+
 const Register = () => {
   const [formData, setFormData] = useState({
     name: "",
@@ -12,10 +15,6 @@ const Register = () => {
   });
 
   const [errors, setErrors] = useState({});
-  const [otp, setOtp] = useState("");
-  const [showOtpPage, setShowOtpPage] = useState(false);
-  const [isRegistered, setIsRegistered] = useState(false);
-  const [generatedCustomerId, setGeneratedCustomerId] = useState("");
 
   const [visibility, setVisibility] = useState({
     password: false,
@@ -32,10 +31,10 @@ const Register = () => {
   const validateForm = () => {
     const newErrors = {};
 
-    /*if (!formData.consumerId.match(/^\d{13}$/)) {
-      newErrors.consumerId = "Consumer ID must be a 13-digit number.";
-    }*/
-    if (!formData.name || formData.name.length > 50) {
+    if (!formData.name) {
+      newErrors.name = "Name must be required.";
+    }
+    if (formData.name.length > 50) {
       newErrors.name = "Name must be under 50 characters.";
     }
     if (!formData.email.includes("@")) {
@@ -61,31 +60,31 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (validateForm()) {
-      //alert('Maheshwar is smarty')
       try {
         const response = await axios.post('http://localhost:3000/register', formData);
-        const { customerId, customerName, email } = response.data;
-  
-        setGeneratedCustomerId(customerId);
-        setFormData({ ...formData, customerName, email });
-        setIsRegistered(true);
+        // const { customerId, customerName, email } = response.data;
+        if (response.status === "success") {
+          notifySuccess(response.message);
+        } else {
+          notifyError(response.message);
+        }  
       } catch (err) {
-        alert(`Registration failed: ${err.response?.data?.error || err.message}`);
+        console.log(err.message);
       }
     }
   };
   
 
-  const handleOtpVerification = () => {
-    if (otp === "123456") {
-      const randomCustomerId = Math.floor(1000000000000 + Math.random() * 9000000000000);
-      setGeneratedCustomerId(randomCustomerId);
-      setIsRegistered(true);
-      setShowOtpPage(false);
-    } else {
-      alert("Invalid OTP. Try again.");
-    }
-  };
+  // const handleOtpVerification = () => {
+  //   if (otp === "123456") {
+  //     const randomCustomerId = Math.floor(1000000000000 + Math.random() * 9000000000000);
+  //     setGeneratedCustomerId(randomCustomerId);
+  //     setIsRegistered(true);
+  //     setShowOtpPage(false);
+  //   } else {
+  //     alert("Invalid OTP. Try again.");
+  //   }
+  // };
 
   const handleReset = () => {
     setFormData({
@@ -96,37 +95,37 @@ const Register = () => {
       confirmPassword: "",
     });
     setErrors({});
-    setShowOtpPage(false);
-    setIsRegistered(false);
+    // setShowOtpPage(false);
+    // setIsRegistered(false);
   };
 
-  if (isRegistered) {
-    return (
-      <div style={{ textAlign: "center", marginTop: "20px" }}>
-        <h2 style={{ color: "green" }}>Consumer Registration Successful!</h2>
-        <p>Customer ID: {generatedCustomerId}</p>
-        <p>Customer Name: {formData.customerName}</p>
-        <p>Email: {formData.email}</p>
-        <button onClick={handleReset}>Register Another User</button>
-      </div>
-    );
-  }
+  // if (isRegistered) {
+  //   return (
+  //     <div style={{ textAlign: "center", marginTop: "20px" }}>
+  //       <h2 style={{ color: "green" }}>Consumer Registration Successful!</h2>
+  //       <p>Customer ID: {generatedCustomerId}</p>
+  //       <p>Customer Name: {formData.customerName}</p>
+  //       <p>Email: {formData.email}</p>
+  //       <button onClick={handleReset}>Register Another User</button>
+  //     </div>
+  //   );
+  // }
 
-  if (showOtpPage) {
-    return (
-      <div style={{ textAlign: "center", marginTop: "20px" }}>
-        <h2>OTP Verification</h2>
-        <p>Please enter the OTP sent to your mobile number (use: 123456).</p>
-        <input
-          type="text"
-          placeholder="Enter OTP"
-          value={otp}
-          onChange={(e) => setOtp(e.target.value)}
-        />
-        <button onClick={handleOtpVerification}>Verify OTP</button>
-      </div>
-    );
-  }
+  // if (showOtpPage) {
+  //   return (
+  //     <div style={{ textAlign: "center", marginTop: "20px" }}>
+  //       <h2>OTP Verification</h2>
+  //       <p>Please enter the OTP sent to your mobile number (use: 123456).</p>
+  //       <input
+  //         type="text"
+  //         placeholder="Enter OTP"
+  //         value={otp}
+  //         onChange={(e) => setOtp(e.target.value)}
+  //       />
+  //       <button onClick={handleOtpVerification}>Verify OTP</button>
+  //     </div>
+  //   );
+  // }
 
   return (
     <div className="login-page">
@@ -134,7 +133,7 @@ const Register = () => {
         <form onSubmit={handleSubmit} className="login-form">
           <h2>Join the Pickle Party</h2>
           <p>Your Taste Buds are Invited!</p>
-          <div class="form-group">
+          <div className="form-group">
             <input            
               type="text"
               name="name"
@@ -144,10 +143,10 @@ const Register = () => {
               onChange={(e) => setFormData({ ...formData, name: e.target.value })}
               // required
             />
-            <label for="name">Name</label>
+            <label htmlFor="name">Name</label>
             {errors.name && (<p className="error-message">{errors.name}</p>)}
           </div>
-          <div class="form-group">
+          <div className="form-group">
             <input
               type="email"
               name="email"
@@ -157,10 +156,10 @@ const Register = () => {
               placeholder=" "
               // required
             />
-            <label for="email">Email</label>
+            <label htmlFor="email">Email</label>
             {errors.email && (<p className="error-message">{errors.email}</p>)}
           </div>
-          <div class="form-group">
+          <div className="form-group">
             <input
               type="text"
               name="mobileNumber"
@@ -170,10 +169,10 @@ const Register = () => {
               placeholder=" "
               // required
             />
-            <label for="mobileNumber">Mobile Number</label>
+            <label htmlFor="mobileNumber">Mobile Number</label>
             {errors.mobileNumber && (<p className="error-message">{errors.mobileNumber}</p>)}
           </div>
-          <div class="form-group"> 
+          <div className="form-group"> 
             <div className="password-wrapper">
               <input
                 type={visibility.password ? "text" : "password"}
@@ -184,7 +183,7 @@ const Register = () => {
                 placeholder=" "
                 // required
               />
-              <label for="password">Password</label>
+              <label htmlFor="password">Password</label>
               <span
                 className="password-toggle-icon"
                 onClick={() => toggleVisibility("password")}
@@ -202,7 +201,7 @@ const Register = () => {
             </div>
             {errors.password && (<p className="error-message">{errors.password}</p>)}
           </div>
-          <div class="form-group">
+          <div className="form-group">
             <div className="password-wrapper">
               <input
                 type={visibility.confirmPassword ? "text" : "password"}
@@ -213,7 +212,7 @@ const Register = () => {
                 placeholder=" "
                 // required
               />
-              <label for="confirmPassword">Confirm Password</label>
+              <label htmlFor="confirmPassword">Confirm Password</label>
               <span
                 className="password-toggle-icon"
                 onClick={() => toggleVisibility("confirmPassword")}
@@ -238,7 +237,7 @@ const Register = () => {
             <button type="submit" className="login-button">Register</button>
           </div>
         </form>
-
+        
         <p className="register-footer">
           Already have an account? <Link to="/login">Login</Link>
         </p>
