@@ -233,10 +233,10 @@ const Register = () => {
             {errors.confirmPassword && (<p className="error-message">{errors.confirmPassword}</p>)}
           </div>
           <div className="login-btn-container">
-            <button type="button" onClick={handleReset} className="button reset-button">
+            <button type="button" onClick={handleReset} className="register-page-button reset-button">
               Reset
             </button>
-            <button type="submit" className="button register-button">Register</button>
+            <button type="submit" className="register-page-button register-button">Register</button>
           </div>
         </form>
         
