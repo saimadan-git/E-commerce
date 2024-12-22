@@ -54,6 +54,7 @@
   border: 1px solid #ddd;
   border-radius: 5px;
   outline: none;
+  box-sizing: border-box;
 }
 
 .form-group input:focus {
@@ -139,32 +140,34 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
+  background-color: white;
+  color: #444;
+  font-size: 16px;
+  font-weight: 500;
   padding: 10px 15px;
-  /* background-color: #606064; */
-  background-color: #ebebf3;
-  color: rgb(13, 2, 109);
-  font-size: 1rem;
-  border: none;
+  border: 1px solid #ddd;
   border-radius: 5px;
+  width: 100%; /* Full-width button */
+  max-width: 350px; /* Optional max width */
+  margin: 10px auto;
   cursor: pointer;
-  margin-top: 10px;
-  transition: background-color 0.3s ease;
-  font-family: Arial, sans-serif;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
 }
 
 .google-btn:hover {
-  background-color: #424244;
+  background-color: #f7f7f7;
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
 }
 
 .google-btn:active {
-  background-color: #252527;
+  background-color: #eaeaea;
   transform: scale(0.98);
 }
 
 .google-icon {
   width: 20px;
+  height: 20px;
   margin-right: 10px;
 }
 

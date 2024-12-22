@@ -3,6 +3,7 @@ import axios from "axios"
 import { useState } from "react"; 
 import "./Login.css";
 import { notifyError, notifySuccess } from "../../utils/toastUtils";
+import { Link } from 'react-router-dom';
 
 const Login = () => {
   const [formData, setFormData] = useState({ email: "", password: "" });
@@ -100,7 +101,7 @@ const Login = () => {
             <label htmlFor="email">Email</label>
             {errors.email && <p className="error-message">{errors.email}</p>}
           </div>
-          <div className="form-group" style={{ position: "relative" }}>
+          <div className="form-group">
             <div className="password-wrapper">
               <input 
                 type={passwordVisible ? "text" : "password"} 
@@ -114,14 +115,6 @@ const Login = () => {
               <span
                 className="password-toggle-icon"
                 onClick={togglePasswordVisibility}
-                style={{
-                  position: "absolute",
-                  right: "10px",
-                  top: "50%",
-                  transform: "translateY(-50%)",
-                  cursor: "pointer",
-                  fontSize: "14px",
-                }}
               >
                 {passwordVisible ? "👁️" : "🙈"}
               </span>
@@ -130,14 +123,14 @@ const Login = () => {
           </div>
           <div className="login-btn-container">
             <p className="login-footer">
-              <a href="/forget-password">Forget Password?</a>
+              <Link to="/forget-password">Forget Password?</Link>
             </p>
             <button type="submit" className="login-button">Login</button>
           </div>
         </form>
 
         <p className="login-footer">
-          Don't have an account? <a href="/register">Register</a>
+          Don't have an account? <Link to="/register">Register</Link>
         </p>
         <p className="or-text">or</p>
         <button onClick={handleGoogleSignIn} className="google-btn">

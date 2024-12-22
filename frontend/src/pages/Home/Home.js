@@ -1,32 +1,29 @@
 import React from "react";
 import "./Home.css";
-import Navbar from "../../components/Navbar";
-import Footer from "../../components/Footer";
 
 const Home = () => {
   return (
     <div className="home">
-      {/* <Navbar /> */}
       <header className="home-header">
-  <div className="home-intro">
-    <h1 className="home-title">Welcome to Pickle Paradise!</h1>
-    <p className="home-tagline">
-      Relish the authentic flavors of handcrafted Hyderabadi pickles, made with love, tradition, and premium ingredients.
-    </p>
-    <ul className="home-highlights">
-      <li>🌟 100% Natural Ingredients</li>
-      <li>🇮🇳 Authentic Hyderabadi Recipes</li>
-      <li>🚚 Fast & Fresh Delivery</li>
-    </ul>
-    <a href="/shop" className="btn-shop">
-      Explore Our Collection
-    </a>
-  </div>
-  <img
-    src="https://img.tatacliq.com/images/i15//437Wx649H/MP000000020494121_437Wx649H_202312171246261.jpeg"
-    alt="Pickle Jar"
-    className="home-image"
-  />
+        <div className="home-intro">
+          <h1 className="home-title">Welcome to Pickle Paradise!</h1>
+          <p className="home-tagline">
+            Relish the authentic flavors of handcrafted Hyderabadi pickles, made with love, tradition, and premium ingredients.
+          </p>
+          <ul className="home-highlights">
+            <li>🌟 100% Natural Ingredients</li>
+            <li>🇮🇳 Authentic Hyderabadi Recipes</li>
+            <li>🚚 Fast & Fresh Delivery</li>
+          </ul>
+          <a href="/shop" className="btn-shop">
+            Explore Our Collection
+          </a>
+        </div>
+        <img
+          src="https://img.tatacliq.com/images/i15//437Wx649H/MP000000020494121_437Wx649H_202312171246261.jpeg"
+          alt="Pickle Jar"
+          className="home-image"
+        />
       </header>
 
       <section className="home-features">
@@ -75,7 +72,6 @@ const Home = () => {
           </div>
         </div>
       </section>
-      {/* <Footer /> */}
     </div>
   );
 };

@@ -62,7 +62,9 @@ const Register = () => {
     if (validateForm()) {
       try {
         const response = await axios.post('http://localhost:3000/register', formData);
+        // let resources = {};
         // const { customerId, customerName, email } = response.data;
+        // notifySuccess("Registration Successful!");
         if (response.status === "success") {
           notifySuccess(response.message);
         } else {
@@ -231,10 +233,10 @@ const Register = () => {
             {errors.confirmPassword && (<p className="error-message">{errors.confirmPassword}</p>)}
           </div>
           <div className="login-btn-container">
-            <button type="button" onClick={handleReset} className="login-button">
+            <button type="button" onClick={handleReset} className="button reset-button">
               Reset
             </button>
-            <button type="submit" className="login-button">Register</button>
+            <button type="submit" className="button register-button">Register</button>
           </div>
         </form>
         
