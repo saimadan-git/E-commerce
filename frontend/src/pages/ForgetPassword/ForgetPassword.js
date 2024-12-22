@@ -1,36 +1,63 @@
-import React, { useState } from 'react';
-import './ForgetPassword.css';
+import React, { useState } from "react";
+import axios from "axios";
+import { notifyError, notifySuccess } from "../../utils/toastUtils";
+import '../../styles/AuthPages.css';
 
 const ForgetPassword = () => {
-  const [email, setEmail] = useState('');
-  const [message, setMessage] = useState('');
+  const [email, setEmail] = useState("");
+  const [error, setError] = useState("");
 
-  const handleSubmit = (e) => {
+  const validateEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Simulate an API call for password reset
-    if (email) {
-      setMessage(`If the email "${email}" is registered, you will receive a password reset link.`);
-    } else {
-      setMessage('Please enter a valid email address.');
+
+    if (!email) {
+      setError("Email is required.");
+      return;
+    } else if (!validateEmail(email)) {
+      setError("Please enter a valid email address.");
+      return;
+    }
+
+    try {
+      const response = await axios.post("http://localhost:3000/forgot-password", { email });
+      if (response.data.success) {
+        notifySuccess("Email sent successfully! Please check your inbox.");
+      } else {
+        notifyError("Failed to send the email. Try again later.");
+      }
+    } catch (err) {
+      console.error(err.message);
+      notifyError("An error occurred. Please try again.");
     }
   };
 
   return (
-    <div className="forget-password-container">
-      <h1>Forget Password</h1>
-      <form onSubmit={handleSubmit} className="forget-password-form">
-        <label htmlFor="email">Enter your registered email address</label>
-        <input
-          type="email"
-          id="email"
-          placeholder="example@domain.com"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-        <button type="submit" className="submit-btn">Send Reset Link</button>
-      </form>
-      {message && <p className="message">{message}</p>}
+    <div className="auth-page">
+      <div className="auth-card">
+        <h2>Forgot Password</h2>
+        <p>Enter your email address and we’ll send you a link to reset your password.</p>
+
+        <form onSubmit={handleSubmit}>
+          <div className="form-group">
+            <input
+              type="text"
+              id="email"
+              name="email"
+              placeholder=" "
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <label htmlFor="email">Email Address</label>
+            {error && <p className="error-message">{error}</p>}
+          </div>
+          <button type="submit" className="button login-button">Send Email</button>
+        </form>
+      </div>
     </div>
   );
 };
