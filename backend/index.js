@@ -15,6 +15,8 @@ app.use(bodyParser.json());
 app.use(cors());
 
 // MongoDB connection
+//mongoose.set('debug', true);
+
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => console.log('Connected to MongoDB'))
