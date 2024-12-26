@@ -30,15 +30,15 @@ const Home = () => {
         <h2>Why Our Pickles?</h2>
         <div className="features-list">
           <div className="feature">
-            <img src="https://seeklogo.com/images/P/premium-quality-logo-DEF4287864-seeklogo.com.png" alt="Quality" />
-            <h3>Premium Quality</h3>
+            <img src="https://images.app.goo.gl/juv6sMUy1dVQUTFhttps://www.tastingtable.com/img/gallery/ways-to-boost-the-flavor-of-pickles/create-your-own-pickling-spice-blends-1681397023.jpgG6y" />
+            <h3>Finely Selected Ingredients</h3>
             <p>Only the freshest ingredients go into our jars.</p>
           </div>
           <div className="feature">
             {/* <img src="/assets/images/icon-flavors.png" alt="Flavors" /> */}
             <img src="https://cdn.shopaccino.com/refresh/articles/pickle-374239_l.jpg?v=426" alt="Flavors" />
-            <h3>Unique Flavors</h3>
-            <p>A wide variety of flavors to satisfy every taste.</p>
+            <h3>Taste</h3>
+            <p>Authentic taste that feels like home.</p>
           </div>
           <div className="feature">
             <img src="https://www.nutmegnanny.com/wp-content/uploads/2011/11/homemade-pumpkin-butter-4-600x600.jpg" alt="Handcrafted" />

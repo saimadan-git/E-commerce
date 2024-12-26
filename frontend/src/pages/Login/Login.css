@@ -3,10 +3,11 @@
   justify-content:space-around;  /* Center horizontally */
   align-items: center; 
   width: 100%;
-  /* background-image: url("https://www.shutterstock.com/image-photo/andhra-traditional-home-made-raw-260nw-2336772483.jpg");
+  background-image: url("../../assests/images/image5.jpg");
+
   background-position: center;
   background-repeat: no-repeat;
-  background-size: cover; */
+  background-size: cover;
   height: 100%;
 }
 
