@@ -38,10 +38,10 @@ const Login = () => {
     e.preventDefault();
     try {
       const response = await axios.post("http://localhost:3000/login", formData);
-      if (response.status === "success") {
-        notifySuccess(response.message);
+      if (response.data.status === "success") {
+        notifySuccess(response.data.message);
       } else {
-        notifyError(response.message);
+        notifyError(response.data.message);
       }  
     } catch (err) {
       console.log(err.message);

@@ -15,44 +15,47 @@ app.use(bodyParser.json());
 app.use(cors());
 
 // MongoDB connection
-// mongoose
-//   .connect(process.env.MONGO_URI)
-//   .then(() => console.log('Connected to MongoDB'))
-//   .catch((err) => console.error('Failed to connect to MongoDB:', err));
+mongoose
+  .connect(process.env.MONGO_URI)
+  .then(() => console.log('Connected to MongoDB'))
+  .catch((err) => console.error('Failed to connect to MongoDB:', err));
 
 // Routes
 app.post('/register', async (req, res) => {
-  console.log("Mahi is Smart")
   const { name, email, mobileNumber, password } = req.body;
 
   try {
-    // const randomCustomerId = Math.floor(1000000000000 + Math.random() * 9000000000000).toString();
-
-    // Create a new user
+    const ExUser = await User.findOne({ email });
+    if (ExUser) {
+      return res.status(400).json({
+        status: "error",
+        message: "User already exists",
+      });
+    }
     const newUser = new User({
-      // title,
-      // customerName,
       name,
       email,
-      // countryCode,
       mobileNumber,
-      // userId,
       password,
-      // customerId: randomCustomerId,
     });
-
-    await newUser.save();
-    console.log(newUser);
+    const savedUser = await newUser.save();
     res.status(201).json({
-      message: 'User Registration Successful!',
-      // customerId: randomCustomerId,
-      // customerName,
-      // email,
+      status: "success",
+      message: "User created successfully",
+      data: { 
+        name: savedUser.name,
+        email: savedUser.email,
+        mobileNumber: savedUser.mobileNumber,
+        password: savedUser.password,
+      },
     });
-
   } catch (err) {
-    res.status(400).json({ error: err.message });
-  }
+    res.status(500).json({
+      status: "error",
+      message: "Internal server error",
+      error: err.message,
+    });
+  }
 });
 app.post("/login", async (req, res) => {
   const { email, password } = req.body;
@@ -60,18 +63,23 @@ app.post("/login", async (req, res) => {
   try {
     const user = await User.findOne({ email });
     if (!user) {
-      return res.status(404).json({ message: "User not found." });
+      return res.status(404).json({
+        status: "error",
+        message: "User Already exist",
+        data: { }
+      });
     }
     if (password != user.password) {
-      return res.status(401).json({ message: "Invalid credentials." });
+      return res.status(401).json({status: "error", message: "Invalid credentials.", data: {} });
     }
 
     // Successful login
     res.status(200).json({
+      status: "success",
       message: "Login successful.",
-      user: {
-        customerName: user.customerName,
-        email: user.email,
+      data: {
+        name: user.name,
+        email: user.email
       },
     });
   } catch (err) {
@@ -79,12 +87,12 @@ app.post("/login", async (req, res) => {
     res.status(500).json({ message: "Internal server error." });
   }
 });
+app.get("/welcome", async (req, res) => {
+  res.send("WElcome");
+});
 
 // Start server
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
-  mongoose
-  .connect(process.env.MONGO_URI)
-  .then(() => console.log('Connected to MongoDB'))
-  .catch((err) => console.error('Failed to connect to MongoDB:', err));
+
 });

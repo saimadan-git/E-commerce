@@ -61,14 +61,16 @@ const Register = () => {
     e.preventDefault();
     if (validateForm()) {
       try {
+        // notifyError("ss");
         const response = await axios.post('http://localhost:3000/register', formData);
         // let resources = {};
         // const { customerId, customerName, email } = response.data;
         // notifySuccess("Registration Successful!");
-        if (response.status === "success") {
-          notifySuccess(response.message);
+        if (response.data.status === "success") {
+          notifySuccess(response.data.message);
+          handleReset();
         } else {
-          notifyError(response.message);
+          notifyError(response.data.message);
         }  
       } catch (err) {
         console.log(err.message);
