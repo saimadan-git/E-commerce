@@ -65,7 +65,7 @@ app.post("/login", async (req, res) => {
     if (!user) {
       return res.status(404).json({
         status: "error",
-        message: "User Already exist",
+        message: "User not found",
         data: { }
       });
     }
