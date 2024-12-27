@@ -105,7 +105,7 @@ app.post("/forgot-password", async (req, res) => {
 
   try {
     //console.log("Email:", email);
-    const user = await user.findOne({ email });
+    const user = await User.findOne({ email });
     if (!user) {
       return res.status(404).json({ status: "error", message: "User not found." });
     }

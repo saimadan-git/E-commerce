@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from "axios";
 import "./Register.css";
 import { notifyError, notifySuccess } from "../../utils/toastUtils";
@@ -21,6 +21,7 @@ const Register = () => {
     confirmPassword: false,
   });
 
+  const navigate = useNavigate();
   const toggleVisibility = (field) => {
     setVisibility((prev) => ({
       ...prev,
@@ -62,18 +63,27 @@ const Register = () => {
     if (validateForm()) {
       try {
         // notifyError("ss");
-        const response = await axios.post('http://localhost:3000/register', formData);
+        const response = await axios.post('http://localhost:3000/register', formData, {
+          validateStatus: (status) => {
+            // Treat all status codes as valid (do not throw exceptions)
+            return status >= 200 && status < 500;
+          },
+        });
         // let resources = {};
         // const { customerId, customerName, email } = response.data;
         // notifySuccess("Registration Successful!");
         if (response.data.status === "success") {
           notifySuccess(response.data.message);
-          handleReset();
+          navigate("/login");
         } else {
           notifyError(response.data.message);
         }  
       } catch (err) {
-        console.log(err.message);
+        if (err.response) {
+          notifyError(err.response.data.message); // Handle error from the backend
+        } else {
+          notifyError("Something went wrong!");
+        }
       }
     }
   };
