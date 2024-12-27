@@ -1,5 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import Home from "./pages/Home";
 import './App.css';
 import Navbar from "./components/Navbar";
@@ -10,11 +12,13 @@ import Shop from "./pages/Shop";
 import ForgetPassword from "./pages/ForgetPassword";
 import Home2 from "./pages/Home2/Home2.js";
 import About from "./pages/About";
+import ResetPassword from "./pages/ResetPassword/ResetPassword.js";
 
 function App() {
   return (
     <Router>
       <div className="app">
+        <ToastContainer />
         <Navbar />
         <div className="main-content">
           <Routes>
@@ -25,7 +29,7 @@ function App() {
             <Route path="forget-password" element={<ForgetPassword />} />
             <Route path="home2" element={<Home2 />} />
             <Route path="about" element={<About/>} />
-
+            <Route path="reset-password" element={<ResetPassword />} />
           </Routes>
         </div>
         <Footer />

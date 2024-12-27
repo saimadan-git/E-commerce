@@ -2,6 +2,8 @@ import React from "react";
 import axios from "axios"
 import { useState } from "react"; 
 import "./Login.css";
+import { notifyError, notifySuccess } from "../../utils/toastUtils";
+import { Link } from 'react-router-dom';
 
 const Login = () => {
   const [formData, setFormData] = useState({ email: "", password: "" });
@@ -36,11 +38,13 @@ const Login = () => {
     e.preventDefault();
     try {
       const response = await axios.post("http://localhost:3000/login", formData);
-      alert("Successful")
-      setMessage(`Welcome, ${response.data.user.customerName}!`);
+      if (response.status === "success") {
+        notifySuccess(response.message);
+      } else {
+        notifyError(response.message);
+      }  
     } catch (err) {
-      alert("UnSuccessful")
-      setMessage(err.response?.data?.message || "Login failed.");
+      console.log(err.message);
     }
     let hasErrors = false;
 
@@ -76,7 +80,7 @@ const Login = () => {
 
   return (
     <div className="login-page">
-        {/* <img src="https://t4.ftcdn.net/jpg/02/34/03/09/360_F_234030991_AFwQNyBq58UHYHoRFGNJxVAtFuX7DeJD.jpg" /> */}
+        <img src="https://t4.ftcdn.net/jpg/02/34/03/09/360_F_234030991_AFwQNyBq58UHYHoRFGNJxVAtFuX7DeJD.jpg" />
         {/* <img src="https://kandrafoods.com/wp-content/uploads/2021/06/Mango-Pickle-Product-Image-247x296.png" />
         <img src="https://static.vecteezy.com/system/resources/thumbnails/044/430/404/small_2x/mango-green-mango-illustration-vector.jpg" />
         {/* <img src="https://images.jdmagicbox.com/quickquotes/listicle/listicle_1685227340738_2rjfy_1040x500.jpg" className="pickle-image"/> */}
@@ -85,7 +89,7 @@ const Login = () => {
         <p>Please login to your account</p>
         
         <form className="login-form" onSubmit={handleSubmit}>
-          <div class="form-group">
+          <div className="form-group">
             <input 
               type="text" 
               id="email" 
@@ -97,7 +101,7 @@ const Login = () => {
             <label htmlFor="email">Email</label>
             {errors.email && <p className="error-message">{errors.email}</p>}
           </div>
-          <div class="form-group" style={{ position: "relative" }}>
+          <div className="form-group">
             <div className="password-wrapper">
               <input 
                 type={passwordVisible ? "text" : "password"} 
@@ -111,30 +115,22 @@ const Login = () => {
               <span
                 className="password-toggle-icon"
                 onClick={togglePasswordVisibility}
-                style={{
-                  position: "absolute",
-                  right: "10px",
-                  top: "50%",
-                  transform: "translateY(-50%)",
-                  cursor: "pointer",
-                  fontSize: "14px",
-                }}
               >
                 {passwordVisible ? "👁️" : "🙈"}
               </span>
             </div>
             {errors.password && (<p className="error-message">{errors.password}</p>)}
           </div>
-          <div class="login-btn-container">
-            <p class="login-footer">
-              <a href="/forget-password">Forget Password?</a>
+          <div className="login-btn-container">
+            <p className="login-footer">
+              <Link to="/forget-password">Forget Password?</Link>
             </p>
-            <button type="submit" class="login-button">Login</button>
+            <button type="submit" className="login-button">Login</button>
           </div>
         </form>
 
         <p className="login-footer">
-          Don't have an account? <a href="/register">Register</a>
+          Don't have an account? <Link to="/register">Register</Link>
         </p>
         <p className="or-text">or</p>
         <button onClick={handleGoogleSignIn} className="google-btn">

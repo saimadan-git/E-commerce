@@ -23,38 +23,42 @@ mongoose
 
 // Routes
 app.post('/register', async (req, res) => {
-  console.log("Mahi is Smart")
   const { name, email, mobileNumber, password } = req.body;
 
   try {
-    // const randomCustomerId = Math.floor(1000000000000 + Math.random() * 9000000000000).toString();
-
-    // Create a new user
+    const ExUser = await User.findOne({ email });
+    if (ExUser) {
+      return res.status(400).json({
+        status: "error",
+        message: "User already exists",
+      });
+    }
     const newUser = new User({
-      // title,
-      // customerName,
       name,
       email,
-      // countryCode,
       mobileNumber,
-      // userId,
       password,
-      // customerId: randomCustomerId,
     });
-
-    await newUser.save();
-    console.log(newUser);
+    const savedUser = await newUser.save();
     res.status(201).json({
-      message: 'User Registration Successful!',
-      // customerId: randomCustomerId,
-      // customerName,
-      // email,
+      status: "success",
+      message: "User created successfully",
+      data: { 
+        name: savedUser.name,
+        email: savedUser.email,
+        mobileNumber: savedUser.mobileNumber,
+        password: savedUser.password,
+      },
     });
-
   } catch (err) {
-    res.status(400).json({ error: err.message });
+    res.status(500).json({
+      status: "error",
+      message: "Internal server error",
+      error: err.message,
+    });
   }
 });
+
 app.post("/login", async (req, res) => {
   const { email, password } = req.body;
 
