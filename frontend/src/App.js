@@ -12,6 +12,7 @@ import Shop from "./pages/Shop";
 import ForgetPassword from "./pages/ForgetPassword";
 import Home2 from "./pages/Home2/Home2.js";
 import About from "./pages/About";
+import Profile from "./pages/Profile";
 import ResetPassword from "./pages/ResetPassword/ResetPassword.js";
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
             <Route path="forget-password" element={<ForgetPassword />} />
             <Route path="home2" element={<Home2 />} />
             <Route path="about" element={<About/>} />
+            <Route path="profile" element={<Profile/>} />
             <Route path="reset-password" element={<ResetPassword />} />
           </Routes>
         </div>
