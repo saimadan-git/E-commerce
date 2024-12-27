@@ -47,14 +47,6 @@ const Home = () => {
           </div>
         </div>
       </section>
-      <section className="bachelors-corner">
-        <h2>Bachelor’s Corner</h2>
-        <p>
-          Missing home-cooked meals? We've got you covered! Our pickles bring the taste of home to your plate,
-          wherever you are.
-        </p>
-        <img src="https://img.youtube.com/vi/HRD2-_bU4K0/0.jpg" alt="Bachelors enjoying pickles" />
-      </section>
       <section className="home-testimonials">
         <h2>What Our Customers Say</h2>
         <div className="testimonials">

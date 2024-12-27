@@ -10,7 +10,6 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Shop from "./pages/Shop";
 import ForgetPassword from "./pages/ForgetPassword";
-import Home2 from "./pages/Home2/Home2.js";
 import About from "./pages/About";
 import ResetPassword from "./pages/ResetPassword/ResetPassword.js";
 
@@ -27,7 +26,6 @@ function App() {
             <Route path="register" element={<Register />} />
             <Route path="shop" element={<Shop />} />
             <Route path="forget-password" element={<ForgetPassword />} />
-            <Route path="home2" element={<Home2 />} />
             <Route path="about" element={<About/>} />
             <Route path="reset-password" element={<ResetPassword />} />
           </Routes>

@@ -128,18 +128,3 @@
   border-radius: 10px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
-
-/* Bachelor's Corner */
-.bachelors-corner {
-  padding: 40px;
-  text-align: center;
-  background: linear-gradient(to right, #ffe082, #ffd54f);
-  color: #333;
-}
-
-.bachelors-corner img {
-  width: 100%;
-  max-width: 200px;
-  margin-top: 20px;
-  border-radius: 10px;
-}
