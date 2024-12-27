@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import axios from "axios";
 import { notifyError, notifySuccess } from "../../utils/toastUtils";
 import '../../styles/AuthPages.css';
+import { useNavigate } from "react-router-dom";
 
 const ForgetPassword = () => {
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   const validateEmail = (email) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -24,9 +26,15 @@ const ForgetPassword = () => {
     }
 
     try {
-      const response = await axios.post("http://localhost:3000/forgot-password", { email });
-      if (response.data.success) {
+      const response = await axios.post("http://localhost:3000/forgot-password", { email }, {
+        validateStatus: (status) => {
+          // Treat all status codes as valid (do not throw exceptions)
+          return status >= 200 && status < 500;
+        },
+      });
+      if (response.data.status === "success") {
         notifySuccess("Email sent successfully! Please check your inbox.");
+        navigate("/reset-password");
       } else {
         notifyError("Failed to send the email. Try again later.");
       }

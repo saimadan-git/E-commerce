@@ -4,6 +4,7 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import User from './Register.js';
+import nodemailer from 'nodemailer';
 
 dotenv.config();
 
@@ -19,8 +20,21 @@ mongoose
   .connect(process.env.MONGO_URI)
   .then(() => console.log('Connected to MongoDB'))
   .catch((err) => console.error('Failed to connect to MongoDB:', err));
+<<<<<<< HEAD
+=======
+
+//Email Transporter
+const tr = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: "koundinya2608@gmail.com",
+    pass: "dzeqjiflgnvuwsgc"
+  },
+});
+>>>>>>> 328d162a9bed2db1e2d2ab963b007eba65e4d6cf
 
 // Routes
+// --------------------------------------------Register----------------------------------------------
 app.post('/register', async (req, res) => {
   const { name, email, mobileNumber, password } = req.body;
 
@@ -42,7 +56,11 @@ app.post('/register', async (req, res) => {
     res.status(201).json({
       status: "success",
       message: "User created successfully",
+<<<<<<< HEAD
       data: { 
+=======
+      data: {
+>>>>>>> 328d162a9bed2db1e2d2ab963b007eba65e4d6cf
         name: savedUser.name,
         email: savedUser.email,
         mobileNumber: savedUser.mobileNumber,
@@ -57,24 +75,30 @@ app.post('/register', async (req, res) => {
     });
   }
 });
+//---------------------------------------------Login-------------------------------------------------
 app.post("/login", async (req, res) => {
   const { email, password } = req.body;
 
   try {
     const user = await User.findOne({ email });
     if (!user) {
-      return res.status(404).json({ message: "User not found." });
+      return res.status(404).json({
+        status: "error",
+        message: "User not found",
+        data: {}
+      });
     }
     if (password != user.password) {
-      return res.status(401).json({ message: "Invalid credentials." });
+      return res.status(401).json({ status: "error", message: "Invalid credentials.", data: {} });
     }
 
     // Successful login
     res.status(200).json({
+      status: "success",
       message: "Login successful.",
-      user: {
-        customerName: user.customerName,
-        email: user.email,
+      data: {
+        name: user.name,
+        email: user.email
       },
     });
   } catch (err) {
@@ -82,12 +106,46 @@ app.post("/login", async (req, res) => {
     res.status(500).json({ message: "Internal server error." });
   }
 });
+//--------------------------------------------Forgot Password----------------------------------------
+app.post("/forgot-password", async (req, res) => {
+  const { email } = req.body;
+
+  try {
+    //console.log("Email:", email);
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ status: "error", message: "User not found." });
+    }
+    const OTP = Math.random().toString(36).substring(2, 12);
+    const mailOptions = {
+      from: "koundinya@gmail.com",
+      to: email,
+      subject: "Password Reset",
+      text: `Your OTP to Reset Password is: ${OTP}`
+    };
+    await tr.sendMail(mailOptions);
+    console.log(`Reset OTP for ${email}: ${OTP}`);
+
+    res.status(200).json({
+      status: "success",
+      message: "Password reset OTP sent successfully.",
+    });
+  } catch (err) {
+    res.status(500).json({ status: "error", message: "Failed to send OTP.", error: err.message });
+  }
+});
+
+tr.verify((error, success) => {
+  if (error) {
+    console.error("Transporter verification failed:", error);
+  } else {
+    console.log("Transporter is ready to send emails:", success);
+  }
+});
+
 
 // Start server
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
-  mongoose
-  .connect(process.env.MONGO_URI)
-  .then(() => console.log('Connected to MongoDB'))
-  .catch((err) => console.error('Failed to connect to MongoDB:', err));
+
 });

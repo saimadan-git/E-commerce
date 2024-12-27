@@ -5,12 +5,13 @@ import image5 from "../../assests/images/image5.jpg"
 import { useState } from "react"; 
 import "./Login.css";
 import { notifyError, notifySuccess } from "../../utils/toastUtils";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [errors, setErrors] = useState({ email: "", password: "" });
+  const navigate = useNavigate(); // Initialize navigate function
 
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
@@ -38,16 +39,7 @@ const Login = () => {
 
   const handleSubmit = async(e) => {
     e.preventDefault();
-    try {
-      const response = await axios.post("http://localhost:3000/login", formData);
-      if (response.status === "success") {
-        notifySuccess(response.message);
-      } else {
-        notifyError(response.message);
-      }  
-    } catch (err) {
-      console.log(err.message);
-    }
+    
     let hasErrors = false;
 
     const newErrors = { email: "", password: "" };
@@ -74,15 +66,37 @@ const Login = () => {
 
     // If no errors, proceed (e.g., call API)
     if (!hasErrors) {
-      console.log("Form submitted:", formData);
-      // Perform your login logic here
+      try {
+        const response = await axios.post("http://localhost:3000/login", formData, {
+          validateStatus: (status) => {
+            // Treat all status codes as valid (do not throw exceptions)
+            return status >= 200 && status < 500;
+          },
+        });
+        if (response.data.status === "success") {
+          notifySuccess(response.data.message);
+          navigate("/");
+        } else {
+          notifyError(response.data.message);
+        }  
+      } catch (err) {
+        if (err.response) {
+          notifyError(err.response.data.message); // Handle error from the backend
+        } else {
+          notifyError("Something went wrong!");
+        }
+      }
     }
   };
 
 
   return (
     <div className="login-page">
+<<<<<<< HEAD
         {/* <img src={image5} /> */}
+=======
+        {/* <img src="https://t4.ftcdn.net/jpg/02/34/03/09/360_F_234030991_AFwQNyBq58UHYHoRFGNJxVAtFuX7DeJD.jpg" /> */}
+>>>>>>> 328d162a9bed2db1e2d2ab963b007eba65e4d6cf
         {/* <img src="https://kandrafoods.com/wp-content/uploads/2021/06/Mango-Pickle-Product-Image-247x296.png" />
         <img src="https://static.vecteezy.com/system/resources/thumbnails/044/430/404/small_2x/mango-green-mango-illustration-vector.jpg" />
         {/* <img src="https://images.jdmagicbox.com/quickquotes/listicle/listicle_1685227340738_2rjfy_1040x500.jpg" className="pickle-image"/> */}
