@@ -92,11 +92,7 @@ const Login = () => {
 
   return (
     <div className="login-page">
-<<<<<<< HEAD
-        {/* <img src={image5} /> */}
-=======
         {/* <img src="https://t4.ftcdn.net/jpg/02/34/03/09/360_F_234030991_AFwQNyBq58UHYHoRFGNJxVAtFuX7DeJD.jpg" /> */}
->>>>>>> 328d162a9bed2db1e2d2ab963b007eba65e4d6cf
         {/* <img src="https://kandrafoods.com/wp-content/uploads/2021/06/Mango-Pickle-Product-Image-247x296.png" />
         <img src="https://static.vecteezy.com/system/resources/thumbnails/044/430/404/small_2x/mango-green-mango-illustration-vector.jpg" />
         {/* <img src="https://images.jdmagicbox.com/quickquotes/listicle/listicle_1685227340738_2rjfy_1040x500.jpg" className="pickle-image"/> */}
