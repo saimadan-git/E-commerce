@@ -3,8 +3,10 @@ import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import User from './Register.js';
+import User from './models/Register.js';
 import nodemailer from 'nodemailer';
+
+import authRoute from './routes/auth.route.js';
 
 dotenv.config();
 
@@ -14,6 +16,9 @@ const PORT = process.env.PORT || 3000;
 // Middleware
 app.use(bodyParser.json());
 app.use(cors());
+
+//Routes
+app.use("/auth", authRoute);
 
 // MongoDB connection
 mongoose
@@ -30,44 +35,6 @@ const tr = nodemailer.createTransport({
   },
 });
 
-// Routes
-// --------------------------------------------Register----------------------------------------------
-app.post('/register', async (req, res) => {
-  const { name, email, mobileNumber, password } = req.body;
-
-  try {
-    const ExUser = await User.findOne({ email });
-    if (ExUser) {
-      return res.status(400).json({
-        status: "error",
-        message: "User already exists",
-      });
-    }
-    const newUser = new User({
-      name,
-      email,
-      mobileNumber,
-      password,
-    });
-    const savedUser = await newUser.save();
-    res.status(201).json({
-      status: "success",
-      message: "User created successfully",
-      data: {
-        name: savedUser.name,
-        email: savedUser.email,
-        mobileNumber: savedUser.mobileNumber,
-        password: savedUser.password,
-      },
-    });
-  } catch (err) {
-    res.status(500).json({
-      status: "error",
-      message: "Internal server error",
-      error: err.message,
-    });
-  }
-});
 //---------------------------------------------Login-------------------------------------------------
 app.post("/login", async (req, res) => {
   const { email, password } = req.body;
