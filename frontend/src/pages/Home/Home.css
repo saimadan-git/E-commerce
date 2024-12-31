@@ -1,71 +1,26 @@
-/* Home.css */
-.home {
-    font-family: Arial, sans-serif;
-  }
-  
-  .home-intro h1 {
-    font-size: 3rem;
-    color: #2d572c;
-  }
-  
-  .home-intro p {
-    font-size: 1.2rem;
-    margin: 10px 0;
-  }
-  
-  .home-features {
-    text-align: center;
-    padding: 50px 20px;
-    background-color: #fff;
-  }
-  
-  .features-list {
-    display: flex;
-    justify-content: space-around;
-    margin-top: 20px;
-  }
-  
-  .feature {
-    max-width: 200px;
-  }
-  
-  .feature img {
-    width: 100px; /* Fixed width */
-    height: 100px; /* Fixed height */
-    object-fit: contain; /* Ensures the image fits while preserving aspect ratio */
-    margin-bottom: 10px;
-  }
-  
-  .home-testimonials {
-    text-align: center;
-    padding: 50px 20px;
-    background-color: #f2f2f2;
-  }
-  
-  .testimonials {
-    display: flex;
-    justify-content: space-around;
-    margin-top: 20px;
-  }
-  
-  .testimonial {
-    max-width: 200px;
-    font-style: italic;
-  }
-  
+/* General Styling */
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-  /* General Header Styling */
+.home {
+  font-family: 'Arial', sans-serif;
+  line-height: 1.6;
+}
+
+/* Header Section */
 .home-header {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  padding: 40px;
-  background-color: #fef9f3; /* Light background for a warm feel */
-  border-bottom: 3px solid #2d572c;
+  padding: 40px 20px;
+  background: #fef9f3;
+  /* border-bottom: 3px solid #2d572c; */
 }
 
-/* Text Section */
 .home-intro {
   flex: 1 1 60%;
   max-width: 600px;
@@ -74,10 +29,11 @@
 }
 
 .home-title {
-  font-size: 3rem;
+  font-size: 2.5rem;
   font-weight: bold;
   color: #2d572c;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
+  text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
 }
 
 .home-tagline {
@@ -87,12 +43,10 @@
   margin-bottom: 20px;
 }
 
-/* Highlights List */
 .home-highlights {
   list-style: none;
   padding: 0;
   margin: 0 0 20px;
-  color: #444;
 }
 
 .home-highlights li {
@@ -103,7 +57,6 @@
   gap: 10px;
 }
 
-/* Button Styling */
 .btn-shop {
   display: inline-block;
   padding: 10px 20px;
@@ -113,18 +66,210 @@
   background-color: #2d572c;
   text-decoration: none;
   border-radius: 5px;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .btn-shop:hover {
   background-color: #1b3e1e;
+  transform: scale(1.05);
 }
 
-/* Image Section */
 .home-image {
   flex: 1 1 40%;
   max-width: 360px;
   height: auto;
   border-radius: 10px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Section Styling */
+.home-features {
+  text-align: center;
+  padding: 30px 10px;
+  background-color: #fff;
+}
+
+.home-features h2 {
+  font-size: 2rem;
+  color: #2d572c;
+  margin-bottom: 30px;
+}
+
+/* Features List Styling */
+.features-list {
+  display: flex;
+  justify-content: space-around;
+  gap: 20px;  /* Added some space between the cards */
+  flex-wrap: wrap;  /* Ensures the cards wrap on smaller screens */
+}
+
+/* Individual Feature Card Styling */
+.feature {
+  background-color: #fff;
+  border-radius: 10px;
+  overflow: hidden;  /* Ensures rounded corners for the images */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 300px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Image inside feature card */
+.feature img {
+  width: 100%;  /* Make the image take full width of the card */
+  height: 150px;  /* Maintain aspect ratio */
+  object-fit: cover;  /* Ensure images cover the full width without distortion */
+  border-bottom: 2px solid #2d572c;
+}
+
+/* Text inside feature card */
+.feature h3 {
+  font-size: 1.5rem;
+  color: #2d572c;
+  margin-top: 15px;
+}
+
+.feature p {
+  font-size: 1.1rem;
+  color: #555;
+  padding: 0 15px 20px;
+}
+
+/* Hover Effect for Feature Cards */
+.feature:hover {
+  transform: translateY(-10px);  /* Move the card up slightly */
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);  /* Increase shadow on hover */
+}
+
+.feature:hover img {
+  transform: scale(1.05);  /* Slight zoom on the image when the card is hovered */
+  transition: transform 0.3s ease;
+}
+
+/* Testimonials Section */
+.home-testimonials {
+  text-align: center;
+  padding: 50px 20px;
+  background-color: #f2f2f2;
+}
+
+.home-testimonials h2 {
+  font-size: 2rem;
+  color: #2d572c;
+  margin-bottom: 30px;
+}
+
+.testimonials {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.testimonial {
+  max-width: 250px;
+  font-style: italic;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive Styling */
+@media (max-width: 768px) {
+  .home-header {
+    flex-direction: column;
+  }
+
+  .home-intro {
+    flex: 1 1 100%;
+    text-align: center;
+  }
+
+  .home-image {
+    max-width: 90%;
+    margin-top: 20px;
+  }
+
+  .features-list {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .testimonials {
+    flex-direction: column;
+  }
+}
+
+
+/* New Year Banner */
+.new-year-banner {
+  text-align: center;
+  padding: 20px;
+  background-color: #ffe4b5;
+  color: #d2691e;
+  font-size: 1.5rem;
+  border-bottom: 3px solid #d2691e;
+}
+
+.new-year-banner h1 {
+  font-size: 2rem;
+  margin: 10px 0;
+}
+
+.new-year-banner p {
+  font-size: 1.2rem;
+  margin: 5px 0;
+}
+
+/* Limited-Time Offer Section */
+.home-new-year-offer {
+  text-align: center;
+  padding: 30px;
+  background-color: #fff8dc;
+  border: 2px dashed #ffa500;
+  margin: 20px auto;
+  border-radius: 10px;
+}
+
+.home-new-year-offer h2 {
+  font-size: 2rem;
+  color: #ff4500;
+}
+
+.home-new-year-offer p {
+  font-size: 1.2rem;
+  margin: 10px 0;
+  color: #333;
+}
+
+.btn-shop-special {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: white;
+  background-color: #ff4500;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.btn-shop-special:hover {
+  background-color: #e63e00;
+}
+
+/* Confetti Effect */
+@keyframes confetti {
+  0% { transform: translateY(0); opacity: 1; }
+  100% { transform: translateY(200px); opacity: 0; }
+}
+
+.confetti {
+  position: fixed;
+  width: 10px;
+  height: 10px;
+  background-color: #ffa500;
+  animation: confetti 2s infinite;
+  top: 0;
 }
