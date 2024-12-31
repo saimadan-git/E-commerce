@@ -107,5 +107,4 @@ tr.verify((error, success) => {
 // Start server
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
-
 });
