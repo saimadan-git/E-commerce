@@ -127,14 +127,14 @@ app.post("/forgot-password", async (req, res) => {
     res.status(500).json({ status: "error", message: "Failed to send OTP.", error: err.message });
   }
 });
-
-tr.verify((error, success) => {
-  if (error) {
-    console.error("Transporter verification failed:", error);
-  } else {
-    console.log("Transporter is ready to send emails:", success);
-  }
-});
+/////
+// tr.verify((error, success) => {
+//   if (error) {
+//     console.error("Transporter verification failed:", error);
+//   } else {
+//     console.log("Transporter is ready to send emails:", success);
+//   }
+// });
 
 
 // Start server
