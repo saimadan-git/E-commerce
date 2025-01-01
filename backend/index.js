@@ -20,8 +20,6 @@ mongoose
   .connect(process.env.MONGO_URI)
   .then(() => console.log('Connected to MongoDB'))
   .catch((err) => console.error('Failed to connect to MongoDB:', err));
-<<<<<<< HEAD
-=======
 
 //Email Transporter
 const tr = nodemailer.createTransport({
@@ -31,7 +29,6 @@ const tr = nodemailer.createTransport({
     pass: "dzeqjiflgnvuwsgc"
   },
 });
->>>>>>> 328d162a9bed2db1e2d2ab963b007eba65e4d6cf
 
 // Routes
 // --------------------------------------------Register----------------------------------------------
@@ -56,11 +53,7 @@ app.post('/register', async (req, res) => {
     res.status(201).json({
       status: "success",
       message: "User created successfully",
-<<<<<<< HEAD
-      data: { 
-=======
       data: {
->>>>>>> 328d162a9bed2db1e2d2ab963b007eba65e4d6cf
         name: savedUser.name,
         email: savedUser.email,
         mobileNumber: savedUser.mobileNumber,

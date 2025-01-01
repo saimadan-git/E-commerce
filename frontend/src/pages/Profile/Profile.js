@@ -1,7 +1,7 @@
 import React from "react";
 import "./Profile.css";
 
-const ProfilePage = () => {
+const Profile = () => {
   return (
     <div className="profile-page">
       <header className="profile-header">

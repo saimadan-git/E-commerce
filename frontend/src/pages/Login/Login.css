@@ -3,18 +3,10 @@
   justify-content:space-around;  /* Center horizontally */
   align-items: center; 
   width: 100%;
-<<<<<<< HEAD
-  background-image: url("../../assests/images/image5.jpg");
-
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-=======
   background-image: url("https://www.shutterstock.com/image-photo/south-indian-home-made-spicy-600nw-1834566577.jpg");
   background-position: center;
   background-repeat: no-repeat;
   background-size:cover;
->>>>>>> 328d162a9bed2db1e2d2ab963b007eba65e4d6cf
   height: 100%;
 }
 
