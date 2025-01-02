@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "axios";
+import api from "../../utils/api.js";
 import "../../styles/AuthPages.css";
 import { notifyError, notifySuccess } from "../../utils/toastUtils";
 
@@ -35,7 +35,7 @@ const ResetPassword = () => {
 
     if (!hasErrors) {
       try {
-        const response = await axios.post("http://localhost:3000/reset-password", formData);
+        const response = await api.post("/auth/reset-password", formData);
         if (response.data.success) {
           notifySuccess("Password reset successfully!");
         } else {

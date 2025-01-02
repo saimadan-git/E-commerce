@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import axios from "axios";
 import { notifyError, notifySuccess } from "../../utils/toastUtils";
 import '../../styles/AuthPages.css';
 import { useNavigate } from "react-router-dom";
+import api from "../../utils/api.js";
 
 const ForgetPassword = () => {
   const [email, setEmail] = useState("");
@@ -26,12 +26,7 @@ const ForgetPassword = () => {
     }
 
     try {
-      const response = await axios.post("http://localhost:3000/forgot-password", { email }, {
-        validateStatus: (status) => {
-          // Treat all status codes as valid (do not throw exceptions)
-          return status >= 200 && status < 500;
-        },
-      });
+      const response = await api.post("/auth/forgot-password", { email });
       if (response.data.status === "success") {
         notifySuccess("Email sent successfully! Please check your inbox.");
         navigate("/reset-password");

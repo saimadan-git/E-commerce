@@ -86,6 +86,31 @@ const Home = () => {
         </div>
       </section>
 
+      {/* Contact Us Section */}
+      <section className="home-contact">
+        <h2>Contact Us</h2>
+        <p>We would love to hear from you! Reach out to us for inquiries, feedback, or to share your pickle stories.</p>
+        <div className="contact-details">
+          <p><strong>Email:</strong> support@malinifoods.com</p>
+          <p><strong>Phone:</strong> +91-9876543210</p>
+          <p><strong>Address:</strong> Malini Foods, Plot No. 12, Jubilee Hills, Hyderabad, India</p>
+        </div>
+        <div className="social-links">
+          <a href="mailto:support@malinifoods.com" className="btn-contact">
+            Send Us an Email
+          </a>
+          <div className="social-icons">
+            <a href="https://www.youtube.com/" target="_blank" rel="noopener noreferrer" className="social-icon youtube">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/YouTube_icon_%282013-2017%29.png/512px-YouTube_icon_%282013-2017%29.png" alt="YouTube" />
+            </a>
+            <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" className="social-icon instagram">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Instagram_icon.png/600px-Instagram_icon.png" alt="Instagram" />
+            </a>
+          </div>
+        </div>
+      </section>
+
+
     </div>
   );
 };
