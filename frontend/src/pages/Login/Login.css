@@ -4,11 +4,11 @@
   align-items: center; 
   width: 100%;
   background-image: url("../../assests/images/image5.jpg");
-
+  /* background-image: url("https://static.vecteezy.com/system/resources/previews/001/781/542/non_2x/sunny-rays-of-light-on-a-lake-free-photo.jpg"); */
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  height: 100%;
+  min-height: 100%;
 }
 
 .login-card {
@@ -18,7 +18,7 @@
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   width: 100%;
   max-width: 400px;
-  margin: 35px;
+  margin: 41px;
 }
 
 .login-card h2 {

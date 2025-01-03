@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-
 import { Link, useNavigate } from 'react-router-dom';
-import axios from "axios";
 import "./Register.css";
 import { notifyError, notifySuccess } from "../../utils/toastUtils";
+import api from "../../utils/api.js";
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -22,6 +21,7 @@ const Register = () => {
   });
 
   const navigate = useNavigate();
+
   const toggleVisibility = (field) => {
     setVisibility((prev) => ({
       ...prev,
@@ -29,76 +29,91 @@ const Register = () => {
     }));
   };
 
-  const validateForm = () => {
-    const newErrors = {};
+  // Validate Form Fields
+  const validateField = (name, value) => {
+    let error = "";
 
-    if (!formData.name) {
-      newErrors.name = "Name must be required.";
-    }
-    if (formData.name.length > 50) {
-      newErrors.name = "Name must be under 50 characters.";
-    }
-    if (!formData.email.includes("@")) {
-      newErrors.email = "Invalid email address.";
-    }
-    if (!formData.mobileNumber.match(/^\d{10}$/)) {
-      newErrors.mobileNumber = "Mobile number must be 10 digits.";
-    }
-    if (
-      !formData.password.match(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{6,30}$/)
-    ) {
-      newErrors.password =
-        "Password must be 6-30 characters, include letters, numbers, and special characters.";
-    }
-    if (formData.password !== formData.confirmPassword) {
-      newErrors.confirmPassword = "Passwords do not match.";
-    }
-
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (validateForm()) {
-      try {
-        // notifyError("ss");
-        const response = await axios.post('http://localhost:3000/register', formData, {
-          validateStatus: (status) => {
-            // Treat all status codes as valid (do not throw exceptions)
-            return status >= 200 && status < 500;
-          },
-        });
-        // let resources = {};
-        // const { customerId, customerName, email } = response.data;
-        // notifySuccess("Registration Successful!");
-        if (response.data.status === "success") {
-          notifySuccess(response.data.message);
-          navigate("/login");
-        } else {
-          notifyError(response.data.message);
-        }  
-      } catch (err) {
-        if (err.response) {
-          notifyError(err.response.data.message); // Handle error from the backend
-        } else {
-          notifyError("Something went wrong!");
-        }
+    if (name === "name") {
+      if (!value) {
+        error = "Name must be required.";
+      } else if (value.length > 50) {
+        error = "Name must be under 50 characters.";
+      }
+    } else if (name === "email") {
+      if (!value) {
+        error = "Email is required.";
+      } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+        error = "Invalid email address.";
+      }
+    } else if (name === "mobileNumber") {
+      if (!value) {
+        error = "Mobile number is required.";
+      } else if (!/^\d{10}$/.test(value)) {
+        error = "Mobile number must be 10 digits.";
+      }
+    } else if (name === "password") {
+      if (!value) {
+        error = "Password is required.";
+      } else if (!/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{6,30}$/.test(value)) {
+        error = "Password must be 6-30 characters, include letters, numbers, and special characters.";
+      }
+    } else if (name === "confirmPassword") {
+      if (!value) {
+        error = "Confirm Password is required.";
+      } else if (value !== formData.password) {
+        error = "Passwords do not match.";
       }
     }
-  };
-  
 
-  // const handleOtpVerification = () => {
-  //   if (otp === "123456") {
-  //     const randomCustomerId = Math.floor(1000000000000 + Math.random() * 9000000000000);
-  //     setGeneratedCustomerId(randomCustomerId);
-  //     setIsRegistered(true);
-  //     setShowOtpPage(false);
-  //   } else {
-  //     alert("Invalid OTP. Try again.");
-  //   }
-  // };
+    return error;
+  };
+
+  // Handle Input Change and Validate in Real-Time
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+
+    // Update Form Data
+    setFormData((prev) => ({ ...prev, [name]: value }));
+
+    // Validate Field and Update Errors
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      [name]: validateField(name, value),
+    }));
+  };
+
+  // Handle Form Submission
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    // Validate All Fields Before Submitting
+    const newErrors = {
+      name: validateField("name", formData.name),
+      email: validateField("email", formData.email),
+      mobileNumber: validateField("mobileNumber", formData.mobileNumber),
+      password: validateField("password", formData.password),
+      confirmPassword: validateField("confirmPassword", formData.confirmPassword),
+    };
+
+    setErrors(newErrors);
+
+    // If Any Errors Exist, Don't Submit
+    if (Object.values(newErrors).some((error) => error)) return;
+
+    // API Call
+    try {
+      const response = await api.post('/auth/register', formData);
+      if (response.data.status === "success") {
+        notifySuccess(response.data.message);
+        navigate("/login");
+      } else {
+        notifyError(response.data.message);
+      }
+    } catch (err) {
+      const errorMsg = err.response?.data?.message || "Something went wrong!";
+      notifyError(errorMsg);
+    }
+  };
 
   const handleReset = () => {
     setFormData({
@@ -109,37 +124,7 @@ const Register = () => {
       confirmPassword: "",
     });
     setErrors({});
-    // setShowOtpPage(false);
-    // setIsRegistered(false);
   };
-
-  // if (isRegistered) {
-  //   return (
-  //     <div style={{ textAlign: "center", marginTop: "20px" }}>
-  //       <h2 style={{ color: "green" }}>Consumer Registration Successful!</h2>
-  //       <p>Customer ID: {generatedCustomerId}</p>
-  //       <p>Customer Name: {formData.customerName}</p>
-  //       <p>Email: {formData.email}</p>
-  //       <button onClick={handleReset}>Register Another User</button>
-  //     </div>
-  //   );
-  // }
-
-  // if (showOtpPage) {
-  //   return (
-  //     <div style={{ textAlign: "center", marginTop: "20px" }}>
-  //       <h2>OTP Verification</h2>
-  //       <p>Please enter the OTP sent to your mobile number (use: 123456).</p>
-  //       <input
-  //         type="text"
-  //         placeholder="Enter OTP"
-  //         value={otp}
-  //         onChange={(e) => setOtp(e.target.value)}
-  //       />
-  //       <button onClick={handleOtpVerification}>Verify OTP</button>
-  //     </div>
-  //   );
-  // }
 
   return (
     <div className="login-page">
@@ -147,103 +132,94 @@ const Register = () => {
         <form onSubmit={handleSubmit} className="login-form">
           <h2>Join the Pickle Party</h2>
           <p>Your Taste Buds are Invited!</p>
+
+          {/* Name */}
           <div className="form-group">
-            <input            
+            <input
               type="text"
               name="name"
               id="name"
               placeholder=" "
               value={formData.name}
-              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-              // required
+              onChange={handleInputChange}
             />
             <label htmlFor="name">Name</label>
-            {errors.name && (<p className="error-message">{errors.name}</p>)}
+            {errors.name && <p className="error-message">{errors.name}</p>}
           </div>
+
+          {/* Email */}
           <div className="form-group">
             <input
               type="email"
               name="email"
               id="email"
-              value={formData.email}
-              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
               placeholder=" "
-              // required
+              value={formData.email}
+              onChange={handleInputChange}
             />
             <label htmlFor="email">Email</label>
-            {errors.email && (<p className="error-message">{errors.email}</p>)}
+            {errors.email && <p className="error-message">{errors.email}</p>}
           </div>
+
+          {/* Mobile Number */}
           <div className="form-group">
             <input
               type="text"
               name="mobileNumber"
               id="mobileNumber"
-              value={formData.mobileNumber}
-              onChange={(e) => setFormData({ ...formData, mobileNumber: e.target.value })}
               placeholder=" "
-              // required
+              value={formData.mobileNumber}
+              onChange={handleInputChange}
             />
             <label htmlFor="mobileNumber">Mobile Number</label>
-            {errors.mobileNumber && (<p className="error-message">{errors.mobileNumber}</p>)}
+            {errors.mobileNumber && <p className="error-message">{errors.mobileNumber}</p>}
           </div>
-          <div className="form-group"> 
+
+          {/* Password */}
+          <div className="form-group">
             <div className="password-wrapper">
               <input
                 type={visibility.password ? "text" : "password"}
                 name="password"
                 id="password"
-                value={formData.password}
-                onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                 placeholder=" "
-                // required
+                value={formData.password}
+                onChange={handleInputChange}
               />
               <label htmlFor="password">Password</label>
               <span
                 className="password-toggle-icon"
                 onClick={() => toggleVisibility("password")}
-                style={{
-                  position: "absolute",
-                  right: "10px",
-                  top: "50%",
-                  transform: "translateY(-50%)",
-                  cursor: "pointer",
-                  fontSize: "14px",
-                }}
               >
-                {visibility.password ? "🐵" : "🙈"}
+                {visibility.password ? "👁️" : "🙈"}
               </span>
             </div>
-            {errors.password && (<p className="error-message">{errors.password}</p>)}
+            {errors.password && <p className="error-message">{errors.password}</p>}
           </div>
+
+          {/* Confirm Password */}
           <div className="form-group">
             <div className="password-wrapper">
               <input
                 type={visibility.confirmPassword ? "text" : "password"}
                 name="confirmPassword"
                 id="confirmPassword"
-                value={formData.confirmPassword}
-                onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
                 placeholder=" "
-                // required
+                value={formData.confirmPassword}
+                onChange={handleInputChange}
               />
               <label htmlFor="confirmPassword">Confirm Password</label>
               <span
                 className="password-toggle-icon"
                 onClick={() => toggleVisibility("confirmPassword")}
-                style={{
-                  position: "absolute",
-                  right: "10px",
-                  top: "50%",
-                  transform: "translateY(-50%)",
-                  cursor: "pointer",
-                  fontSize: "14px",
-                }}
               >
-                {visibility.confirmPassword ? "🙉" : "🙈"}
+                {visibility.confirmPassword ? "👁️" : "🙈"}
               </span>
             </div>
-            {errors.confirmPassword && (<p className="error-message">{errors.confirmPassword}</p>)}
+            {errors.confirmPassword && <p className="error-message">{errors.confirmPassword}</p>}
           </div>
+
+          {/* Buttons */}
           <div className="login-btn-container">
             <button type="button" onClick={handleReset} className="register-page-button reset-button">
               Reset
@@ -251,7 +227,7 @@ const Register = () => {
             <button type="submit" className="register-page-button register-button">Register</button>
           </div>
         </form>
-        
+
         <p className="register-footer">
           Already have an account? <Link to="/login">Login</Link>
         </p>
