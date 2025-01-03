@@ -12,6 +12,8 @@ import Shop from "./pages/Shop";
 import ForgetPassword from "./pages/ForgetPassword";
 import About from "./pages/About";
 import Profile from "./pages/Profile";
+import Cart from "./pages/Cart";
+
 import ResetPassword from "./pages/ResetPassword/ResetPassword.js";
 
 function App() {
@@ -29,6 +31,7 @@ function App() {
             <Route path="forget-password" element={<ForgetPassword />} />
             <Route path="about" element={<About/>} />
             <Route path="profile" element={<Profile/>} />
+            <Route path="cart" element={<Cart/>} />
             <Route path="reset-password" element={<ResetPassword />} />
           </Routes>
         </div>

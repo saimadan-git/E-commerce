@@ -12,7 +12,6 @@ const Profile = () => {
           <h2>Your Information</h2>
           <p><strong>Name:</strong> John Doe</p>
           <p><strong>Email:</strong> john.doe@example.com</p>
-          <p><strong>Member Since:</strong> January 2023</p>
         </section>
 
         <section className="profile-actions">
@@ -20,7 +19,7 @@ const Profile = () => {
           <ul>
             <li><a href="/orders">My Orders</a></li>
             <li><a href="/edit-profile">Edit Profile</a></li>
-            <li><a href="/settings">Account Settings</a></li>
+            <li><a href="/Address">Address</a></li>
             <li><a href="/logout">Logout</a></li>
           </ul>
         </section>
