@@ -39,7 +39,6 @@ const Login = () => {
 
   const handleSubmit = async(e) => {
     e.preventDefault();
-    
     let hasErrors = false;
 
     const newErrors = { email: "", password: "" };

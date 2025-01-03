@@ -4,16 +4,26 @@ import "./Home.css";
 const Home = () => {
   return (
     <div className="home">
+
+      {/* New Year Banner */}
+      <div className="new-year-banner">
+        <h1>🎉 Happy New Year 2025! 🎉</h1>
+        <p>Celebrate this New Year with our special offers and exclusive pickles collection!</p>
+      </div>
+
       <header className="home-header">
         <div className="home-intro">
-          <h1 className="home-title">Welcome to Pickle Paradise!</h1>
+          <h1 className="home-title">Welcome to Malini Foods!</h1>
           <p className="home-tagline">
             Relish the authentic flavors of handcrafted Hyderabadi pickles, made with love, tradition, and premium ingredients.
           </p>
           <ul className="home-highlights">
             <li>🌟 100% Natural Ingredients</li>
-            <li>🇮🇳 Authentic Hyderabadi Recipes</li>
-            <li>🚚 Fast & Fresh Delivery</li>
+            <li>📜 Traditional Telangana & Andhra Delicacies</li>
+            <li>🍽️ Handcrafted with the Finest Hygienic Standards</li>
+            <li>🔥 Packed with Spicy and Flavorful Goodness</li>
+            <li>👌 Unmatched Quality and Taste in Every Jar</li>
+            <li>❤️ Made with Love & Care</li>
           </ul>
           <a href="/shop" className="btn-shop">
             Explore Our Collection
@@ -26,19 +36,29 @@ const Home = () => {
         />
       </header>
 
+      {/* Limited-Time Offer Section */}
+      <section className="home-new-year-offer">
+        <h2>🌟 New Year Special Offer! 🌟</h2>
+        <p>
+          Get <strong>25% off</strong> on all our products until January 15th, 2025. Start your year with the taste of home!
+        </p>
+        <a href="/shop" className="btn-shop-special">
+          Grab the Offer Now
+        </a>
+      </section>
+
       <section className="home-features">
         <h2>Why Our Pickles?</h2>
         <div className="features-list">
           <div className="feature">
-            <img src="https://images.app.goo.gl/juv6sMUy1dVQUTFhttps://www.tastingtable.com/img/gallery/ways-to-boost-the-flavor-of-pickles/create-your-own-pickling-spice-blends-1681397023.jpgG6y" />
-            <h3>Finely Selected Ingredients</h3>
+            <img src="https://img.freepik.com/premium-vector/premium-quality-stamp-seal-vector-template_917138-3961.jpg" alt="Quality" />
+            <h3>Premium Quality</h3>
             <p>Only the freshest ingredients go into our jars.</p>
           </div>
           <div className="feature">
-            {/* <img src="/assets/images/icon-flavors.png" alt="Flavors" /> */}
             <img src="https://cdn.shopaccino.com/refresh/articles/pickle-374239_l.jpg?v=426" alt="Flavors" />
-            <h3>Taste</h3>
-            <p>Authentic taste that feels like home.</p>
+            <h3>Unique Flavors</h3>
+            <p>A wide variety of flavors to satisfy every taste.</p>
           </div>
           <div className="feature">
             <img src="https://www.nutmegnanny.com/wp-content/uploads/2011/11/homemade-pumpkin-butter-4-600x600.jpg" alt="Handcrafted" />
@@ -47,6 +67,7 @@ const Home = () => {
           </div>
         </div>
       </section>
+
       <section className="home-testimonials">
         <h2>What Our Customers Say</h2>
         <div className="testimonials">
@@ -64,6 +85,7 @@ const Home = () => {
           </div>
         </div>
       </section>
+
     </div>
   );
 };

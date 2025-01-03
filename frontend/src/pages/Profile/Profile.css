@@ -1,79 +1,20 @@
-/* General Styling */
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-  }
-  
-  .profile-page {
-    text-align: center;
-    color: #333;
-  }
-  
-  /* Header Styling */
-  .profile-header {
-    background-color: #2e7d32; /* Green matching Pickle Paradise */
-    color: white;
-    padding: 20px;
-  }
-  
-  .profile-header h1 {
-    margin: 0;
-    font-size: 2em;
-  }
-  
-  /* Main Content */
-  .profile-content {
-    padding: 20px;
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-  }
-  
-  .user-info,
-  .profile-actions {
-    background: #f9f9f9;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 20px;
-    margin: 10px;
-    width: 300px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  }
-  
-  .user-info h2,
-  .profile-actions h2 {
-    margin-top: 0;
-    color: #2e7d32;
-  }
-  
-  /* Links Styling */
-  .profile-actions ul {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .profile-actions li {
-    margin: 10px 0;
-  }
-  
-  .profile-actions a {
-    text-decoration: none;
-    color: #2e7d32;
-    font-weight: bold;
-  }
-  
-  .profile-actions a:hover {
-    text-decoration: underline;
-  }
-  
-  /* Footer Styling */
-  .profile-footer {
-    background: #2e7d32;
-    color: white;
-    padding: 10px;
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-  }
-  
+/* import React from "react";
+import ProfileMenu from "./ProfileMenu";
+
+const Navbar = () => {
+  return (
+    <nav className="navbar">
+      <div className="logo">
+        <a href="/">Pickles Paradise</a>
+      </div>
+      <div className="nav-links">
+        <a href="/shop">Shop</a>
+        <a href="/about">About</a>
+        <a href="/contact">Contact</a>
+        <ProfileMenu />
+      </div>
+    </nav>
+  );
+};
+
+export default Navbar; */

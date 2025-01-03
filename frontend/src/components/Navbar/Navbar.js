@@ -5,7 +5,9 @@ import "./Navbar.css";
 const Navbar = () => {
   return (
     <nav className="navbar">
-      <Link to="/" className="logo">Pickle Paradise</Link>
+      <Link to="/" className="logo" aria-label="Malini Foods Home">
+        Malini Foods
+      </Link>
       <ul className="nav-links">
         <li><Link to="/">Home</Link></li>
         <li><Link to="/shop">Shop</Link></li>
