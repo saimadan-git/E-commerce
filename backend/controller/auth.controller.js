@@ -94,12 +94,12 @@ export const forgotPassword = async (req, res) => {
     } catch (err) {
         res.status(500).json({ status: "error", message: "Failed to send OTP.", error: err.message });
     }
-    //Email Transporter
-    const tr = nodemailer.createTransport({
-        service: "gmail",
-        auth: {
-            user: "koundinya2608@gmail.com",
-            pass: "dzeqjiflgnvuwsgc"
-        },
-    });
 }
+//Email Transporter
+const tr = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+        user: "koundinya2608@gmail.com",
+        pass: "dzeqjiflgnvuwsgc"
+    },
+});
