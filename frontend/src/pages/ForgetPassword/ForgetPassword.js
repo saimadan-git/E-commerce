@@ -11,17 +11,29 @@ const ForgetPassword = () => {
 
   const validateEmail = (email) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
+    let error = "";
+    if (!email) {
+      error = "Email is required.";
+    } else if (!emailRegex.test(email)) {
+      error = "Please enter a valid email address.";
+    }
+    return error;
+  };
+
+  // Handle Input Change and Validate in Real-Time
+  const handleInputChange = (e) => {
+    const { value } = e.target;
+    // Update Form Data
+    setEmail(value);
+    // Validate Field and Update Errors
+    setError(validateEmail(value));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    if (!email) {
-      setError("Email is required.");
-      return;
-    } else if (!validateEmail(email)) {
-      setError("Please enter a valid email address.");
+    const newError = validateEmail(email);
+    setError(newError);
+    if (newError) {
       return;
     }
 
@@ -29,7 +41,7 @@ const ForgetPassword = () => {
       const response = await api.post("/auth/forgot-password", { email });
       if (response.data.status === "success") {
         notifySuccess("Email sent successfully! Please check your inbox.");
-        navigate("/reset-password");
+        navigate("/login");
       } else {
         notifyError("Failed to send the email. Try again later.");
       }
@@ -53,7 +65,7 @@ const ForgetPassword = () => {
               name="email"
               placeholder=" "
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={handleInputChange}
             />
             <label htmlFor="email">Email Address</label>
             {error && <p className="error-message">{error}</p>}
