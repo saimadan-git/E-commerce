@@ -27,7 +27,7 @@ const About = () => {
         </div>
 
         <div className="about-section">
-          <h2>Why Choose Us?</h2>
+          <h2>Why to Choose Us?</h2>
           <ul>
             <li>All-natural ingredients</li>
             <li>Locally sourced produce</li>
