@@ -3,6 +3,7 @@ import "./Login.css";
 import { notifyError, notifySuccess } from "../../utils/toastUtils";
 import { Link, useNavigate } from 'react-router-dom';
 import api from "../../utils/api.js";
+import LoginWithGoogle from "../../components/GoogleButton/GoogleButton.js";
 
 const Login = () => {
   const [formData, setFormData] = useState({ email: "", password: "" });
@@ -132,14 +133,7 @@ const Login = () => {
           Don't have an account? <Link to="/register">Register</Link>
         </p>
         <p className="or-text">or</p>
-        <button onClick={() => alert("Google Sign-In")} className="google-btn">
-          <img
-            src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/768px-Google_%22G%22_logo.svg.png"
-            alt="Google Logo"
-            className="google-icon"
-          />
-          Continue with Google
-        </button>
+        <LoginWithGoogle />
       </div>
     </div>
   );

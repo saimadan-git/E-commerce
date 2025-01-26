@@ -2,11 +2,13 @@ import React, { useState } from "react";
 import api from "../../utils/api.js";
 import "../../styles/AuthPages.css";
 import { notifyError, notifySuccess } from "../../utils/toastUtils";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const ResetPassword = () => {
   const [formData, setFormData] = useState({ newPassword: "", confirmPassword: "" });
   const [errors, setErrors] = useState({ newPassword: "", confirmPassword: "" });
+  const [loading, setLoading] = useState(false); 
+  const {id, token} = useParams();
 
   const [visibility, setVisibility] = useState({
     newPassword: false,
@@ -70,8 +72,12 @@ const ResetPassword = () => {
     // If Any Errors Exist, Don't Submit
     if (Object.values(newErrors).some((error) => error)) return;
 
+    setLoading(true); // Set loading to true
+
     try {
-      const response = await api.post("/auth/reset-password", formData);
+      formData.id = id;
+      formData.token = token;
+      const response = await api.post(`/auth/reset-password/${id}/${token}`, formData);
       if (response.data.success) {
         notifySuccess("Password reset successfully!");
         navigate("/login");
@@ -81,6 +87,8 @@ const ResetPassword = () => {
     } catch (err) {
       console.error(err.message);
       notifyError("An error occurred. Please try again.");
+    } finally {
+      setLoading(false); // Reset loading to false
     }
   };
 
@@ -98,6 +106,7 @@ const ResetPassword = () => {
                 placeholder=" "
                 value={formData.newPassword}
                 onChange={handleInputChange}
+                disabled={loading}
               />
               <label htmlFor="newPassword">New Password</label>
               <span
@@ -119,6 +128,7 @@ const ResetPassword = () => {
                 placeholder=" "
                 value={formData.confirmPassword}
                 onChange={handleInputChange}
+                disabled={loading}
               />
               <label htmlFor="confirmPassword">Confirm Password</label>
               <span
@@ -131,7 +141,7 @@ const ResetPassword = () => {
             {errors.confirmPassword && <p className="error-message">{errors.confirmPassword}</p>}
           </div>
 
-          <button type="submit" className="button login-button">Reset Password</button>
+          <button type="submit" className="button login-button" disabled={loading}>Reset Password</button>
         </form>
       </div>
     </div>
