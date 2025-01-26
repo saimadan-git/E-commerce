@@ -1,5 +1,7 @@
 import User from '../models/Register.js';
 import nodemailer from 'nodemailer';
+// import jwt from 'jsonwebtoken';
+
 //Register
 export const register = async (req, res, next) => {
     const { name, email, mobileNumber, password } = req.body;
@@ -68,33 +70,75 @@ export const login = async (req, res, next) => {
     }
 }
 //Forgot Password
+
 export const forgotPassword = async (req, res) => {
     const { email } = req.body;
-
-    try {
-        //console.log("Email:", email);
-        const user = await User.findOne({ email });
-        if (!user) {
-            return res.status(404).json({ status: "error", message: "User not found." });
-        }
-        const OTP = Math.random().toString(36).substring(2, 12);
-        const mailOptions = {
-            from: "koundinya@gmail.com",
-            to: email,
-            subject: "Password Reset",
-            text: `Your OTP to Reset Password is: ${OTP}`
-        };
-        await tr.sendMail(mailOptions);
-        console.log(`Reset OTP for ${email}: ${OTP}`);
-
-        res.status(200).json({
-            status: "success",
-            message: "Password reset OTP sent successfully.",
-        });
-    } catch (err) {
-        res.status(500).json({ status: "error", message: "Failed to send OTP.", error: err.message });
+  
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ success: false, message: "User not found." });
     }
-}
+    const resetLink = `http://localhost:8854/reset-password`;
+  const emailHtml = `
+    <h3>Password Reset Request</h3>
+    <p>Click the link below to reset your password:</p>
+    <a href="${resetLink}">${resetLink}</a>
+  `;
+  
+  try {
+    await tr.sendMail({
+      from: "koundinya2608@gmail.com",
+      to: email,
+      subject: "Password Reset Request",
+      html: emailHtml,
+    });
+
+    res.status(200).json({ status: "success", message: "Reset link sent successfully." });
+  } catch (error) {
+    console.error("Error sending email:", error.message);
+    res.status(500).json({ status: "error", message: "Failed to send the email." });
+  }
+};
+  
+  // Reset password
+  export const resetPassword = async (req, res) => {
+    const { email,newPass } = req.body;
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ status: "error", message: "User not found." });
+    }
+    // await User.updateOne({ email }, { password: newPass });
+    user.password = newPass;
+    await user.save();
+    res.status(200).json({ status: "success", message: "Password updated successfully." });
+  };
+// // export const forgotPassword = async (req, res) => {
+//     const { email } = req.body;
+
+//     try {
+//         //console.log("Email:", email);
+//         const user = await User.findOne({ email });
+//         if (!user) {
+//             return res.status(404).json({ status: "error", message: "User not found." });
+//         }
+//        /// const OTP = Math.random().toString(36).substring(2, 12);
+//         const mailOptions = {
+//             from: "koundinya@gmail.com",
+//             to: email,
+//             subject: "Password Reset",
+//             text:`Click the following link to reset your password: http://localhost:8854/reset-password?token=${resetToken}`
+//         };
+//         await tr.sendMail(mailOptions);
+//         console.log(`Password reset link sent to ${email}`);
+
+//         res.status(200).json({
+//             status: "success",
+//             message:"Password reset link sent successfully.",
+//         });
+//     } catch (err) {
+//         res.status(500).json({ status: "error", message: "Failed to send password reset link.", error: err.message });
+//     }
+// }
 //Email Transporter
 const tr = nodemailer.createTransport({
     service: "gmail",
