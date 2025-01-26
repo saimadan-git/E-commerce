@@ -10,7 +10,7 @@ router.post('/login', login);
 //forgot password
 router.post('/forgot-password', forgotPassword);
 //Reset password
-router.post('/reset-password', resetPassword);
+router.post('/reset-password/:id/:token', resetPassword);
 
 // Redirect to Google OAuth
 router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));

@@ -78,7 +78,7 @@ const ResetPassword = () => {
       formData.id = id;
       formData.token = token;
       const response = await api.post(`/auth/reset-password/${id}/${token}`, formData);
-      if (response.data.success) {
+      if (response.data.status === "success") {
         notifySuccess("Password reset successfully!");
         navigate("/login");
       } else {

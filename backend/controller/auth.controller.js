@@ -1,6 +1,6 @@
 import User from '../models/Register.js';
 import nodemailer from 'nodemailer';
-// import jwt from 'jsonwebtoken';
+import jwt from 'jsonwebtoken';
 
 //Register
 export const register = async (req, res, next) => {
@@ -73,45 +73,67 @@ export const login = async (req, res, next) => {
 
 export const forgotPassword = async (req, res) => {
     const { email } = req.body;
-  
+
     const user = await User.findOne({ email });
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: "1h" });
     if (!user) {
-      return res.status(404).json({ success: false, message: "User not found." });
+        return res.status(404).json({ success: false, message: "User not found." });
     }
-    const resetLink = `http://localhost:8854/reset-password`;
-  const emailHtml = `
+    const resetLink = `http://localhost:8854/reset-password/${user._id}/${token}`;
+    const emailHtml = `
     <h3>Password Reset Request</h3>
     <p>Click the link below to reset your password:</p>
     <a href="${resetLink}">${resetLink}</a>
   `;
-  
-  try {
-    await tr.sendMail({
-      from: "koundinya2608@gmail.com",
-      to: email,
-      subject: "Password Reset Request",
-      html: emailHtml,
-    });
 
-    res.status(200).json({ status: "success", message: "Reset link sent successfully." });
-  } catch (error) {
-    console.error("Error sending email:", error.message);
-    res.status(500).json({ status: "error", message: "Failed to send the email." });
-  }
-};
-  
-  // Reset password
-  export const resetPassword = async (req, res) => {
-    const { email,newPass } = req.body;
-    const user = await User.findOne({ email });
-    if (!user) {
-      return res.status(404).json({ status: "error", message: "User not found." });
+    try {
+        await tr.sendMail({
+            from: "koundinya2608@gmail.com",
+            to: email,
+            subject: "Password Reset Request",
+            html: emailHtml,
+        });
+
+        res.status(200).json({ status: "success", message: "Reset link sent successfully." });
+    } catch (error) {
+        console.error("Error sending email:", error.message);
+        res.status(500).json({ status: "error", message: "Failed to send the email." });
     }
-    // await User.updateOne({ email }, { password: newPass });
-    user.password = newPass;
-    await user.save();
-    res.status(200).json({ status: "success", message: "Password updated successfully." });
-  };
+};
+
+// Reset password
+export const resetPassword = async (req, res) => {
+    const { id, token } = req.params;
+    if (!id || !token) {
+        return res.status(400).json({ status: "error", message: "Invalid request." });
+    }
+    console.log("ID:", id);
+    console.log("Token:", token);
+    const { newPassword } = req.body;
+    try {
+         jwt.verify(token, process.env.JWT_SECRET, async(err, decoded) => {
+            if (err) {
+                return res.status(403).json({ status: "error", message: "Invalid or expired token." });
+            }
+            else {
+                const user = await User.findById(id);
+                if (!user) {
+                    return res.status(404).json({ status: "error", message: "User not found." });
+                }
+                // await User.updateOne({ email }, { password: newPass });
+                user.password = newPassword;
+                await user.save();
+                res.status(200).json({ status: "success", message: "Password updated successfully." });
+            
+            }
+         });
+    }
+catch (error) {
+    console.error("Error resetting password:", error.message);
+    res.status(500).json({ status: "error", message: "Failed to reset password." });
+}
+};
+
 // // export const forgotPassword = async (req, res) => {
 //     const { email } = req.body;
 
