@@ -18,16 +18,20 @@ export const register = async (req, res, next) => {
             email,
             mobileNumber,
             password,
+            address,
         });
         const savedUser = await newUser.save();
+        console.log(savedUser._id);
         res.status(201).json({
             status: "success",
             message: "User created successfully",
             data: {
+                id: savedUser._id,
                 name: savedUser.name,
                 email: savedUser.email,
                 mobileNumber: savedUser.mobileNumber,
-                password: savedUser.password,
+                id: savedUser._id,
+                //password: savedUser.password,
             },
         });
     } catch (err) {
