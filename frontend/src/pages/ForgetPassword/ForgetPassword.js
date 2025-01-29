@@ -7,6 +7,7 @@ import api from "../../utils/api.js";
 const ForgetPassword = () => {
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false); // Loading state
   const navigate = useNavigate();
 
   const validateEmail = (email) => {
@@ -20,12 +21,9 @@ const ForgetPassword = () => {
     return error;
   };
 
-  // Handle Input Change and Validate in Real-Time
   const handleInputChange = (e) => {
     const { value } = e.target;
-    // Update Form Data
     setEmail(value);
-    // Validate Field and Update Errors
     setError(validateEmail(value));
   };
 
@@ -36,6 +34,8 @@ const ForgetPassword = () => {
     if (newError) {
       return;
     }
+
+    setLoading(true); // Set loading to true
 
     try {
       const response = await api.post("/auth/forgot-password", { email });
@@ -48,6 +48,8 @@ const ForgetPassword = () => {
     } catch (err) {
       console.error(err.message);
       notifyError("An error occurred. Please try again.");
+    } finally {
+      setLoading(false); // Reset loading to false
     }
   };
 
@@ -66,11 +68,18 @@ const ForgetPassword = () => {
               placeholder=" "
               value={email}
               onChange={handleInputChange}
+              disabled={loading} // Disable input during loading
             />
             <label htmlFor="email">Email Address</label>
             {error && <p className="error-message">{error}</p>}
           </div>
-          <button type="submit" className="button login-button">Send Email</button>
+          <button 
+            type="submit" 
+            className="button login-button"
+            disabled={loading} // Disable button during loading
+          >
+            {loading ? "Sending..." : "Send Email"} {/* Show loading text */}
+          </button>
         </form>
       </div>
     </div>

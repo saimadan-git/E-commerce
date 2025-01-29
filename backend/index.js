@@ -6,6 +6,7 @@ import dotenv from 'dotenv';
 
 import authRoute from './routes/auth.route.js';
 import userRoute from './routes/user.route.js';
+import passport from "./utils/Passport.js";
 
 dotenv.config();
 
@@ -15,6 +16,8 @@ const PORT = process.env.PORT || 3000;
 // Middleware
 app.use(bodyParser.json());
 app.use(cors());
+app.use(express.urlencoded({ extended: true }));
+app.use(passport.initialize());
 
 //Routes
 app.use("/auth", authRoute);

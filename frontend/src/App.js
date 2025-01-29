@@ -13,6 +13,7 @@ import ForgetPassword from "./pages/ForgetPassword";
 import About from "./pages/About";
 import Profile from "./pages/Profile";
 import Cart from "./pages/Cart";
+import GoogleButton from "./components/GoogleButton/GoogleButton.js";
 
 import ResetPassword from "./pages/ResetPassword/ResetPassword.js";
 
@@ -32,7 +33,8 @@ function App() {
             <Route path="about" element={<About/>} />
             <Route path="profile" element={<Profile/>} />
             <Route path="cart" element={<Cart/>} />
-            <Route path="reset-password" element={<ResetPassword />} />
+            <Route path="reset-password/:id/:token" element={<ResetPassword />} />
+            <Route path="google-button" element={<GoogleButton />} />
           </Routes>
         </div>
         <Footer />
