@@ -9,6 +9,7 @@ const UserSchema = new mongoose.Schema({
   // // userId: { type: String, required: true, unique: true, minlength: 5, maxlength: 20 },
   // password: { type: String, required: true, minlength: 6, maxlength: 30 },
   // customerId: { type: String, required: true, unique: true },
+<<<<<<< HEAD
 
   email: { type: String, required: true, unique: true },
   name: { type: String },
@@ -16,6 +17,9 @@ const UserSchema = new mongoose.Schema({
   mobile: { type: String },
   googleId: { type: String }, // For Google login
   provider: { type: String, default: 'local' }, // 'local' or 'google'
+=======
+  address: { type: String , default: ''},
+>>>>>>> 75265ceeeb3cda390cf83b19416aae05b416b9d9
 });
 
 export default mongoose.model('user', UserSchema);

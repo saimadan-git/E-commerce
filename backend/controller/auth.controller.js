@@ -20,14 +20,17 @@ export const register = async (req, res, next) => {
             password,
         });
         const savedUser = await newUser.save();
+        console.log(savedUser._id);
         res.status(201).json({
             status: "success",
             message: "User created successfully",
             data: {
+                id: savedUser._id,
                 name: savedUser.name,
                 email: savedUser.email,
                 mobileNumber: savedUser.mobileNumber,
-                password: savedUser.password,
+                address: savedUser.address,
+                //password: savedUser.password,
             },
         });
     } catch (err) {
@@ -60,8 +63,11 @@ export const login = async (req, res, next) => {
             status: "success",
             message: "Login successful.",
             data: {
+                id: user._id,
                 name: user.name,
-                email: user.email
+                email: user.email,
+                mobileNumber: user.mobileNumber,
+                address: user.address,
             },
         });
     } catch (err) {

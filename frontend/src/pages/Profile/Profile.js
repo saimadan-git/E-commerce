@@ -1,96 +1,116 @@
-import React, { useState } from "react";
-import "./Profile.css";
+import React, { useState, useEffect } from "react";
+import { FaEdit, FaSave } from "react-icons/fa"; // Edit & Save Icons
+import styles from "./Profile.module.css";
+import api from "../../utils/api.js";
+import { notifyError, notifySuccess } from "../../utils/toastUtils.js";
 
-const ProfilePage = () => {
-  // Mock user data
-  const [user, setUser] = useState({
-    name: "John Doe",
-    email: "john.doe@example.com",
-    address: "123 Pickle Street, Flavor Town, USA",
-    mobile: "+1 234 567 8900",
-    profilePicture: "https://via.placeholder.com/150",
+const Profile = () => {
+  // State for user details
+  const [userDetails, setUserDetails] = useState({
+    name: "",
+    email: "",
+    mobile: "",
+    address: "",
   });
 
-  // Modal state for editing
+  // State to manage edit mode
   const [isEditing, setIsEditing] = useState(false);
-  const [editedUser, setEditedUser] = useState(user);
 
-  const handleEdit = () => {
-    setUser(editedUser);
+  // Fetch user data from local storage on component mount
+  useEffect(() => {
+    const storedUser = JSON.parse(localStorage.getItem("user")) || {};
+    setUserDetails({
+      name: storedUser.name || "",
+      email: storedUser.email || "",
+      mobile: storedUser.mobile || "",
+      address: storedUser.address || "",
+    });
+  }, []);
+
+  // Handle input changes
+  const handleChange = (e) => {
+    setUserDetails({ ...userDetails, [e.target.name]: e.target.value });
+  };
+
+  // Save changes to local storage
+  const handleSave = async () => {
+    const storedUser = JSON.parse(localStorage.getItem("user")) || {};
+    const isUpdated = JSON.stringify(storedUser) !== JSON.stringify(userDetails);
+
+    if (isUpdated) {
+      try {
+        const response = await api.post("/user/updateUser", userDetails);
+        if (response.data.status === "success") {
+          localStorage.setItem("user", JSON.stringify({...storedUser, ...userDetails}));
+          notifySuccess(response.data.message);
+        } else {
+          notifyError(response.data.message);
+        }
+      } catch (err) {
+        const errorMsg = err.response?.data?.message || "Something went wrong!";
+        notifyError(errorMsg);
+      }
+    }
     setIsEditing(false);
   };
 
   return (
-    <div className="profile-page">
-      <h1>Profile Page</h1>
-      <div className="profile-card">
-        <img
-          src={user.profilePicture}
-          alt="Profile"
-          className="profile-picture"
-        />
-        <div className="profile-info">
-          <h2>{user.name}</h2>
-          <p><strong>Email:</strong> {user.email}</p>
-          <p><strong>Address:</strong> {user.address}</p>
-          <p><strong>Mobile:</strong> {user.mobile}</p>
-          <button onClick={() => setIsEditing(true)}>Edit Profile</button>
+    <div className={styles.profileContainer}>
+      <h2 className={styles.profileTitle}>My Profile</h2>
+      <div className={styles.profileDetails}>
+        <div className={styles.inputGroup}>
+          <label>Name:</label>
+          <input
+            type="text"
+            name="name"
+            value={userDetails.name}
+            onChange={handleChange}
+            disabled={!isEditing}
+            className={isEditing ? styles.editable : styles.disabledInput}
+          />
+        </div>
+
+        <div className={styles.inputGroup}>
+          <label>Email:</label>
+          <input
+            type="email"
+            name="email"
+            value={userDetails.email}
+            onChange={handleChange}
+            disabled={!isEditing}
+            className={isEditing ? styles.editable : styles.disabledInput}
+          />
+        </div>
+
+        <div className={styles.inputGroup}>
+          <label>Mobile:</label>
+          <input
+            type="text"
+            name="mobile"
+            value={userDetails.mobile}
+            onChange={handleChange}
+            disabled={!isEditing}
+            className={isEditing ? styles.editable : styles.disabledInput}
+          />
+        </div>
+
+        <div className={styles.inputGroup}>
+          <label>Address:</label>
+          <textarea
+            name="address"
+            value={userDetails.address}
+            onChange={handleChange}
+            disabled={!isEditing}
+            className={isEditing ? styles.editable : styles.disabledInput}
+          />
         </div>
       </div>
 
-      {isEditing && (
-        <div className="modal">
-          <div className="modal-content">
-            <h2>Edit Profile</h2>
-            <label>
-              Name:
-              <input
-                type="text"
-                value={editedUser.name}
-                onChange={(e) =>
-                  setEditedUser({ ...editedUser, name: e.target.value })
-                }
-              />
-            </label>
-            <label>
-              Email:
-              <input
-                type="email"
-                value={editedUser.email}
-                onChange={(e) =>
-                  setEditedUser({ ...editedUser, email: e.target.value })
-                }
-              />
-            </label>
-            <label>
-              Address:
-              <input
-                type="text"
-                value={editedUser.address}
-                onChange={(e) =>
-                  setEditedUser({ ...editedUser, address: e.target.value })
-                }
-              />
-            </label>
-            <label>
-              Mobile:
-              <input
-                type="text"
-                value={editedUser.mobile}
-                onChange={(e) =>
-                  setEditedUser({ ...editedUser, mobile: e.target.value })
-                }
-              />
-            </label>
-            <div className="modal-actions">
-              <button onClick={handleEdit}>Save</button>
-              <button onClick={() => setIsEditing(false)}>Cancel</button>
-            </div>
-          </div>
-        </div>
-      )}
+      <button className={styles.editButton} onClick={isEditing ? handleSave : () => setIsEditing(true)}>
+        {isEditing ? <FaSave /> : <FaEdit />} {isEditing ? "Save" : "Edit"}
+      </button>
     </div>
   );
 };
 
-export default ProfilePage;
+export default Profile;
