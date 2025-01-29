@@ -18,7 +18,6 @@ export const register = async (req, res, next) => {
             email,
             mobileNumber,
             password,
-            address,
         });
         const savedUser = await newUser.save();
         console.log(savedUser._id);
@@ -30,7 +29,7 @@ export const register = async (req, res, next) => {
                 name: savedUser.name,
                 email: savedUser.email,
                 mobileNumber: savedUser.mobileNumber,
-                id: savedUser._id,
+                address: savedUser.address,
                 //password: savedUser.password,
             },
         });
@@ -64,8 +63,11 @@ export const login = async (req, res, next) => {
             status: "success",
             message: "Login successful.",
             data: {
+                id: user._id,
                 name: user.name,
-                email: user.email
+                email: user.email,
+                mobileNumber: user.mobileNumber,
+                address: user.address,
             },
         });
     } catch (err) {

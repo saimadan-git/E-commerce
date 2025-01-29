@@ -9,7 +9,7 @@ const UserSchema = new mongoose.Schema({
   // userId: { type: String, required: true, unique: true, minlength: 5, maxlength: 20 },
   password: { type: String, required: true, minlength: 6, maxlength: 30 },
   // customerId: { type: String, required: true, unique: true },
-  add
+  address: { type: String , default: ''},
 });
 
 export default mongoose.model('user', UserSchema);
