@@ -9,7 +9,7 @@ const Profile = () => {
   const [userDetails, setUserDetails] = useState({
     name: "",
     email: "",
-    mobile: "",
+    mobileNumber: "",
     address: "",
   });
 
@@ -22,7 +22,7 @@ const Profile = () => {
     setUserDetails({
       name: storedUser.name || "",
       email: storedUser.email || "",
-      mobile: storedUser.mobile || "",
+      mobileNumber: storedUser.mobileNumber || "",
       address: storedUser.address || "",
     });
   }, []);
@@ -35,11 +35,11 @@ const Profile = () => {
   // Save changes to local storage
   const handleSave = async () => {
     const storedUser = JSON.parse(localStorage.getItem("user")) || {};
-    const isUpdated = JSON.stringify(storedUser) !== JSON.stringify(userDetails);
+    const isUpdated = (storedUser.name !== userDetails.name) || (storedUser.email !== userDetails.email) || (storedUser.mobileNumber !== userDetails.mobileNumber) || (storedUser.address !== userDetails.address);
 
     if (isUpdated) {
       try {
-        const response = await api.post("/user/updateUser", userDetails);
+        const response = await api.put(`/user/updateUser/${storedUser.id}`, userDetails);
         if (response.data.status === "success") {
           localStorage.setItem("user", JSON.stringify({...storedUser, ...userDetails}));
           notifySuccess(response.data.message);
@@ -83,11 +83,11 @@ const Profile = () => {
         </div>
 
         <div className={styles.inputGroup}>
-          <label>Mobile:</label>
+          <label>Mobile Number:</label>
           <input
             type="text"
-            name="mobile"
-            value={userDetails.mobile}
+            name="mobileNumber"
+            value={userDetails.mobileNumber}
             onChange={handleChange}
             disabled={!isEditing}
             className={isEditing ? styles.editable : styles.disabledInput}

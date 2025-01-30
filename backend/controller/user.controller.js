@@ -4,7 +4,6 @@ export const getUserProfile = async (req, res) => {
     const { userId } = req.params;
     try {
         const getUser = await User.findById(userId);
-        console.log(userId);
         if (!userId) {
             return res.status(404).json({
                 status: "error",
@@ -38,10 +37,10 @@ export const updateProfile = async (req, res) => {
     try {
         //define the fields to be updated  
         const updatedData = {
-            ...(name && { name }),
-            ...(email && { email }),
-            ...(mobileNumber && { mobileNumber }),
-            ...(address && { address })
+            name: name,
+            email: email,
+            mobileNumber: mobileNumber,
+            address: address
         };
         const updatedUser = await User.findByIdAndUpdate(userId, {$set: updatedData}, { new: true });
         if (!updatedUser) {

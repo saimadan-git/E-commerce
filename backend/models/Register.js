@@ -13,7 +13,7 @@ const UserSchema = new mongoose.Schema({
   email: { type: String, required: true, unique: true },
   name: { type: String },
   password: { type: String }, // For traditional login
-  mobile: { type: String },
+  mobileNumber: { type: String },
   googleId: { type: String }, // For Google login
   provider: { type: String, default: 'local' }, // 'local' or 'google'
   address: { type: String , default: ''},

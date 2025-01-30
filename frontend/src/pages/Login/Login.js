@@ -69,6 +69,7 @@ const Login = () => {
     try {
       const response = await api.post("/auth/login", formData);
       if (response.data.status === "success") {
+        console.log("User Data: ", response.data.data);
         localStorage.setItem("user", JSON.stringify(response.data.data));
         notifySuccess(response.data.message);
         navigate("/");

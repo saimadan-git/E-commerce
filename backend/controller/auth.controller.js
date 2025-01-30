@@ -57,7 +57,6 @@ export const login = async (req, res, next) => {
         if (password != user.password) {
             return res.status(401).json({ status: "error", message: "Invalid credentials.", data: {} });
         }
-
         // Successful login
         res.status(200).json({
             status: "success",
