@@ -1,6 +1,7 @@
 import User from '../models/Register.js';
 import nodemailer from 'nodemailer';
 import jwt from 'jsonwebtoken';
+import { generateToken } from '../utils/generateToken.js';
 
 //Register
 export const register = async (req, res, next) => {
@@ -19,7 +20,7 @@ export const register = async (req, res, next) => {
             mobileNumber,
             password,
         });
-        const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET, { expiresIn: "1h" });
+        const token = generateToken({id: newUser._id,name: newUser.name,email: newUser.email,mobileNumber: newUser.mobileNumber,address: newUser.address});
         const savedUser = await newUser.save();
         console.log(savedUser._id);
         res.cookie("token", token, { httpOnly: true });
@@ -60,7 +61,7 @@ export const login = async (req, res, next) => {
         if (password != user.password) {
             return res.status(401).json({ status: "error", message: "Invalid credentials.", data: {} });
         }
-        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: "1h" });
+        const token = generateToken({id: user._id,name: user.name,email: user.email,mobileNumber: user.mobileNumber,address: user.address});
         res.cookie("token", token, { httpOnly: true });
         console.log(token);
         // Successful login
@@ -87,7 +88,7 @@ export const forgotPassword = async (req, res) => {
     const { email } = req.body;
 
     const user = await User.findOne({ email });
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: "1h" });
+    const token = generateToken({id: user._id,name: user.name,email: user.email,mobileNumber: user.mobileNumber,address: user.address});
     if (!user) {
         return res.status(404).json({ success: false, message: "User not found." });
     }
