@@ -19,8 +19,10 @@ export const register = async (req, res, next) => {
             mobileNumber,
             password,
         });
+        const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET, { expiresIn: "1h" });
         const savedUser = await newUser.save();
         console.log(savedUser._id);
+        res.cookie("token", token, { httpOnly: true });
         res.status(201).json({
             status: "success",
             message: "User created successfully",
@@ -30,6 +32,7 @@ export const register = async (req, res, next) => {
                 email: savedUser.email,
                 mobileNumber: savedUser.mobileNumber,
                 address: savedUser.address,
+                token,
                 //password: savedUser.password,
             },
         });
@@ -70,6 +73,7 @@ export const login = async (req, res, next) => {
                 email: user.email,
                 mobileNumber: user.mobileNumber,
                 address: user.address,
+                token,
             },
         });
     } catch (err) {
