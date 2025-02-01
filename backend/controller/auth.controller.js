@@ -57,6 +57,9 @@ export const login = async (req, res, next) => {
         if (password != user.password) {
             return res.status(401).json({ status: "error", message: "Invalid credentials.", data: {} });
         }
+        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: "1h" });
+        res.cookie("token", token, { httpOnly: true });
+        console.log(token);
         // Successful login
         res.status(200).json({
             status: "success",

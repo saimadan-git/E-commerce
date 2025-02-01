@@ -42,7 +42,7 @@ export const updateProfile = async (req, res) => {
             mobileNumber: mobileNumber,
             address: address
         };
-        const updatedUser = await User.findByIdAndUpdate(userId, {$set: updatedData}, { new: true });
+        const updatedUser = await User.findByIdAndUpdate(userId, updatedData, { new: true });
         if (!updatedUser) {
             return res.status(404).json({
                 status: "error",
