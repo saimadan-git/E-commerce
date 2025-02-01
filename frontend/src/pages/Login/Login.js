@@ -1,14 +1,16 @@
-import React, { useState } from "react"; 
+import React, { useContext, useState } from "react"; 
 import "./Login.css";
 import { notifyError, notifySuccess } from "../../utils/toastUtils";
 import { Link, useNavigate } from 'react-router-dom';
 import api from "../../utils/api.js";
 import LoginWithGoogle from "../../components/GoogleButton/GoogleButton.js";
+import AuthContext from "../../context/AuthContext.js";
 
 const Login = () => {
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [errors, setErrors] = useState({});
   const [passwordVisible, setPasswordVisible] = useState(false);
+  const { login } = useContext(AuthContext);
   const navigate = useNavigate();
 
   // Toggle Password Visibility
@@ -69,8 +71,8 @@ const Login = () => {
     try {
       const response = await api.post("/auth/login", formData);
       if (response.data.status === "success") {
-        console.log("User Data: ", response.data.data);
-        localStorage.setItem("user", JSON.stringify(response.data.data));
+        let userData = response.data.data;
+        login(userData, "");
         notifySuccess(response.data.message);
         navigate("/");
       } else {

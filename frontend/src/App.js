@@ -16,31 +16,35 @@ import Cart from "./pages/Cart";
 import GoogleButton from "./components/GoogleButton/GoogleButton.js";
 
 import ResetPassword from "./pages/ResetPassword/ResetPassword.js";
+import { AuthProvider } from "./context/AuthContext.js";
+import ProtectedRoute from "./components/ProtectedRoute.js";
+import GuestRoute from "./components/GuestRoute.js";
 
 function App() {
   return (
     <Router>
-      <div className="app">
-        <ToastContainer />
-        <Navbar />
-        <div className="main-content">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="login" element={<Login />} />
-            <Route path="register" element={<Register />} />
-            <Route path="shop" element={<Shop />} />
-            <Route path="forget-password" element={<ForgetPassword />} />
-            <Route path="about" element={<About/>} />
-            <Route path="profile" element={<Profile/>} />
-            <Route path="cart" element={<Cart/>} />
-            <Route path="reset-password/:id/:token" element={<ResetPassword />} />
-            <Route path="google-button" element={<GoogleButton />} />
-          </Routes>
+      <AuthProvider>
+        <div className="app">
+          <ToastContainer />
+          <Navbar />
+          <div className="main-content">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="login" element={<GuestRoute><Login /></GuestRoute>} />
+              <Route path="register" element={<GuestRoute><Register /></GuestRoute>} />
+              <Route path="shop" element={<Shop />} />
+              <Route path="forget-password" element={<ForgetPassword />} />
+              <Route path="about" element={<About/>} />
+              <Route path="profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+              <Route path="cart" element={<ProtectedRoute><Cart/></ProtectedRoute>} />
+              <Route path="reset-password/:id/:token" element={<ResetPassword />} />
+              <Route path="google-button" element={<GoogleButton />} />
+            </Routes>
+          </div>
+          <Footer />
         </div>
-        <Footer />
-      </div>
+      </AuthProvider>
     </Router>
   );
 }
-
 export default App;

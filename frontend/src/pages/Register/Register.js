@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link, useNavigate } from 'react-router-dom';
 import "./Register.css";
 import { notifyError, notifySuccess } from "../../utils/toastUtils";
 import api from "../../utils/api.js";
 import LoginWithGoogle from "../../components/GoogleButton/GoogleButton.js";
+import AuthContext from "../../context/AuthContext.js";
 
 const Register = () => {
+  const {login} = useContext(AuthContext);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -105,6 +107,8 @@ const Register = () => {
     try {
       const response = await api.post('/auth/register', formData);
       if (response.data.status === "success") {
+        let userData = response.data.data;
+        login(userData, "");
         notifySuccess(response.data.message);
         navigate("/login");
       } else {
