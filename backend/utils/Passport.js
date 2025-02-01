@@ -4,6 +4,7 @@ import jwt from 'jsonwebtoken';
 import User from '../models/Register.js'; // Your User model schema
 import dotenv from 'dotenv';
 import { response } from 'express';
+import { generateToken } from './generateToken.js';
 dotenv.config();
 
 // Configure Google OAuth strategy
@@ -21,20 +22,20 @@ passport.use(
 
         if (user) {
           // Existing user: Generate a JWT token
-        const token = generateToken({id: user._id,name: user.name,email: user.email,mobileNumber: user.mobileNumber,address: user.address});
+        const token = generateToken({id: user._id,name: user.name,email: user.email,mobileNumber: user.mobileNumber ? user.mobileNumber : "",address: user.address});
           return done(null, { user, token }); // Pass user and token to the callback
         } else {
           // New user: Create a new record in the database
-          user = new User({
+          newUser = new User({
             email,
             name: profile.displayName,
             googleId: profile.id,
             provider: 'google',
           });
-          await user.save(); 
+          await newUser.save(); 
 
           // Generate a JWT token for the new user
-          const token = generateToken({id: user._id,name: user.name,email: user.email,mobileNumber: user.mobileNumber,address: user.address});
+          const token = generateToken({id: newUser._id, name: newUser.name, email: newUser.email, mobileNumber: newUser.mobileNumber ? newUser.mobileNumber : "",address: newUser.address});
           return done(null, { user, token });
           
         }

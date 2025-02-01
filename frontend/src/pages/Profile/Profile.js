@@ -47,6 +47,7 @@ const Profile = () => {
           notifyError(response.data.message);
         }
       } catch (err) {
+        console.log(err)
         const errorMsg = err.response?.data?.message || "Something went wrong!";
         notifyError(errorMsg);
       }

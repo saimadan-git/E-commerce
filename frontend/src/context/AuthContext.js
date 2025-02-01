@@ -1,6 +1,7 @@
 import React, { createContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { notifySuccess } from "../utils/toastUtils";
+import api from "../utils/api";
 
 // Create Context
 const AuthContext = createContext();
@@ -18,6 +19,7 @@ export const AuthProvider = ({ children }) => {
     if (storedUser && storedToken) {
       setUser(storedUser);
       setToken(storedToken);
+      api.defaults.headers.Authorization = `Bearer ${storedToken}`;
     }
   }, []);
 
@@ -27,6 +29,7 @@ export const AuthProvider = ({ children }) => {
     localStorage.setItem("token", token);
     setUser(userData);
     setToken(token);
+    api.defaults.headers.Authorization = `Bearer ${token}`;
   };
 
   // Logout function
@@ -36,6 +39,7 @@ export const AuthProvider = ({ children }) => {
     setUser(null);
     setToken(null);
     notifySuccess("Logged out successfully");
+    api.defaults.headers.Authorization = null;
     navigate("/login");
   };
 

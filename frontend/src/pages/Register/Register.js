@@ -108,7 +108,8 @@ const Register = () => {
       const response = await api.post('/auth/register', formData);
       if (response.data.status === "success") {
         let userData = response.data.data;
-        login(userData, "");
+        let token = response.data.data.token;
+        login(userData, token);
         notifySuccess(response.data.message);
         navigate("/login");
       } else {

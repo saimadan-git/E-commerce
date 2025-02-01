@@ -1,8 +1,12 @@
-import React, {useEffect} from "react";
+import React, {useContext, useEffect} from "react";
 import "./Home.css";
 import { notifyError, notifySuccess } from "../../utils/toastUtils";
+import {jwtDecode} from 'jwt-decode';
+import AuthContext from "../../context/AuthContext";
 
 const Home = () => {
+
+  const { login } = useContext(AuthContext);
 
   useEffect(() => {
     // Check if the URL contains query parameters for success or error messages
@@ -10,8 +14,11 @@ const Home = () => {
     // If success parameter exists
     if (urlParams.has("success")) {
       notifySuccess("Successfully logged in with Google!");
-      localStorage.setItem("token", urlParams.get("token")); // Save the token if it's included
-      // window.history.replaceState(null, "", window.location.pathname); // Clear the query params
+      const token = urlParams.get("token"); // Save the token if it's included
+      if (token) {
+        const user = jwtDecode(token); // Extract user details
+        login(user, token); // Log in the user
+      }
       // Use a small delay before clearing the query params
       setTimeout(() => {
         window.history.replaceState(null, "", window.location.pathname);
