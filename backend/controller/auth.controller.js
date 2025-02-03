@@ -15,12 +15,17 @@ export const register = async (req, res, next) => {
                 message: "User already exists",
             });
         }
+        const adminEmail=["malinifoods123@gmail.com"]
+        let role="user";
+        if(adminEmail.includes(email)){
+            role = "admin"
+        }
         const newUser = new User({
             name,
             email,
             mobileNumber,
             password,
-            role: "user",
+            role,
         });
         const token = generateToken({id: newUser._id,name: newUser.name,email: newUser.email,mobileNumber: newUser.mobileNumber,address: newUser.address,role:newUser.role});
         const savedUser = await newUser.save();
