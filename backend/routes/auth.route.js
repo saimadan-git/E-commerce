@@ -1,6 +1,6 @@
 import express from 'express';
 import passport from 'passport';
-import { register,login,forgotPassword,resetPassword } from '../controller/auth.controller.js';
+import { register,login,forgotPassword,resetPassword} from '../controller/auth.controller.js';
 const router = express.Router();
 
 //register
@@ -11,6 +11,8 @@ router.post('/login', login);
 router.post('/forgot-password', forgotPassword);
 //Reset password
 router.post('/reset-password/:id/:token', resetPassword);
+//Admin Registration
+// router.post('/admin-register', adminRegister);
 
 // Redirect to Google OAuth
 router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));

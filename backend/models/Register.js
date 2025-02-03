@@ -17,6 +17,7 @@ const UserSchema = new mongoose.Schema({
   googleId: { type: String }, // For Google login
   provider: { type: String, default: 'local' }, // 'local' or 'google'
   address: { type: String , default: ''},
+  role: { type: String, default: 'user' }, // 'user' or 'admin'
 });
 
 export default mongoose.model('user', UserSchema);
