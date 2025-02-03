@@ -1,0 +1,42 @@
+.productsContainer {
+    padding: 20px;
+}
+
+.addButton {
+    padding: 10px 15px;
+    font-size: 1rem;
+    background-color: #2d572c;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    /* width: 100px; */
+    transition: background-color 0.3s ease;
+}
+
+.addButton:hover {
+    background-color: #1b3e1e;
+}
+
+.productList {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.productCard {
+    border: 1px solid #ddd;
+    padding: 15px;
+    text-align: center;
+    width: 250px;
+}
+
+.actions {
+    margin-top: 10px;
+}
+
+.editButton,
+.deleteButton {
+    padding: 5px 10px;
+    margin: 5px;
+}

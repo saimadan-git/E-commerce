@@ -19,6 +19,7 @@ import ResetPassword from "./pages/ResetPassword/ResetPassword.js";
 import { AuthProvider } from "./context/AuthContext.js";
 import ProtectedRoute from "./components/ProtectedRoute.js";
 import GuestRoute from "./components/GuestRoute.js";
+import Products from "./pages/ProductsAdmin/Products.js";
 
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
               <Route path="cart" element={<ProtectedRoute><Cart/></ProtectedRoute>} />
               <Route path="reset-password/:id/:token" element={<ResetPassword />} />
               <Route path="google-button" element={<GoogleButton />} />
+              <Route path="products-management" element={<Products />} />
             </Routes>
           </div>
           <Footer />
