@@ -6,6 +6,7 @@ import dotenv from 'dotenv';
 
 import authRoute from './routes/auth.route.js';
 import userRoute from './routes/user.route.js';
+import productsRoute from './routes/products.route.js';
 import passport from "./utils/Passport.js";
 
 dotenv.config();
@@ -22,6 +23,7 @@ app.use(passport.initialize());
 //Routes
 app.use("/auth", authRoute);
 app.use("/user", userRoute);
+app.use("/products", productsRoute);
 
 // MongoDB connection
 mongoose
