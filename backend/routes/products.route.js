@@ -1,9 +1,10 @@
 import express from 'express';
 import { createProduct,getProducts,updateProduct, deleteProduct } from '../controller/products.controller.js';
+import upload from '../utils/multerConfig.js';
 
 const router = express.Router();
 //Create a new product
-router.post('/create-product', createProduct);
+router.post('/create-product', upload.single("image"), createProduct);
 //Get all Products
 router.get("/get-products", getProducts);
 //Get product by ID

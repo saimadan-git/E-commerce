@@ -1,119 +1,130 @@
+/* Modal (Popup) Background */
 .formOverlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    /* max-height: 500px; */
-    overflow-y: auto;
     background: rgba(0, 0, 0, 0.5);
+    /* Semi-transparent black */
     display: flex;
-    align-items: center;
     justify-content: center;
-    z-index: 1000;
-}
-
-.formContainer {
-    background: white;
-    padding: 15px;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    width: 400px;
-    display: flex;
-    flex-direction: column;
     align-items: center;
+    z-index: 9999;
+    /* Ensure it's on top */
 }
 
-.formContainer h3 {
-    margin-bottom: 15px;
-    color: #333;
+/* Modal Container */
+.formContainer {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    width: 600px;
+    /* Adjust as needed */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+    max-height: 90vh;
+    /* Prevents the modal from getting too large */
+    position: relative;
+    z-index: 10000;
+    /* Ensures it's above the overlay */
+}
+
+/* Form Layout */
+.formGrid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    padding: 20px;
 }
 
 .inputGroup {
-    width: 100%;
     display: flex;
     flex-direction: column;
-    margin-bottom: 5px;
 }
 
-.inputGroup label {
-    font-size: 14px;
-    font-weight: 600;
-    margin-bottom: 5px;
-    color: #333;
+.fullWidth {
+    grid-column: span 2;
 }
 
-.inputGroup input,
-.inputGroup textarea {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 14px;
-}
-
-.inputGroup textarea {
-    resize: none;
-    height: 60px;
+.radioGroup {
+    display: flex;
+    gap: 15px;
+    align-items: center;
 }
 
 .fileInput {
     display: flex;
     flex-direction: column;
-    margin-bottom: 15px;
-}
-
-.fileInput input {
-    margin-top: 5px;
 }
 
 .buttonGroup {
     display: flex;
     justify-content: space-between;
-    width: 100%;
+    grid-column: span 2;
 }
 
+/* Input Styles */
+input,
+textarea,
+select {
+    padding: 10px;
+    margin-top: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+input[type="file"] {
+    margin-top: 8px;
+}
+
+/* Button Styles */
 .submitButton {
-    padding: 10px 15px;
-    font-size: 1rem;
-    background-color: #2d572c;
+    background-color: #4caf50;
     color: white;
+    padding: 10px 20px;
+    font-size: 16px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    /* width: 100px; */
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s;
 }
 
 .submitButton:hover {
-    background-color: #1b3e1e;
+    background-color: #45a049;
 }
 
 .cancelButton {
-    background-color: #dc3545;
+    background-color: #f44336;
     color: white;
-    padding: 10px 15px;
-    font-size: 1rem;
+    padding: 10px 20px;
+    font-size: 16px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s;
 }
 
+.cancelButton:hover {
+    background-color: #e53935;
+}
+
+/* Error Message Styles */
 .errorMessage {
-    color: red;
-    font-size: 12px;
-    margin-top: 0px;
-    /* Add spacing below input fields */
+    color: #f44336;
+    font-size: 14px;
+    margin-top: 5px;
 }
 
+/* Loader Styles */
 .loader {
-    border: 8px solid #f3f3f3;
-    border-top: 8px solid #3498db;
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #3498db;
     border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    animation: spin 2s linear infinite;
+    width: 20px;
+    height: 20px;
+    animation: spin 1s linear infinite;
 }
 
 @keyframes spin {
@@ -126,6 +137,20 @@
     }
 }
 
-.cancelButton:hover {
-    background-color: #c82333;
+/* Adjusting for smaller screens */
+@media (max-width: 768px) {
+    .formGrid {
+        grid-template-columns: 1fr;
+        /* Stack the fields on smaller screens */
+    }
+
+    .buttonGroup {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .formContainer {
+        width: 90%;
+        /* Responsive width for smaller devices */
+    }
 }

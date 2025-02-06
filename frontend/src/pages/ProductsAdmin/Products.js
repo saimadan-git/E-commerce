@@ -16,8 +16,8 @@ const Products = () => {
 
     const fetchProducts = async () => {
         try {
-            const response = await api.get("/products");
-            setProducts(response.data);
+            const response = await api.get("/products/get-products");
+            setProducts(response.data.data);
         } catch (error) {
             notifyError("Failed to fetch products!");
         }
@@ -26,7 +26,7 @@ const Products = () => {
     const handleDelete = async (id) => {
         if (window.confirm("Are you sure you want to delete this product?")) {
             try {
-                await api.delete(`/products/${id}`);
+                await api.delete(`/products/delete-product/${id}`);
                 setProducts(products.filter((product) => product._id !== id));
                 notifySuccess("Product deleted successfully!");
             } catch (error) {
@@ -61,7 +61,7 @@ const Products = () => {
             <div className={styles.productList}>
                 {products.map((product) => (
                     <div key={product._id} className={styles.productCard}>
-                        <img src={`${process.env.REACT_APP_BACKEND_URL}/images/${product.image}`} alt={product.name} />
+                        <img src={product.image} alt={product.name} className={styles.productImage}/>
                         <h3>{product.name}</h3>
                         <p>{product.description}</p>
                         <p><strong>Weight:</strong> {product.weight}g</p>
