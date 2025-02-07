@@ -3,6 +3,8 @@ import nodemailer from 'nodemailer';
 import jwt from 'jsonwebtoken';
 import { generateToken } from '../utils/generateToken.js';
 import { response } from 'express';
+import dotenv from 'dotenv';
+dotenv.config();
 
 //Register
 export const register = async (req, res, next) => {
@@ -137,6 +139,8 @@ export const login = async (req, res, next) => {
 //Forgot Password
 
 export const forgotPassword = async (req, res) => {
+    console.log(process.env.EMAIL_USER);
+    console.log(process.env.EMAIL_PASS);
     const { email } = req.body;
 
     const user = await User.findOne({ email });
@@ -152,8 +156,9 @@ export const forgotPassword = async (req, res) => {
   `;
 
     try {
+        //console.log(process.env.EMAIL_USER);
         await tr.sendMail({
-            from: "koundinya2608@gmail.com",
+            from: "malinifoods123@gmail.com",
             to: email,
             subject: "Password Reset Request",
             html: emailHtml,
@@ -227,10 +232,23 @@ catch (error) {
 //     }
 // }
 //Email Transporter
+//require('dotenv').config();
+
 const tr = nodemailer.createTransport({
+    // host: "smtp.gmail.com",
+    // port: 465,  // SSL port
+    // secure: true, // Use true for 465
     service: "gmail",
     auth: {
-        user: "koundinya2608@gmail.com",
-        pass: "dzeqjiflgnvuwsgc"
+      user: process.env.EMAIL_USER,
+      pass: process.env.EMAIL_PASS,
     },
+    
 });
+// tr.verify((error, success) => {
+//     if (error) {
+//       console.error("Transporter verification failed:", error);
+//     } else {
+//       console.log("Transporter is ready to send emails:", success);
+//     }
+//   });
