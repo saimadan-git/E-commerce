@@ -84,6 +84,11 @@ export const updateProduct = async(req,res)=>{
             category,
             availability,
         };
+
+        if(req.file) {
+            updatedData.image = req.file.path;
+        }
+
         const updatedProduct = await products.findByIdAndUpdate(productId,updatedData,{new:true});
         if(!updatedProduct){
             return res.status(404).json({

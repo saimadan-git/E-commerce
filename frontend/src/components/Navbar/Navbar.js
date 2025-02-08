@@ -5,6 +5,7 @@ import AuthContext from "../../context/AuthContext";
 
 const Navbar = () => {
   const { user, logout } = useContext(AuthContext);
+  const isAdmin = user && user.role === "admin";
   return (
     <nav className="navbar">
       <Link to="/" className="logo" aria-label="Malini Foods Home">
@@ -25,6 +26,7 @@ const Navbar = () => {
         {user && (
           <>
             <li><Link to="/profile">Profile</Link></li>
+            {isAdmin && <li><Link to="/products-management">Product Management</Link></li>}
             <li><Link to="/cart">Cart</Link></li>
             <li><Link onClick={logout}>Logout</Link></li>
           </>

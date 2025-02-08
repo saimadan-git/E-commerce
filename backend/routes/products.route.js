@@ -10,7 +10,7 @@ router.get("/get-products", getProducts);
 //Get product by ID
 router.get("/get-product/:productId", getProducts);
 //Update product by ID
-router.put("/update-product/:productId", updateProduct);
+router.put("/update-product/:productId", upload.single('image'), updateProduct);
 //Delete product by ID
 router.delete("/delete-product/:productId", deleteProduct);
 export default router;

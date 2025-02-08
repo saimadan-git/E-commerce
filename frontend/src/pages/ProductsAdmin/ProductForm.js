@@ -9,8 +9,8 @@ const ProductForm = ({ product, refreshProducts, closeForm }) => {
         description: product?.description || "",
         weight: product?.weight || "",
         price: product?.price || "",
-        category: product?.category || "veg",  // Default to "non-veg"
-        availability: product?.availability || true,  // Default to false
+        category: product?.category || "veg",
+        availability: product?.availability ?? true,
         image: null,
     });
     const [errors, setErrors] = useState({});
@@ -34,7 +34,7 @@ const ProductForm = ({ product, refreshProducts, closeForm }) => {
                 if (!value) error = "Price is required.";
                 break;
             case "image":
-                if (!value) error = "Image is required.";
+                if (!product && !value) error = "Image is required.";
                 break;
             default:
                 break;
@@ -90,11 +90,19 @@ const ProductForm = ({ product, refreshProducts, closeForm }) => {
 
         try {
             if (product) {
-                await api.put(`/products/update-product/${product._id}`, formDataToSend);
-                notifySuccess("Product updated successfully!");
+                const response = await api.put(`/products/update-product/${product._id}`, formDataToSend);
+                if (response.data.status === "success") {
+                    notifySuccess(response.data.message);
+                } else {
+                    notifyError(response.data.message);
+                }
             } else {
-                await api.post("/products/create-product", formDataToSend);
-                notifySuccess("Product added successfully!");
+                const response = await api.post("/products/create-product", formDataToSend);
+                if (response.data.status === "success") {
+                    notifySuccess(response.data.message);
+                } else {
+                    notifyError(response.data.message);
+                }
             }
             refreshProducts();
             closeForm();
