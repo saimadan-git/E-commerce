@@ -1,0 +1,260 @@
+/* Reset default margins and paddings */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.shopContainer {
+  display: flex;
+  height: 90vh;
+  margin: auto;
+  padding: 20px;
+  gap: 20px;
+  background-color: #f2f2f2;
+  align-items: flex-start;
+}
+
+.sidebar {
+  width: 200px;
+  background-color: #e0e4f0;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  flex-shrink: 0;
+  position: sticky;
+  top: 20px;
+  overflow-y: auto;
+  margin: auto;
+}
+
+.sidebar h3 {
+  font-size: 18px;
+  margin-bottom: 15px;
+  color: #2e7d32;
+}
+
+.filterGroup {
+  margin-bottom: 20px;
+}
+
+.filterLabel {
+  font-size: 16px;
+  font-weight: bold;
+  color: #2e7d32;
+  display: block;
+  margin-bottom: 5px;
+}
+
+
+.priceOptions {
+  display: flex;
+  flex-direction: column;  /* Stack checkboxes vertically */
+  gap: 10px;  /* Adds spacing between checkboxes */
+}
+
+.checkboxLabel {
+  display: flex;
+  align-items: center;  /* Ensures checkbox and text are aligned */
+  gap: 8px;  /* Space between checkbox and label text */
+  font-size: 14px;
+  cursor: pointer;
+  color: #333; /* Adjust text color as per your theme */
+}
+
+.checkboxLabel input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: #4CAF50; /* Light Green theme */
+  cursor: pointer;
+}
+
+.searchBar {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 10px;
+}
+
+/* Search Bar */
+.searchInput {
+  width: 280px;
+  padding: 8px;
+}
+
+/* Product Grid */
+.productGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+
+/* Product Grid */
+.productSection {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  max-height: 80vh; /* Limits height for scrolling */
+  overflow-y: auto; /* Enables vertical scrolling */
+  scrollbar-width: none;
+}
+
+.productSection::-webkit-scrollbar {
+  display: none;
+}
+
+.headerRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+/* Page Title */
+.pageTitle {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #388e3c;
+}
+
+
+.productCard {
+  max-width: 350px; /* Fixed width for consistency */
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.2s ease-in-out;
+}
+
+.productCard:hover {
+  transform: translateY(-5px);
+}
+
+/* Product Image */
+.productImage {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.productInfo {
+  padding: 12px;  /* Add padding on all sides */
+  text-align: left; /* Align text to the left */
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 6px; /* Adds spacing between items */
+}
+
+.productWeight {
+  font-size: 12px;
+  font-weight: bold;
+  color: #666;
+}
+
+.categoryIcon {
+  width: 20px;
+  height: 20px;
+}
+
+.productPrice {
+  font-size: 18px;
+  font-weight: bold;
+  color: #27ae60;
+}
+
+.inStock {
+  color: green;
+  font-weight: bold;
+}
+
+.outOfStock {
+  color: red;
+  font-weight: bold;
+}
+
+/* Ensure weight and category icon are properly aligned */
+.productMeta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 12px;  /* Adds horizontal padding */
+}
+
+/* Product Name */
+.productName {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+  padding: 0 12px; /* Left & right padding */
+}
+
+/* Description */
+.productDescription {
+  font-size: 14px;
+  color: #666;
+  height: 40px; /* Fixed height for 2 lines */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding: 0 12px; /* Left & right padding */
+}
+
+/* Price & Stock */
+.priceStock {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 6px;
+  padding: 0 12px; /* Left & right padding */
+}
+
+/* Buttons */
+.buttonGroup {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+  padding: 0 12px; /* Left & right padding */
+}
+
+.addToCartButton, .buyNowButton {
+  flex: 1;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.addToCartButton {
+  background: white;
+  color: #2d572c;
+  border: 1px solid #2d572c;
+}
+
+.buyNowButton {
+  background: #2d572c;
+  color: #fff;
+  border: none;
+}
+
+.buttonGroup button:hover {
+  filter: brightness(0.9);
+}
+
+.addToCartButton:disabled, .buyNowButton:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+/* No Products Message */
+.noProducts {
+  font-size: 1.2rem;
+  color: #757575;
+  text-align: center;
+}
