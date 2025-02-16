@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import api from "../../utils/api";
 import Loader from "../../components/Loader";
 import styles from "./Shop.module.css";
+import { useNavigate } from "react-router-dom";
 
 const Shop = () => {
     const DUMMY_IMAGE = "https://t3.ftcdn.net/jpg/04/34/72/82/360_F_434728286_OWQQvAFoXZLdGHlObozsolNeuSxhpr84.jpg";
@@ -14,6 +15,8 @@ const Shop = () => {
     const [sortOrder, setSortOrder] = useState("");
     const [priceRanges, setPriceRanges] = useState(new Set());
     const [loading, setLoading] = useState(true);
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         fetchProducts();
@@ -169,7 +172,7 @@ const Shop = () => {
                 <div className={styles.productGrid}>
                     {filteredProducts.length > 0 && (
                         filteredProducts.map((product) => (
-                            <div key={product._id} className={styles.productCard}>
+                            <div onClick={() => navigate(`/product/${product._id}`)} key={product._id} className={styles.productCard}>
                                 {/* Product Image - Full Width */}
                                 <img
                                     src={product.image || DUMMY_IMAGE}

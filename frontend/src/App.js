@@ -21,6 +21,7 @@ import ProtectedRoute from "./components/ProtectedRoute.js";
 import GuestRoute from "./components/GuestRoute.js";
 import Products from "./pages/ProductsAdmin/Products.js";
 import AdminRoute from "./components/AdminRoute.js";
+import ProductDetails from "./pages/ProductDetails";
 
 function App() {
   return (
@@ -42,6 +43,7 @@ function App() {
               <Route path="reset-password/:id/:token" element={<ResetPassword />} />
               <Route path="google-button" element={<GoogleButton />} />
               <Route path="products-management" element={<AdminRoute><Products /></AdminRoute>} />
+              <Route path="/product/:productId" element={<ProtectedRoute><ProductDetails /></ProtectedRoute>} />
             </Routes>
           </div>
           <Footer />
