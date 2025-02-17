@@ -239,11 +239,13 @@
 .relatedProductsSection {
     margin-top: 50px;
     position: relative;
+    text-align: center;
 }
 
 /* Related Products List */
 .relatedProductsList {
     display: flex;
+    justify-content: center;
     gap: 15px;
     overflow-x: auto;
     padding: 10px 0;
