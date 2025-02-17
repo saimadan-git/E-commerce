@@ -70,9 +70,10 @@ const ProductDetails = () => {
             <div className={styles.productDetailsContainer}>
                 <div className={styles.imageContainer}>
                     <img src={product.image} alt={product.name} className={styles.productImage} />
-                    <div className={styles.categoryBadge}>
+                    <div className={`${styles.categoryBadge} ${product.category === "veg" ? styles.vegTag : styles.nonVegTag}`}>
                         {product.category === "veg" ? "🌱 Veg" : "🍗 Non-Veg"}
                     </div>
+
                 </div>
 
                 <div className={styles.detailsContainer}>
