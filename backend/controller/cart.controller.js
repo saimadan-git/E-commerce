@@ -1,6 +1,5 @@
 import Cart from "../models/cart.js";
 import products from "../models/products.js";
-import user from "../models/Register.js";
 //To add items to the cart
 //1.Adding of items to the cart.
 export const addCart = async (req, res) => {
@@ -18,8 +17,8 @@ export const addCart = async (req, res) => {
         if (!cart) {
             cart = new Cart({
                 userId: userId,
-                cartItems: [{ productId: productId, quantity, selectedWeight, price: product.price * quantity }],
-                totalPrice: product.price * quantity,
+                cartItems: [{ productId: productId, quantity, selectedWeight , price: product.price * quantity }],//Weight should be variable
+                totalPrice: product.price * quantity,// Add the same product with different weight
             });
         } else {
             // Check if the product already exists in the cart
@@ -65,7 +64,13 @@ export const getCart = async (req, res) => {
                 status: "error",
                 message: "Cart not found" });
         }
-        res.status(200).json(cart);
+        if (cart.cartItems.length === 0) {
+            return res.status(200).json({
+                status: "success",
+                message: "Cart is empty",
+            });
+        }
+        res.status(200).json(cart); //Also need product details
     } catch (error) {
         res.status(500).json({
             status: "error",
@@ -74,7 +79,7 @@ export const getCart = async (req, res) => {
         });
     }
 }
-//3.If any item exists in the cart, need to increse the quantity of the item.
+//3.Update the cart with the quantity and weight of the product.
 // export const updateCart = async (req, res) => {
 //     try {
 //         const { userId } = req.params;
@@ -113,7 +118,7 @@ export const getCart = async (req, res) => {
 //         });
 //     }
 // }
-//4.Remove items from the cart.
+//4.Remove items from the cart. remove whole item
 export const removeItem = async (req, res) => {
     try {
         const { userId,productId } = req.params;
