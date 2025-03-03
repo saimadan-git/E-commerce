@@ -8,4 +8,4 @@ const productSchema = new mongoose.Schema({
   category: { type: String, required: true },
   availability: { type: Boolean, default:true},
 });
-export default mongoose.model("product", productSchema);
+export default mongoose.model("Product", productSchema);

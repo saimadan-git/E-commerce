@@ -1,11 +1,11 @@
-import products from "../models/products.js";
+import Product from "../models/products.js";
 
 //Create Product
 export const createProduct = async (req, res) => {
     const { name, price, weight, description, category, availability } = req.body;
     const image = req.file.path;
     try {
-        const product = new products({
+        const product = new Product({
             name,
             price,
             description,
@@ -32,7 +32,7 @@ export const createProduct = async (req, res) => {
 export const getProducts = async (req, res) => {
 
     try {
-        const allProducts = await products.find();
+        const allProducts = await Product.find();
         res.status(200).json({
             status: "success",
             message: "All products",
@@ -51,7 +51,7 @@ export const getProducts = async (req, res) => {
 export const getProductById = async (req, res) => {
     const { productId } = req.params;
     try {
-        const product = await products.findById(productId);
+        const product = await Product.findById(productId);
         if (!product) {
             return res.status(404).json({
                 status: "error",
@@ -91,7 +91,7 @@ export const updateProduct = async (req, res) => {
             updatedData.image = req.file.path;
         }
 
-        const updatedProduct = await products.findByIdAndUpdate(productId, updatedData, { new: true });
+        const updatedProduct = await Product.findByIdAndUpdate(productId, updatedData, { new: true });
         if (!updatedProduct) {
             return res.status(404).json({
                 status: "error",
@@ -116,7 +116,7 @@ export const updateProduct = async (req, res) => {
 export const deleteProduct = async (req, res) => {
     const { productId } = req.params;
     try {
-        const deletedProduct = await products.findByIdAndDelete(productId);
+        const deletedProduct = await Product.findByIdAndDelete(productId);
         if (!deletedProduct) {
             return res.status(404).json({
                 status: "error",
@@ -139,8 +139,8 @@ export const deleteProduct = async (req, res) => {
 export const getRelatedProducts = async (req, res) => {
     const { productId } = req.params;
     try {
-        const product = await products.findById(productId);
-        const relatedProducts = await products.find({ category: product.category });
+        const product = await Product.findById(productId);
+        const relatedProducts = await Product.find({ category: product.category });
         res.status(200).json({
             status: "success",
             message: "Related Products",

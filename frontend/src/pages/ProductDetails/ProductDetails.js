@@ -1,8 +1,10 @@
-import React, { useState, useEffect, useRef } from "react";
-import { useParams, Link } from "react-router-dom";
+import React, { useState, useEffect, useRef, useContext } from "react";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import api from "../../utils/api";
 import styles from "./ProductDetails.module.css";
 import { FaCheckCircle, FaShippingFast, FaTag, FaPlus, FaMinus, FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { notifyError, notifySuccess } from "../../utils/toastUtils";
+import AuthContext from "../../context/AuthContext.js";
 
 const weightOptions = [
     { label: "250g", value: 250 },
@@ -11,6 +13,9 @@ const weightOptions = [
 ];
 
 const ProductDetails = () => {
+    const navigate = useNavigate();
+    const {user} = useContext(AuthContext);
+
     const { productId } = useParams();
     const [product, setProduct] = useState(null);
     const [relatedProducts, setRelatedProducts] = useState([]);
@@ -63,6 +68,29 @@ const ProductDetails = () => {
         }
     };
 
+    const handleAddToCart = async () => {
+        const USER_ID = user?.id;
+        if(product.availability){
+            try {
+                const response = await api.post("/cart/add", {
+                    userId: USER_ID,
+                    productId: product._id,
+                    quantity,
+                    selectedWeight
+                });
+                
+                if (response.data.success) {
+                    notifySuccess(response.data.message);
+                    navigate("/cart");  // Navigate to Cart Page
+                } else {
+                    notifyError(response.data.message);
+                }
+            } catch (error) {
+                notifyError("Error adding product to cart. Please try again.");
+            }
+        }
+    }
+
     if (!product) return <p className={styles.loading}>Loading product details...</p>;
 
     return (
@@ -113,7 +141,7 @@ const ProductDetails = () => {
                     </p>
 
                     <div className={styles.actions}>
-                        <button className={styles.addToCartButton} disabled={!product.availability}>
+                        <button className={styles.addToCartButton} onClick={handleAddToCart} disabled={!product.availability}>
                             Add to Cart
                         </button>
                         <button className={styles.buyNowButton} disabled={!product.availability}>
