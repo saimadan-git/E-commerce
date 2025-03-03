@@ -7,6 +7,7 @@ import dotenv from 'dotenv';
 import authRoute from './routes/auth.route.js';
 import userRoute from './routes/user.route.js';
 import productsRoute from './routes/products.route.js';
+import cartRoute from './routes/cart.route.js';
 import passport from "./utils/Passport.js";
 import cartRoute from './routes/cart.route.js';
 
