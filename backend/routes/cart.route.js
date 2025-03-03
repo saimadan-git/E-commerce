@@ -8,7 +8,7 @@ router.get('/getCart/:userId', getCart);
 //Update cart
 router.put('/updateCart/:userId/:productId', updateCart);
 //Remove item from cart
-router.delete('/removeItem/:userId/:productId', removeItem);
+router.delete('/removeItem/:userId/:itemId', removeItem);
 //Clear cart
 router.delete('/clearCart/:userId', clearCart);
 export default router;
