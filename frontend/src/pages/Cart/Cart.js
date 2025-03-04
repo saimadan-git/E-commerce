@@ -21,8 +21,8 @@ const Cart = () => {
     const fetchCartItems = async () => {
         setIsLoading(true);
         try {
-            const response = await api.get(`/cart/${user.id}`);
-            setCartItems(response.data.data.items);
+            const response = await api.get(`/cart/getCart/${user.id}`);
+            setCartItems(response.data.data.cartItems);
             setTotalPrice(response.data.data.totalPrice);
         } catch (error) {
             console.error("Error fetching cart items:", error);
@@ -31,10 +31,10 @@ const Cart = () => {
         }
     };
 
-    const updateCartItem = async (itemId, quantity, selectedWeight) => {
+    const updateCartItem = async (itemId, quantity) => {
         setIsLoading(true);
         try {
-            const response = await api.put(`/cart/update`, {userId:user.id, productId: itemId, quantity, selectedWeight });
+            const response = await api.put(`/cart/updateCart/${user.id}/${itemId}`, { quantity });
             if (response.data.success) {
                 notifySuccess(response.data.message);
             } else {
@@ -48,11 +48,10 @@ const Cart = () => {
     };
 
     const removeCartItem = async (itemId, selectedWeight) => {
-        console.log(itemId, selectedWeight);
-        setIsLoading(true);
+        // setIsLoading(true);
         try {
-            const response = await api.delete(`/cart/remove/${itemId}?userId=${user.id}&selectedWeight=${selectedWeight}`);
-            if (response.data.success) {
+            const response = await api.delete(`/cart/removeItem/${user.id}/${itemId}`);
+            if (response.data.status === 'success') {
                 notifySuccess(response.data.message);
             } else {
                 notifyError(response.data.message);
@@ -60,9 +59,10 @@ const Cart = () => {
             setCartItems(cartItems.filter(item => item._id !== itemId));
         } catch (error) {
             console.error("Error removing cart item:", error);
-        } finally {
-            setIsLoading(false);
-        }
+        } 
+        // finally {
+        //     setIsLoading(false);
+        // }
     };
 
     const handleQuantityChange = (item, type) => {
