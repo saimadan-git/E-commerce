@@ -30,7 +30,7 @@ const ProductDetails = () => {
 
     useEffect(() => {
         if (product) {
-            setPrice(calculatePrice(product.price, selectedWeight));
+            setPrice(calculatePrice(product.price,product.weight, selectedWeight));
             fetchRelatedProducts(product.category);
         }
     }, [product, selectedWeight]);
@@ -54,8 +54,9 @@ const ProductDetails = () => {
         }
     };
 
-    const calculatePrice = (basePrice, weight) => {
-        return (basePrice / 250) * weight;
+    const calculatePrice = (price, weight, selectedWeight) => {
+        const pricePerGram = price / weight;
+        return pricePerGram * selectedWeight;
     };
 
     const handleQuantityChange = (type) => {

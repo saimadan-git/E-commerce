@@ -53,11 +53,11 @@ const Cart = () => {
         try {
             const response = await api.delete(`/cart/removeItem/${user.id}/${itemId}`);
             if (response.data.status === 'success') {
+                fetchCartItems();
                 notifySuccess(response.data.message);
             } else {
                 notifyError(response.data.message);
             }
-            setCartItems(cartItems.filter(item => item._id !== itemId));
         } catch (error) {
             console.error("Error removing cart item:", error);
         } 
