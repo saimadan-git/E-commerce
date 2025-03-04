@@ -150,7 +150,7 @@ export const updateCart = async (req, res) => {
         cart.totalPrice = cart.cartItems.reduce((total, item) => total + item.price, 0);
         await cart.save();
         return res.status(200).json({
-            status: "Success",
+            status: "success",
             message: "Cart updated successfully",
             data: cart
         });
