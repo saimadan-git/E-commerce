@@ -99,7 +99,7 @@ export const getCart = async (req, res) => {
         };
 
         return res.status(200).json({
-            status: "error",
+            status: "success",
             message: "Cart retrieved successfully",
             data: formattedCart
         });
