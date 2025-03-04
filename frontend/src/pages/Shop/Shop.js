@@ -1,8 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import api from "../../utils/api";
 import Loader from "../../components/Loader";
 import styles from "./Shop.module.css";
 import { useNavigate } from "react-router-dom";
+import AuthContext from "../../context/AuthContext.js";
+import { notifyError, notifySuccess } from "../../utils/toastUtils";
+
 
 const Shop = () => {
     const DUMMY_IMAGE = "https://t3.ftcdn.net/jpg/04/34/72/82/360_F_434728286_OWQQvAFoXZLdGHlObozsolNeuSxhpr84.jpg";
@@ -15,8 +18,10 @@ const Shop = () => {
     const [sortOrder, setSortOrder] = useState("");
     const [priceRanges, setPriceRanges] = useState(new Set());
     const [loading, setLoading] = useState(true);
+    
 
     const navigate = useNavigate();
+    const {user} = useContext(AuthContext);
 
     useEffect(() => {
         fetchProducts();
@@ -90,6 +95,31 @@ const Shop = () => {
     useEffect(() => {
         applyFilters();
     }, [search, category, sortOrder, priceRanges, products]);
+
+    const handleAddToCart = async (event, product) => {
+        event.stopPropagation();
+        const USER_ID = user?.id;
+        console.log(product);
+        if(product.availability){
+            try {
+                const response = await api.post("/cart/add", {
+                    userId: USER_ID,
+                    productId: product._id,
+                    quantity: 1,
+                    selectedWeight: product.weight
+                });
+                
+                if (response.data.success) {
+                    notifySuccess(response.data.message);
+                    navigate("/cart");  // Navigate to Cart Page
+                } else {
+                    notifyError(response.data.message);
+                }
+            } catch (error) {
+                notifyError("Error adding product to cart. Please try again.");
+            }
+        }
+    }
 
     return (
         <div className={styles.shopContainer}>
@@ -217,6 +247,7 @@ const Shop = () => {
                                         <button
                                             className={styles.addToCartButton}
                                             disabled={!product.availability}
+                                            onClick={(e) => handleAddToCart(e, product)}
                                         >
                                             Add to Cart
                                         </button>
