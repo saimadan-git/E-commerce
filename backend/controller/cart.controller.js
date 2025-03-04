@@ -114,8 +114,8 @@ export const getCart = async (req, res) => {
 //3.Update the cart, increase or decrease the quantity of the product on the cart page itself.
 export const updateCart = async (req, res) => {
     try {
-        const { userId, productId } = req.params;
-        const { quantity, selectedWeight } = req.body;
+        const { userId, itemId } = req.params;
+        const { quantity } = req.body;
         const cart = await Cart.findOne({ userId });
         if (!cart) {
             return res.status(404).json({
@@ -123,7 +123,7 @@ export const updateCart = async (req, res) => {
                 message: "Cart not found"
             });
         }
-        const cartItem = cart.cartItems.find(item => item.productId.toString() === productId && item.selectedWeight == selectedWeight);
+        const cartItem = cart.cartItems.find(item => item._id.toString() === itemId);
         // console.log("cart",cart);
         // console.log("weight",selectedWeight);
         // console.log(productId);
@@ -134,7 +134,7 @@ export const updateCart = async (req, res) => {
                 message: "Product not found in cart"
             });
         }
-        const product = await products.findById(productId);
+        const product = await products.findById(cartItem.productId);
         if (!product) {
             return res.status(404).json({
                 status: "error",
@@ -143,7 +143,7 @@ export const updateCart = async (req, res) => {
         }
         const basePrice = product.price;
         const baseWeight = product.weight;
-        const calculatePrice = (basePrice / baseWeight) * selectedWeight * quantity;
+        const calculatePrice = (basePrice / baseWeight) * cartItem.selectedWeight * quantity;
         cartItem.quantity = quantity;
         cartItem.price = calculatePrice;
         // Update total price

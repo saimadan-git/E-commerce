@@ -6,7 +6,7 @@ router.post('/addToCart', addCart);
 //Get cart
 router.get('/getCart/:userId', getCart);
 //Update cart
-router.put('/updateCart/:userId/:productId', updateCart);
+router.put('/updateCart/:userId/:itemId', updateCart);
 //Remove item from cart
 router.delete('/removeItem/:userId/:itemId', removeItem);
 //Clear cart
