@@ -35,7 +35,8 @@ const Cart = () => {
         setIsLoading(true);
         try {
             const response = await api.put(`/cart/updateCart/${user.id}/${itemId}`, { quantity });
-            if (response.data.success) {
+            if (response.data.status === 'success') {
+                fetchCartItems();
                 notifySuccess(response.data.message);
             } else {
                 notifyError(response.data.message);
@@ -101,7 +102,7 @@ const Cart = () => {
                                         </button>
                                     </div>
                                 </div>
-                                <p className={styles.productPrice}>₹{item.price * item.quantity}</p>
+                                <p className={styles.productPrice}>₹{item.price}</p>
                                 <button className={styles.removeButton} onClick={() => removeCartItem(item._id, item.selectedWeight)}>
                                     <FaTrash />
                                 </button>
