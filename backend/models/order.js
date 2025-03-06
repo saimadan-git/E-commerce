@@ -5,6 +5,7 @@ const orderSchema = new mongoose.Schema({
   orderDate: { type: Date, default: Date.now },
   deliveryDate: { type: Date, default: Date.now },
   status: { type: String, default: 'Order Placed' },
+  paymentStatus: { type: String, default: 'Pending' },
   totalPrice: { type: Number, required: true },
   });
 export default mongoose.model("Order", orderSchema);
