@@ -6,7 +6,7 @@ import Home from "./pages/Home";
 import './App.css';
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
-import Login from "./pages/Login";
+import Login from "./pages/Login/Login";
 import Register from "./pages/Register";
 import Shop from "./pages/Shop";
 import ForgetPassword from "./pages/ForgetPassword";
