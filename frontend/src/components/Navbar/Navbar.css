@@ -1,41 +1,73 @@
-/* Navbar.css */
+/* Navbar Container */
 .navbar {
   display: flex;
   justify-content: space-between;
-  align-items: center; /* Vertically center content */
+  align-items: center;
   padding: 0 20px;
-  height: 50px; /* Slightly increased for better alignment */
+  height: 50px;
   background-color: #2d572c;
   color: white;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
+/* Logo Styling */
 .logo {
   font-size: 1.5rem;
   font-weight: bold;
-  margin: 0; /* Ensure no additional spacing */
-  text-decoration: none; /* Remove underline from clickable logo */
-  color: white; /* Ensure the logo stays white */
+  text-decoration: none;
+  color: white;
+  transition: color 0.3s ease;
 }
 
 .logo:hover {
-  color: #a3d977; /* Add a hover effect for logo */
-  text-decoration: none; /* Keep it clean without underline */
+  color: #a3d977;
 }
 
+/* Navigation Links */
 .nav-links {
   list-style: none;
   display: flex;
-  gap: 20px;
+  gap: 15px; /* Reduced spacing */
   margin: 0;
+  padding: 0;
+}
+
+.nav-links li {
+  position: relative;
 }
 
 .nav-links a {
   text-decoration: none;
   color: white;
   font-size: 1rem;
+  padding: 8px 12px;
+  transition: color 0.3s ease;
 }
 
-.nav-links a:hover {
-  text-decoration: none;
-  color: #a3d977; /* Change color on hover for better visual feedback */
+/* Active Nav Item - Bold Text */
+.nav-links .active {
+  font-weight: bold;
+  color: #a3d977;
 }
+
+/* Hover Effect */
+.nav-links a:hover {
+  color: #a3d977;
+}
+
+/* Logout Button */
+/* .logout-link {
+  padding: 6px 12px;
+  border-radius: 4px;
+  background: transparent;
+  border: 2px solid #d9534f;
+  color: #d9534f;
+  font-size: 1rem;
+  transition: 0.3s;
+} */
+/* 
+.logout-link:hover {
+  background: #d9534f;
+  color: white;
+  font-weight: bold;
+} */
