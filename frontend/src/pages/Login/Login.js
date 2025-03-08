@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react"; 
-import "./Login.css";
+import styles from "./Login.module.css";
 import { notifyError, notifySuccess } from "../../utils/toastUtils";
 import { Link, useNavigate } from 'react-router-dom';
 import api from "../../utils/api.js";
@@ -86,13 +86,13 @@ const Login = () => {
   };
 
   return (
-    <div className="login-page">
-      <div className="login-card">
+    <div className={styles.loginPage}>
+      <div className={styles.loginCard}>
         <h2>Welcome Back!</h2>
         <p>Please login to your account</p>
 
-        <form className="login-form" onSubmit={handleSubmit}>
-          <div className="form-group">
+        <form className={styles.loginForm} onSubmit={handleSubmit}>
+          <div className={styles.formGroup}>
             <input 
               type="text" 
               id="email" 
@@ -102,11 +102,11 @@ const Login = () => {
               onChange={handleInputChange} 
             />
             <label htmlFor="email">Email</label>
-            {errors.email && <p className="error-message">{errors.email}</p>}
+            {errors.email && <p className={styles.errorMessage}>{errors.email}</p>}
           </div>
 
-          <div className="form-group">
-            <div className="password-wrapper">
+          <div className={styles.formGroup}>
+            <div className={styles.passwordWrapper}>
               <input 
                 type={passwordVisible ? "text" : "password"} 
                 id="password"
@@ -117,27 +117,27 @@ const Login = () => {
               />
               <label htmlFor="password">Password</label>
               <span
-                className="password-toggle-icon"
+                className={styles.passwordToggleIcon}
                 onClick={togglePasswordVisibility}
               >
                 {passwordVisible ? "👁️" : "🙈"}
               </span>
             </div>
-            {errors.password && <p className="error-message">{errors.password}</p>}
+            {errors.password && <p className={styles.errorMessage}>{errors.password}</p>}
           </div>
 
-          <div className="login-btn-container">
-            <p className="login-footer">
+          <div className={styles.loginBtnContainer}>
+            <p className={styles.login}>
               <Link to="/forget-password">Forget Password?</Link>
             </p>
-            <button type="submit" className="login-button">Login</button>
+            <button type="submit" className={styles.loginButton}>Login</button>
           </div>
         </form>
 
-        <p className="login-footer">
+        <p className={styles.loginFooter}>
           Don't have an account? <Link to="/register">Register</Link>
         </p>
-        <p className="or-text">or</p>
+        <p className={styles.orText}>or</p>
         <LoginWithGoogle />
       </div>
     </div>
