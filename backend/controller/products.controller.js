@@ -14,7 +14,7 @@ export const createProduct = async (req, res) => {
         //         message: "Image file is required!",
         //     });
         // }
-        // console.log("🖼 Image Path:", image);
+        // console.log(image);
         const productExists = await Product.findOne({ name });
         if (productExists) {
             return res.status(400).json({
