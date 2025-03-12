@@ -77,7 +77,8 @@ export const getCart = async (req, res) => {
         if (cart.cartItems.length === 0) {
             return res.status(200).json({
                 status: "success",
-                message: "Cart is empty"
+                message: "Cart is empty",
+                data: cart
             });
         }
         const formattedCart = {

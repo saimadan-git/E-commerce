@@ -7,7 +7,6 @@ export const createProduct = async (req, res) => {
         const image = req.file.path;
         // console.log(req.body);
         // console.log(req.file);
-
         // if (!req.file) {
         //     return res.status(400).json({
         //         status: "error",
