@@ -5,8 +5,8 @@ export const createProduct = async (req, res) => {
     try {
         const { name, price, weight, description, category, availability } = req.body;
         const image = req.file.path;
-        // console.log("📥 Request received:", req.body);
-        // console.log("📸 Uploaded file:", req.file);
+        // console.log(req.body);
+        // console.log(req.file);
 
         // if (!req.file) {
         //     return res.status(400).json({
