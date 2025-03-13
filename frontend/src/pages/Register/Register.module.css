@@ -1,53 +1,62 @@
-.login-page {
+.registerPage {
   display: flex;
   justify-content:space-around;  /* Center horizontally */
   align-items: center; 
   width: 100%;
-  /* background-image: url("https://www.shutterstock.com/image-photo/andhra-traditional-home-made-raw-260nw-2336772483.jpg");
+  /* background-image: url("../../assests/images/image5.jpg"); */
+  background-image: linear-gradient(to left, rgb(236, 240, 204), rgb(206, 238, 206));
   background-position: center;
   background-repeat: no-repeat;
-  background-size: cover; */
-  height: calc(100vh - 50px - 40px);
+  background-size: cover;
+  min-height: calc(100vh - 50px - 40px);
 }
 
-.register-card {
+.registerCard {
   background-color: white;
   padding: 20px 35px;
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   width: 100%;
-  max-width: 400px;
-  margin: 15px;
+  max-width: 600px;
+  margin: 10px;
 }
 
-.register-card h2 {
+.registerCard h2 {
   margin: 0 0 10px;
   font-size: 1.8rem;
   color: #2d572c;
 }
 
-.register-card p {
-  margin: 0 0 20px;
+.registerCard p {
   font-size: 1rem;
   color: #555;
+  /* margin-bottom: 20px; */
 }
 
-.login-form {
-  position: relative;
-  padding-right: 10px;
-  /* width: 300px; */
-  margin: 0 auto;
+.subHeading{
+  margin-bottom: 20px;
+}
+
+.loginForm {
   display: flex;
   flex-direction: column;
-  /* gap: 15px; */
+  /* gap: 20px; */
 }
 
-.form-group {
+.formRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
   position: relative;
   margin-bottom: 20px;
 }
 
-.form-group input {
+.formGroup input {
   width: 100%;
   padding: 10px;
   font-size: 16px;
@@ -57,17 +66,19 @@
   box-sizing: border-box;
 }
 
-.form-group input:focus {
+.formGroup input:focus {
   outline: none;
   border-color: #2d572c;
-  box-shadow: 0 0 5px rgba(45, 87, 44, 0.5);
+  box-shadow: 0 0 2px rgba(45, 87, 44, 0.5);
+  border: 2px solid #2d572c;
 }
 
-.form-group label {
+.formGroup label {
   position: absolute;
-  top: 10px;
+  top: 0%;
   left: 12px;
   font-size: 16px;
+  transform: translateY(60%);
   color: #999;
   pointer-events: none;
   transition: all 0.3s ease;
@@ -76,36 +87,36 @@
   z-index: 1; /* Bring the label above the border */
 }
 
-.form-group input:focus + label,
-.form-group input:not(:placeholder-shown) + label {
+.formGroup input:focus + label,
+.formGroup input:not(:placeholder-shown) + label {
   top: -12px; /* Move further up to avoid overlap */
   font-size: 12px;
   color: #333;
 }
 
 
-.login-btn-container {
+.loginBtnContainer {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.register-footer {
-  /* margin-top: 30px; */
+.registerFooter {
+  margin-top: 20px;
   font-size: 0.9rem;
   color: #555;
 }
 
-.register-footer a {
+.registerFooter a {
   color: #2d572c;
   text-decoration: none;
 }
 
-.register-footer a:hover {
+.registerFooter a:hover {
   text-decoration: underline;
 }
 
-.register-page-button {
+.registerPageButton {
   padding: 10px 15px;
   font-size: 1rem;
   border-radius: 5px;
@@ -116,34 +127,28 @@
   text-align: center;
   box-sizing: border-box; /* Consistent sizing */
 }
-.register-button {
+.registerButton {
   background-color: #2d572c;
   color: white;
   border: 2px solid #2d572c; /* Same color as the background */
 }
 
-.register-button:hover {
+.registerButton:hover {
   background-color: #1f3b1f;
 }
 
 /* Specific style for reset button */
-.reset-button {
+.resetButton {
   background-color: white;
   color: #2d572c;
   border: 2px solid #2d572c; /* Green border */
 }
 
-.reset-button:hover {
+.resetButton:hover {
   background-color: rgb(238, 240, 238); /* Green background */
 }
 
-.pickle-image {
-  height: 350px;
-  width: 600px;
-  border-radius: 15px;
-}
-
-.or-text {
+.orText {
   text-align: center;
   margin: 15px 0;
   font-size: 1rem;
@@ -152,17 +157,17 @@
 }
 
 /* Ensure proper alignment of the password field and icon */
-.password-wrapper {
+.passwordWrapper {
   display: flex;
   align-items: center; /* Align input and icon vertically */
   position: relative;
 }
 
-.password-wrapper input {
+.passwordWrapper input {
   flex: 1; /* Let the input take up all available space */
 }
 
-.password-toggle-icon {
+.passwordToggleIcon {
   position: absolute;
   right: 10px;
   cursor: pointer;
@@ -172,8 +177,14 @@
 }
 
 /* Style error messages */
-.form-group .error-message {
+.formGroup .errorMessage {
   color: red;
   font-size: 12px;
   margin-top: 5px; /* Add spacing below input fields */
+}
+
+.pickleImage {
+  height: 400px;
+  width: 450px;
+  border-radius: 15px;
 }

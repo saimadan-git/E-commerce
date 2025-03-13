@@ -49,7 +49,7 @@ const Cart = () => {
     };
 
     const removeCartItem = async (itemId, selectedWeight) => {
-        // setIsLoading(true);
+        setIsLoading(true);
         try {
             const response = await api.delete(`/cart/removeItem/${user.id}/${itemId}`);
             if (response.data.status === 'success') {
@@ -61,9 +61,9 @@ const Cart = () => {
         } catch (error) {
             console.error("Error removing cart item:", error);
         } 
-        // finally {
-        //     setIsLoading(false);
-        // }
+        finally {
+            setIsLoading(false);
+        }
     };
 
     const handleQuantityChange = (item, type) => {
