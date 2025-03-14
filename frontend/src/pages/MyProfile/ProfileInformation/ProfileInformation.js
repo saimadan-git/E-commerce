@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { FaEdit, FaSave } from "react-icons/fa"; // Edit & Save Icons
-import styles from "./Profile.module.css";
-import api from "../../utils/api.js";
-import { notifyError, notifySuccess } from "../../utils/toastUtils.js";
+import styles from "./ProfileInformation.module.css";
+import api from "../../../utils/api.js";
+import { notifyError, notifySuccess } from "../../../utils/toastUtils.js";
 
 const Profile = () => {
   // State for user details
@@ -10,7 +10,6 @@ const Profile = () => {
     name: "",
     email: "",
     mobileNumber: "",
-    address: "",
   });
 
   // State to manage edit mode
@@ -22,9 +21,7 @@ const Profile = () => {
     setUserDetails({
       name: storedUser.name || "",
       email: storedUser.email || "",
-      mobileNumber: storedUser.mobileNumber || "",
-      address: storedUser.address || "",
-    });
+      mobileNumber: storedUser.mobileNumber || "",    });
   }, []);
 
   // Handle input changes
@@ -35,7 +32,7 @@ const Profile = () => {
   // Save changes to local storage
   const handleSave = async () => {
     const storedUser = JSON.parse(localStorage.getItem("user")) || {};
-    const isUpdated = (storedUser.name !== userDetails.name) || (storedUser.email !== userDetails.email) || (storedUser.mobileNumber !== userDetails.mobileNumber) || (storedUser.address !== userDetails.address);
+    const isUpdated = (storedUser.name !== userDetails.name) || (storedUser.email !== userDetails.email) || (storedUser.mobileNumber !== userDetails.mobileNumber);
 
     if (isUpdated) {
       try {
@@ -94,7 +91,7 @@ const Profile = () => {
             className={isEditing ? styles.editable : styles.disabledInput}
           />
         </div>
-
+{/* 
         <div className={styles.inputGroup}>
           <label>Address:</label>
           <textarea
@@ -104,7 +101,7 @@ const Profile = () => {
             disabled={!isEditing}
             className={isEditing ? styles.editable : styles.disabledInput}
           />
-        </div>
+        </div> */}
       </div>
 
       <button className={styles.editButton} onClick={isEditing ? handleSave : () => setIsEditing(true)}>
