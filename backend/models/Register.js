@@ -1,5 +1,17 @@
 import mongoose from 'mongoose';
 
+const addressSchema = new mongoose.Schema({
+      name: { type: String, required: true },
+      mobileNumber: { type: String, required: true },
+      pincode: { type: String, required: true },
+      area: { type: String, required: true },
+      address: { type: String, required: true },
+      city: { type: String, required: true },
+      state: { type: String, required: true },
+      landmark: { type: String },
+      alternateMobile: { type: String },
+      type: { type: String, required: true },
+    });
 const UserSchema = new mongoose.Schema({
   // name: { type: String, required: true },
   // // customerName: { type: String, required: true, maxlength: 50 },
@@ -16,7 +28,7 @@ const UserSchema = new mongoose.Schema({
   mobileNumber: { type: String },
   googleId: { type: String }, // For Google login
   provider: { type: String, default: 'local' }, // 'local' or 'google'
-  address: { type: String , default: ''},
+  addressess: [addressSchema],
   role: { type: String, default: 'user' }, // 'user' or 'admin'
 });
 

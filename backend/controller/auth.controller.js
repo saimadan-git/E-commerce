@@ -29,7 +29,7 @@ export const register = async (req, res, next) => {
             password,
             role,
         });
-        const token = generateToken({id: newUser._id,name: newUser.name,email: newUser.email,mobileNumber: newUser.mobileNumber,address: newUser.address,role:newUser.role});
+        const token = generateToken({id: newUser._id,name: newUser.name,email: newUser.email,mobileNumber: newUser.mobileNumber,addressess: newUser.addressess,role:newUser.role});
         const savedUser = await newUser.save();
         console.log(savedUser._id);
         res.cookie("token", token, { httpOnly: true });
@@ -41,7 +41,7 @@ export const register = async (req, res, next) => {
                 name: savedUser.name,
                 email: savedUser.email,
                 mobileNumber: savedUser.mobileNumber,
-                address: savedUser.address,
+                addressess: savedUser.addressess,
                 role: savedUser.role,
                 token,
                 //password: savedUser.password,
@@ -114,7 +114,7 @@ export const login = async (req, res, next) => {
         if (password != user.password) {
             return res.status(401).json({ status: "error", message: "Invalid credentials.", data: {} });
         }
-        const token = generateToken({id: user._id,name: user.name,email: user.email,mobileNumber: user.mobileNumber,address: user.address,role: user.role});
+        const token = generateToken({id: user._id,name: user.name,email: user.email,mobileNumber: user.mobileNumber,addressess: user.addressess,role: user.role});
         res.cookie("token", token, { httpOnly: true });
         console.log(token);
         // Successful login
@@ -126,7 +126,7 @@ export const login = async (req, res, next) => {
                 name: user.name,
                 email: user.email,
                 mobileNumber: user.mobileNumber,
-                address: user.address,
+                addressess: user.addressess,
                 role: user.role,
                 token,
             },
@@ -144,10 +144,11 @@ export const forgotPassword = async (req, res) => {
     const { email } = req.body;
 
     const user = await User.findOne({ email });
-    const token = generateToken({id: user._id,name: user.name,email: user.email,mobileNumber: user.mobileNumber,address: user.address});
     if (!user) {
-        return res.status(404).json({ success: false, message: "User not found." });
+        return res.status(404).json({ status: "error", message: "User not found." });
     }
+    const token = generateToken({id: user._id,name: user.name,email: user.email,mobileNumber: user.mobileNumber,addressess: user.addressess,role: user.role});
+    console.log(user._id);
     const resetLink = `http://localhost:8854/reset-password/${user._id}/${token}`;
     const emailHtml = `
     <h3>Password Reset Request</h3>
