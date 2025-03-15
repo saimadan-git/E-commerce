@@ -1,13 +1,14 @@
 import React, { useContext, useState } from "react";
 import { Link, useNavigate } from 'react-router-dom';
-import "./Register.css";
 import { notifyError, notifySuccess } from "../../utils/toastUtils";
 import api from "../../utils/api.js";
 import LoginWithGoogle from "../../components/GoogleButton/GoogleButton.js";
 import AuthContext from "../../context/AuthContext.js";
+import styles from "./Register.module.css";
+import MangoPickleImage from "../../assests/images/Mango-Pickle3.png";
 
 const Register = () => {
-  const {login} = useContext(AuthContext);
+  const { login } = useContext(AuthContext);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -133,14 +134,14 @@ const Register = () => {
   };
 
   return (
-    <div className="login-page">
-      <div className="register-card">
-        <form onSubmit={handleSubmit} className="login-form">
-          <h2>Join the Pickle Party</h2>
-          <p>Your Taste Buds are Invited!</p>
-
+    <div className={styles.registerPage}>
+      <img src={MangoPickleImage} alt="Mango Pickle"  className={styles.pickleImage}/>
+      <div className={styles.registerCard}>
+        <form onSubmit={handleSubmit} className={styles.loginForm}>
+            <h2>Join the Pickle Party</h2>
+            <p className={styles.subHeading}>Your Taste Buds are Invited!</p>
           {/* Name */}
-          <div className="form-group">
+          <div className={styles.formGroup}>
             <input
               type="text"
               name="name"
@@ -150,94 +151,109 @@ const Register = () => {
               onChange={handleInputChange}
             />
             <label htmlFor="name">Name</label>
-            {errors.name && <p className="error-message">{errors.name}</p>}
+            {errors.name && <p className={styles.errorMessage}>{errors.name}</p>}
           </div>
+          <div className={styles.formRow}>
 
-          {/* Email */}
-          <div className="form-group">
-            <input
-              type="email"
-              name="email"
-              id="email"
-              placeholder=" "
-              value={formData.email}
-              onChange={handleInputChange}
-            />
-            <label htmlFor="email">Email</label>
-            {errors.email && <p className="error-message">{errors.email}</p>}
-          </div>
 
-          {/* Mobile Number */}
-          <div className="form-group">
-            <input
-              type="text"
-              name="mobileNumber"
-              id="mobileNumber"
-              placeholder=" "
-              value={formData.mobileNumber}
-              onChange={handleInputChange}
-            />
-            <label htmlFor="mobileNumber">Mobile Number</label>
-            {errors.mobileNumber && <p className="error-message">{errors.mobileNumber}</p>}
-          </div>
-
-          {/* Password */}
-          <div className="form-group">
-            <div className="password-wrapper">
+            {/* Email */}
+            <div className={styles.formGroup}>
               <input
-                type={visibility.password ? "text" : "password"}
-                name="password"
-                id="password"
+                type="email"
+                name="email"
+                id="email"
                 placeholder=" "
-                value={formData.password}
+                value={formData.email}
                 onChange={handleInputChange}
               />
-              <label htmlFor="password">Password</label>
-              <span
-                className="password-toggle-icon"
-                onClick={() => toggleVisibility("password")}
-              >
-                {visibility.password ? "👁️" : "🙈"}
-              </span>
+              <label htmlFor="email">Email</label>
+              {errors.email && <p className={styles.errorMessage}>{errors.email}</p>}
             </div>
-            {errors.password && <p className="error-message">{errors.password}</p>}
-          </div>
 
-          {/* Confirm Password */}
-          <div className="form-group">
-            <div className="password-wrapper">
+            {/* Mobile Number */}
+            <div className={styles.formGroup}>
               <input
-                type={visibility.confirmPassword ? "text" : "password"}
-                name="confirmPassword"
-                id="confirmPassword"
+                type="text"
+                name="mobileNumber"
+                id="mobileNumber"
                 placeholder=" "
-                value={formData.confirmPassword}
+                value={formData.mobileNumber}
                 onChange={handleInputChange}
               />
-              <label htmlFor="confirmPassword">Confirm Password</label>
-              <span
-                className="password-toggle-icon"
-                onClick={() => toggleVisibility("confirmPassword")}
-              >
-                {visibility.confirmPassword ? "👁️" : "🙈"}
-              </span>
+              <label htmlFor="mobileNumber">Mobile Number</label>
+              {errors.mobileNumber && <p className={styles.errorMessage}>{errors.mobileNumber}</p>}
             </div>
-            {errors.confirmPassword && <p className="error-message">{errors.confirmPassword}</p>}
+          </div>
+
+          <div className={styles.formRow}>
+
+            {/* Password */}
+            <div className={styles.formGroup}>
+              <div className={styles.passwordWrapper}>
+                <input
+                  type={visibility.password ? "text" : "password"}
+                  name="password"
+                  id="password"
+                  placeholder=" "
+                  value={formData.password}
+                  onChange={handleInputChange}
+                />
+                <label htmlFor="password">Password</label>
+                <span
+                  className={styles.passwordToggleIcon}
+                  onClick={() => toggleVisibility("password")}
+                >
+                  {visibility.password ? "👁️" : "🙈"}
+                </span>
+              </div>
+              {errors.password && <p className={styles.errorMessage}>{errors.password}</p>}
+            </div>
+
+            {/* Confirm Password */}
+            <div className={styles.formGroup}>
+              <div className={styles.passwordWrapper}>
+                <input
+                  type={visibility.confirmPassword ? "text" : "password"}
+                  name="confirmPassword"
+                  id="confirmPassword"
+                  placeholder=" "
+                  value={formData.confirmPassword}
+                  onChange={handleInputChange}
+                />
+                <label htmlFor="confirmPassword">Confirm Password</label>
+                <span
+                  className={styles.passwordToggleIcon}
+                  onClick={() => toggleVisibility("confirmPassword")}
+                >
+                  {visibility.confirmPassword ? "👁️" : "🙈"}
+                </span>
+              </div>
+              {errors.confirmPassword && <p className={styles.errorMessage}>{errors.confirmPassword}</p>}
+            </div>
           </div>
 
           {/* Buttons */}
-          <div className="login-btn-container">
-            <button type="button" onClick={handleReset} className="register-page-button reset-button">
+          <div className={styles.loginBtnContainer}>
+            <button
+              type="button"
+              onClick={handleReset}
+              className={`${styles.registerPageButton} ${styles.resetButton}`}
+            >
               Reset
             </button>
-            <button type="submit" className="register-page-button register-button">Register</button>
+            <button
+              type="submit"
+              className={`${styles.registerPageButton} ${styles.registerButton}`}
+            >
+              Register
+            </button>
           </div>
         </form>
 
-        <p className="register-footer">
+        <p className={styles.registerFooter}>
           Already have an account? <Link to="/login">Login</Link>
         </p>
-        <p className="or-text">or</p>
+        {/* <p className={styles.orText}>or</p> */}
         <LoginWithGoogle />
       </div>
     </div>

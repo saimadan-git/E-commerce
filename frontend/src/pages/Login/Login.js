@@ -1,10 +1,11 @@
-import React, { useContext, useState } from "react"; 
+import React, { useContext, useState } from "react";
 import styles from "./Login.module.css";
 import { notifyError, notifySuccess } from "../../utils/toastUtils";
 import { Link, useNavigate } from 'react-router-dom';
 import api from "../../utils/api.js";
 import LoginWithGoogle from "../../components/GoogleButton/GoogleButton.js";
 import AuthContext from "../../context/AuthContext.js";
+import MangoPickleImage from "../../assests/images/Mango-Pickle3.png";
 
 const Login = () => {
   const [formData, setFormData] = useState({ email: "", password: "" });
@@ -87,19 +88,20 @@ const Login = () => {
 
   return (
     <div className={styles.loginPage}>
+
       <div className={styles.loginCard}>
         <h2>Welcome Back!</h2>
         <p>Please login to your account</p>
 
         <form className={styles.loginForm} onSubmit={handleSubmit}>
           <div className={styles.formGroup}>
-            <input 
-              type="text" 
-              id="email" 
+            <input
+              type="text"
+              id="email"
               name="email"
-              placeholder=" " 
+              placeholder=" "
               value={formData.email}
-              onChange={handleInputChange} 
+              onChange={handleInputChange}
             />
             <label htmlFor="email">Email</label>
             {errors.email && <p className={styles.errorMessage}>{errors.email}</p>}
@@ -107,11 +109,11 @@ const Login = () => {
 
           <div className={styles.formGroup}>
             <div className={styles.passwordWrapper}>
-              <input 
-                type={passwordVisible ? "text" : "password"} 
+              <input
+                type={passwordVisible ? "text" : "password"}
                 id="password"
                 name="password"
-                placeholder=" " 
+                placeholder=" "
                 value={formData.password}
                 onChange={handleInputChange}
               />
@@ -140,6 +142,7 @@ const Login = () => {
         <p className={styles.orText}>or</p>
         <LoginWithGoogle />
       </div>
+      <img src={MangoPickleImage} alt="Mango Pickle"  className={styles.pickleImage}/>
     </div>
   );
 };

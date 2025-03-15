@@ -12,7 +12,7 @@ const Navbar = () => {
     { path: "/", label: "Home" },
     { path: "/shop", label: "Shop" },
     { path: "/about", label: "About" },
-    { path: "/profile", label: "Profile", protected: true },
+    { path: "/profile", label: "My Profile", protected: true },
     { path: "/products-management", label: "Product Management", adminOnly: true },
     { path: "/cart", label: "Cart", protected: true },
     { path: "/login", label: "Login", guestOnly: true },

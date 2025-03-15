@@ -11,7 +11,6 @@ import Register from "./pages/Register";
 import Shop from "./pages/Shop";
 import ForgetPassword from "./pages/ForgetPassword";
 import About from "./pages/About";
-import Profile from "./pages/Profile";
 import Cart from "./pages/Cart";
 import GoogleButton from "./components/GoogleButton/GoogleButton.js";
 
@@ -22,6 +21,7 @@ import GuestRoute from "./components/GuestRoute.js";
 import Products from "./pages/ProductsAdmin/Products.js";
 import AdminRoute from "./components/AdminRoute.js";
 import ProductDetails from "./pages/ProductDetails";
+import MyProfile from "./pages/MyProfile/MyProfile.js";
 
 function App() {
   return (
@@ -38,7 +38,7 @@ function App() {
               <Route path="shop" element={<Shop />} />
               <Route path="forget-password" element={<ForgetPassword />} />
               <Route path="about" element={<About/>} />
-              <Route path="profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+              <Route path="profile" element={<ProtectedRoute><MyProfile /></ProtectedRoute>} />
               <Route path="cart" element={<ProtectedRoute><Cart/></ProtectedRoute>} />
               <Route path="reset-password/:id/:token" element={<ResetPassword />} />
               <Route path="google-button" element={<GoogleButton />} />

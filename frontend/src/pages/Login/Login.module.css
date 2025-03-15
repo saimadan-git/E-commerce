@@ -3,7 +3,8 @@
   justify-content:space-around;  /* Center horizontally */
   align-items: center; 
   width: 100%;
-  background-image: url("../../assests/images/image5.jpg");
+  /* background-image: url("../../assests/images/image5.jpg"); */
+  background-image: linear-gradient(to right, rgb(189, 238, 189), rgb(240, 204, 204));
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -152,4 +153,10 @@
   color: red;
   font-size: 12px;
   margin-top: 5px; /* Add spacing below input fields */
+}
+
+.pickleImage {
+  height: 400px;
+  width: 400px;
+  border-radius: 15px;
 }
