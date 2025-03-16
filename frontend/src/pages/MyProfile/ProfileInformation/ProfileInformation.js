@@ -3,6 +3,7 @@ import { FaEdit, FaSave } from "react-icons/fa"; // Edit & Save Icons
 import styles from "./ProfileInformation.module.css";
 import api from "../../../utils/api.js";
 import { notifyError, notifySuccess } from "../../../utils/toastUtils.js";
+import Loader from "../../../components/Loader";
 
 const Profile = () => {
   // State for user details
@@ -11,6 +12,7 @@ const Profile = () => {
     email: "",
     mobileNumber: "",
   });
+  const [loading, setLoading] = useState(false);
 
   // State to manage edit mode
   const [isEditing, setIsEditing] = useState(false);
@@ -31,6 +33,7 @@ const Profile = () => {
 
   // Save changes to local storage
   const handleSave = async () => {
+    setLoading(true);
     const storedUser = JSON.parse(localStorage.getItem("user")) || {};
     const isUpdated = (storedUser.name !== userDetails.name) || (storedUser.email !== userDetails.email) || (storedUser.mobileNumber !== userDetails.mobileNumber);
 
@@ -50,11 +53,13 @@ const Profile = () => {
       }
     }
     setIsEditing(false);
+    setLoading(false);
   };
 
   return (
     <div className={styles.profileContainer}>
       <h2 className={styles.profileTitle}>My Profile</h2>
+      {loading && <div className={styles.loaderOverlay}><Loader /></div>}
       <div className={styles.profileDetails}>
         <div className={styles.inputGroup}>
           <label>Name:</label>
@@ -103,9 +108,9 @@ const Profile = () => {
           />
         </div> */}
       </div>
-
-      <button className={styles.editButton} onClick={isEditing ? handleSave : () => setIsEditing(true)}>
-        {isEditing ? <FaSave /> : <FaEdit />} {isEditing ? "Save" : "Edit"}
+      
+      <button className={styles.editButton} onClick={isEditing ? handleSave : () => setIsEditing(true)} disabled={loading}>
+              {isEditing ? <FaSave /> : <FaEdit />} {isEditing ? "Save" : "Edit"}
       </button>
     </div>
   );
