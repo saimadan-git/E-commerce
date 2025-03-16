@@ -11,6 +11,7 @@ const addressSchema = new mongoose.Schema({
       landmark: { type: String },
       alternateMobile: { type: String },
       type: { type: String, required: true },
+      customType: { type: String, default: null },
     });
 const UserSchema = new mongoose.Schema({
   // name: { type: String, required: true },

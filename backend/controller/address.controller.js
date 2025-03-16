@@ -2,7 +2,7 @@ import User from "../models/Register.js";
 //Add Address
 export const addAddress = async (req, res) => {
     try {
-        const { name,mobileNumber,pincode,area,address,city,state,landmark,alternateMobile,type,userId } = req.body;
+        const { name,mobileNumber,pincode,area,address,city,state,landmark,alternateMobile,type,customType,userId } = req.body;
 
         const user = await User.findById(userId);
         if (!user) {
@@ -11,7 +11,7 @@ export const addAddress = async (req, res) => {
                 message: "User not found",
             });
         }
-        user.addressess.push({ name,mobileNumber,pincode,area,address,city,state,landmark,alternateMobile,type });
+        user.addressess.push({ name,mobileNumber,pincode,area,address,city,state,landmark,alternateMobile,type,customType });
         await user.save();
         return res.status(200).json({
             status: "success",
