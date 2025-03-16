@@ -100,7 +100,7 @@ export const updateAddress = async (req, res) => {
                 message: "Address not found",
             });
         }
-        if (name||mobileNumber||pincode||area||address||city||state||landmark||alternateMobile||type) {
+        if (name||mobileNumber||pincode||area||address||city||state||landmark||alternateMobile) {
             addressOne.name = name;
             addressOne.mobileNumber = mobileNumber;
             addressOne.pincode = pincode;
@@ -110,10 +110,15 @@ export const updateAddress = async (req, res) => {
             addressOne.state = state;
             addressOne.landmark = landmark;
             addressOne.alternateMobile = alternateMobile;
-            addressOne.type = type;
-            if(type){
-            addressOne.type = type==="other"?customType || "other" : type;
-            }
+                if (type) {
+                    if (type === "other") {
+                        addressOne.type = "other";
+                        addressOne.customType = customType || ""; // Store the custom type if provided
+                    } else {
+                        addressOne.type = type;
+                        addressOne.customType = ""; // Clear customType if not "other"
+                    }
+                }
         }
         await user.save();
         return res.status(200).json({
