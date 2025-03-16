@@ -84,7 +84,7 @@ export const getAddressById = async (req, res) => {
 //Update Address
 export const updateAddress = async (req, res) => {
     const { userId, addressId } = req.params;
-    const { name,mobileNumber,pincode,area,address,city,state,landmark,alternateMobile,type } = req.body;
+    const { name,mobileNumber,pincode,area,address,city,state,landmark,alternateMobile,type,customType } = req.body;
     try {
         const user = await User.findById(userId);
         if (!user) {
@@ -111,6 +111,9 @@ export const updateAddress = async (req, res) => {
             addressOne.landmark = landmark;
             addressOne.alternateMobile = alternateMobile;
             addressOne.type = type;
+            if(type){
+            addressOne.type = type==="other"?customType || "other" : type;
+            }
         }
         await user.save();
         return res.status(200).json({

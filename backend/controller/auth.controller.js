@@ -142,10 +142,13 @@ export const forgotPassword = async (req, res) => {
     console.log(process.env.EMAIL_USER);
     console.log(process.env.EMAIL_PASS);
     const { email } = req.body;
-
+    try {
     const user = await User.findOne({ email });
     if (!user) {
-        return res.status(404).json({ status: "error", message: "User not found." });
+        return res.status(404).json({ 
+            status: "error", 
+            message: "User not found." 
+        });
     }
     const token = generateToken({id: user._id,name: user.name,email: user.email,mobileNumber: user.mobileNumber,addressess: user.addressess,role: user.role});
     console.log(user._id);
@@ -156,7 +159,7 @@ export const forgotPassword = async (req, res) => {
     <a href="${resetLink}">${resetLink}</a>
   `;
 
-    try {
+    
         //console.log(process.env.EMAIL_USER);
         await tr.sendMail({
             from: "malinifoods123@gmail.com",
