@@ -6,6 +6,7 @@
   flex-direction: column;
   align-items: center;
   padding: 30px 20px;
+  position: relative;
 }
 
 /* Title */
@@ -205,4 +206,16 @@
 
 .checkoutButton:hover {
   background: #388E3C;
+}
+
+.loaderOverlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }

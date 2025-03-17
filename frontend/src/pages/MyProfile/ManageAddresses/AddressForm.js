@@ -27,7 +27,9 @@ const AddressForm = ({ initialData, onSave, onCancel }) => {
   );
 
   const [errors, setErrors] = useState({});
-  const [customTypeEnabled, setCustomTypeEnabled] = useState(false);
+  const [customTypeEnabled, setCustomTypeEnabled] = useState(
+    initialData?.type === "other" && initialData?.customType?.trim() !== ""
+  );
 
   const validateField = (name, value) => {
     let error = "";

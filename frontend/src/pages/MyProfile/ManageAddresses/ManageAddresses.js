@@ -16,7 +16,6 @@ const ManageAddresses = () => {
     setLoading(true);
     try {
       const response = await api.get(`/address/getAddressess/${user.id}`);
-      console.log(response.data);
       setAddresses(response.data.data);
     } catch (error) {
       console.error("Error fetching addresses:", error);
@@ -42,7 +41,6 @@ const ManageAddresses = () => {
 
   // Handle Delete Address
   const handleDeleteAddress = async (id) => {
-    console.log("Deleting address with ID:", id);
     setLoading(true);
     try {
       const response = await api.delete(`/address/deleteAddress/${user.id}/${id}`);

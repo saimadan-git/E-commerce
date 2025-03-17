@@ -75,13 +75,13 @@ const Cart = () => {
         <div className={styles.cartContainer}>
             {/* <h1 className={styles.cartTitle}>Your Shopping Cart</h1> */}
 
-            {isLoading && <Loader />}
+            {isLoading && <div className={styles.loaderOverlay}><Loader /></div>}
 
             {!isLoading && cartItems.length === 0 ? (
                 <div className={styles.emptyCartContainer}>
                     <img src={emptyCartImage} alt="Empty Cart" className={styles.emptyCartImage} />
                     <p className={styles.emptyCartText}>Your cart is empty! Start shopping now.</p>
-                    <Link to="/" className={styles.shopNowButton}>Shop Now</Link>
+                    <Link to="/shop" className={styles.shopNowButton}>Shop Now</Link>
                 </div>
             ) : (
                 <div className={styles.cartLayout}>
