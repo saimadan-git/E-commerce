@@ -113,10 +113,10 @@ export const updateAddress = async (req, res) => {
                 if (type) {
                     if (type === "other") {
                         addressOne.type = "other";
-                        addressOne.customType = customType || ""; // Store the custom type if provided
+                        addressOne.customType = customType;
                     } else {
                         addressOne.type = type;
-                        addressOne.customType = ""; // Clear customType if not "other"
+                        addressOne.customType = "";
                     }
                 }
         }
