@@ -1,6 +1,7 @@
 import User from '../models/Register.js';
 import nodemailer from 'nodemailer';
 import jwt from 'jsonwebtoken';
+import bcrypt from 'bcrypt';
 import { generateToken } from '../utils/generateToken.js';
 import { response } from 'express';
 import dotenv from 'dotenv';
@@ -17,6 +18,8 @@ export const register = async (req, res, next) => {
                 message: "User already exists",
             });
         }
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(password, salt);
         const adminEmail=["malinifoods123@gmail.com"]
         let role="user";
         if(adminEmail.includes(email)){
@@ -26,7 +29,7 @@ export const register = async (req, res, next) => {
             name,
             email,
             mobileNumber,
-            password,
+            password: hashedPassword,
             role,
         });
         const token = generateToken({id: newUser._id,name: newUser.name,email: newUser.email,mobileNumber: newUser.mobileNumber,addressess: newUser.addressess,role:newUser.role});
@@ -111,8 +114,13 @@ export const login = async (req, res, next) => {
                 data: {}
             });
         }
-        if (password != user.password) {
-            return res.status(401).json({ status: "error", message: "Invalid credentials.", data: {} });
+        const validPassword = await bcrypt.compare(password, user.password);
+        if (!validPassword) {
+            return res.status(400).json({
+                status: "error",
+                message: "Invalid password",
+                data: {}
+            });
         }
         const token = generateToken({id: user._id,name: user.name,email: user.email,mobileNumber: user.mobileNumber,addressess: user.addressess,role: user.role});
         res.cookie("token", token, { httpOnly: true });
@@ -195,7 +203,10 @@ export const resetPassword = async (req, res) => {
                     return res.status(404).json({ status: "error", message: "User not found." });
                 }
                 // await User.updateOne({ email }, { password: newPass });
-                user.password = newPassword;
+                //user.password = newPassword;
+                const salt = await bcrypt.genSalt(10);
+                const hashedPassword = await bcrypt.hash(newPassword, salt);
+                user.password = hashedPassword;
                 await user.save();
                 res.status(200).json({ status: "success", message: "Password updated successfully." });
             
