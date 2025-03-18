@@ -14,7 +14,7 @@ const weightOptions = [
 
 const ProductDetails = () => {
     const navigate = useNavigate();
-    const {user} = useContext(AuthContext);
+    const { user } = useContext(AuthContext);
 
     const { productId } = useParams();
     const [product, setProduct] = useState(null);
@@ -23,6 +23,7 @@ const ProductDetails = () => {
     const [quantity, setQuantity] = useState(1);
     const [price, setPrice] = useState(0);
     const relatedRef = useRef(null);
+    const [showScrollButtons, setShowScrollButtons] = useState(false);
 
     useEffect(() => {
         fetchProduct();
@@ -30,10 +31,35 @@ const ProductDetails = () => {
 
     useEffect(() => {
         if (product) {
-            setPrice(calculatePrice(product.price,product.weight, selectedWeight));
+            setPrice(calculatePrice(product.price, product.weight, selectedWeight));
             fetchRelatedProducts(product.category);
         }
     }, [product, selectedWeight]);
+
+    // Function to check if scrolling is needed
+    const checkOverflow = () => {
+        if (relatedRef.current) {
+            const isOverflowing =
+                relatedRef.current.scrollWidth > relatedRef.current.clientWidth;
+            setShowScrollButtons(isOverflowing);
+        }
+    };
+
+    useEffect(() => {
+        checkOverflow(); // Run on mount
+        window.addEventListener("resize", checkOverflow);
+        return () => window.removeEventListener("resize", checkOverflow);
+    }, [relatedProducts]); // Runs whenever relatedProducts change
+
+    const scrollRelated = (direction) => {
+        if (relatedRef.current) {
+            const scrollAmount = 200; // Adjust scrolling distance
+            relatedRef.current.scrollBy({
+                left: direction === "left" ? -scrollAmount : scrollAmount,
+                behavior: "smooth",
+            });
+        }
+    };
 
     const fetchProduct = async () => {
         try {
@@ -63,15 +89,9 @@ const ProductDetails = () => {
         setQuantity(prev => (type === "increase" ? prev + 1 : prev > 1 ? prev - 1 : 1));
     };
 
-    const scrollRelated = (direction) => {
-        if (relatedRef.current) {
-            relatedRef.current.scrollBy({ left: direction === "left" ? -200 : 200, behavior: "smooth" });
-        }
-    };
-
     const handleAddToCart = async () => {
         const USER_ID = user?.id;
-        if(product.availability){
+        if (product.availability) {
             try {
                 const response = await api.post("/cart/addToCart", {
                     userId: USER_ID,
@@ -79,7 +99,7 @@ const ProductDetails = () => {
                     quantity,
                     selectedWeight
                 });
-                
+
                 if (response.data.status === "success") {
                     notifySuccess(response.data.message);
                     navigate("/cart");  // Navigate to Cart Page
@@ -153,14 +173,28 @@ const ProductDetails = () => {
             </div>
 
             {/* Related Products Section */}
-            <div className={styles.relatedProductsSection}>
+            <div className={`${styles.relatedProductsSection} ${showScrollButtons ? "showScrollButtons" : ""}`}>
                 <h2>Related Products</h2>
-                <button className={styles.scrollButton} onClick={() => scrollRelated("left")}><FaChevronLeft /></button>
+
+                {showScrollButtons && (
+                    <button className={styles.scrollButton} onClick={() => scrollRelated("left")}>
+                        <FaChevronLeft />
+                    </button>
+                )}
+
                 <div className={styles.relatedProductsList} ref={relatedRef}>
                     {relatedProducts.length > 0 ? (
                         relatedProducts.map((related) => (
-                            <Link to={`/product/${related._id}`} key={related._id} className={styles.relatedProductCard}>
-                                <img src={related.image} alt={related.name} className={styles.relatedProductImage} />
+                            <Link
+                                to={`/product/${related._id}`}
+                                key={related._id}
+                                className={styles.relatedProductCard}
+                            >
+                                <img
+                                    src={related.image}
+                                    alt={related.name}
+                                    className={styles.relatedProductImage}
+                                />
                                 <p className={styles.relatedProductName}>{related.name}</p>
                                 <p className={styles.relatedProductWeight}>{related.weight}g</p>
                                 <p className={styles.relatedProductPrice}>₹{related.price}</p>
@@ -170,7 +204,12 @@ const ProductDetails = () => {
                         <p className={styles.noRelatedProducts}>No related products found.</p>
                     )}
                 </div>
-                <button className={styles.scrollButton} onClick={() => scrollRelated("right")}><FaChevronRight /></button>
+
+                {showScrollButtons && (
+                    <button className={styles.scrollButton} onClick={() => scrollRelated("right")}>
+                        <FaChevronRight />
+                    </button>
+                )}
             </div>
         </div>
     );
