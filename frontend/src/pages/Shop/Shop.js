@@ -99,7 +99,10 @@ const Shop = () => {
     const handleAddToCart = async (event, product) => {
         event.stopPropagation();
         const USER_ID = user?.id;
-        console.log(product);
+        if (!USER_ID) {
+            notifyError("Please login to add products to cart.");
+            return
+        }
         if(product.availability){
             try {
                 const response = await api.post("/cart/addToCart", {
