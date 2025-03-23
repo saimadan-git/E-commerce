@@ -12,6 +12,7 @@ const addressSchema = new mongoose.Schema({
       alternateMobile: { type: String },
       type: { type: String, required: true },
       customType: { type: String, default: null },
+      default: { type: Boolean, default: false },
     });
 const UserSchema = new mongoose.Schema({
   // name: { type: String, required: true },

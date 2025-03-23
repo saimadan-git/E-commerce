@@ -2,7 +2,7 @@ import User from "../models/Register.js";
 //Add Address
 export const addAddress = async (req, res) => {
     try {
-        const { name,mobileNumber,pincode,area,address,city,state,landmark,alternateMobile,type,customType,userId } = req.body;
+        const { name, mobileNumber, pincode, area, address, city, state, landmark, alternateMobile, type, customType, userId } = req.body;
 
         const user = await User.findById(userId);
         if (!user) {
@@ -11,7 +11,8 @@ export const addAddress = async (req, res) => {
                 message: "User not found",
             });
         }
-        user.addressess.push({ name,mobileNumber,pincode,area,address,city,state,landmark,alternateMobile,type,customType });
+        const isDefault = user.addressess.length === 0;
+        user.addressess.push({ name, mobileNumber, pincode, area, address, city, state, landmark, alternateMobile, type, customType, default: isDefault });
         await user.save();
         return res.status(200).json({
             status: "success",
@@ -29,7 +30,7 @@ export const addAddress = async (req, res) => {
 //Get Address
 export const getAddressess = async (req, res) => {
     try {
-        const { userId } = req.params;   
+        const { userId } = req.params;
         const user = await User.findById(userId);
         if (!user) {
             return res.status(404).json({
@@ -54,7 +55,7 @@ export const getAddressess = async (req, res) => {
 export const getAddressById = async (req, res) => {
     const { userId, addressId } = req.params;
     try {
-        const user = await  User.findById(userId);
+        const user = await User.findById(userId);
         if (!user) {
             return res.status(404).json({
                 status: "error",
@@ -73,7 +74,7 @@ export const getAddressById = async (req, res) => {
             message: "Address found",
             data: address,
         });
-    }catch (err) {
+    } catch (err) {
         return res.status(500).json({
             status: "error",
             message: "Internal server error",
@@ -84,7 +85,7 @@ export const getAddressById = async (req, res) => {
 //Update Address
 export const updateAddress = async (req, res) => {
     const { userId, addressId } = req.params;
-    const { name,mobileNumber,pincode,area,address,city,state,landmark,alternateMobile,type,customType } = req.body;
+    const { name, mobileNumber, pincode, area, address, city, state, landmark, alternateMobile, type, customType,isDefault } = req.body;
     try {
         const user = await User.findById(userId);
         if (!user) {
@@ -100,7 +101,7 @@ export const updateAddress = async (req, res) => {
                 message: "Address not found",
             });
         }
-        if (name||mobileNumber||pincode||area||address||city||state||landmark||alternateMobile) {
+        if (name || mobileNumber || pincode || area || address || city || state || landmark || alternateMobile) {
             addressOne.name = name;
             addressOne.mobileNumber = mobileNumber;
             addressOne.pincode = pincode;
@@ -110,15 +111,19 @@ export const updateAddress = async (req, res) => {
             addressOne.state = state;
             addressOne.landmark = landmark;
             addressOne.alternateMobile = alternateMobile;
-                if (type) {
-                    if (type === "other") {
-                        addressOne.type = "other";
-                        addressOne.customType = customType;
-                    } else {
-                        addressOne.type = type;
-                        addressOne.customType = "";
-                    }
-                }
+        }
+        if (type) {
+            if (type === "other") {
+                addressOne.type = "other";
+                addressOne.customType = customType;
+            } else {
+                addressOne.type = type;
+                addressOne.customType = "";
+            }
+        }
+        if (isDefault) {
+            user.addressess.forEach((address) => {address.default = false});
+           addressOne.default = true;
         }
         await user.save();
         return res.status(200).json({
@@ -126,17 +131,17 @@ export const updateAddress = async (req, res) => {
             message: "Address updated successfully",
             data: addressOne,
         });
-}catch (err) {
-    return res.status(500).json({
-        status: "error",
-        message: "Internal server error",
-        error: err.message,
-    });
-  }
+    } catch (err) {
+        return res.status(500).json({
+            status: "error",
+            message: "Internal server error",
+            error: err.message,
+        });
+    }
 }
 //Delete Address by ID
 export const deleteAddress = async (req, res) => {
-      const { userId, addressId } = req.params;
+    const { userId, addressId } = req.params;
     try {
         const user = await User.findById(userId);
         if (!user) {
