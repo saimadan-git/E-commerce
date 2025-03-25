@@ -10,6 +10,7 @@ import productsRoute from './routes/products.route.js';
 import cartRoute from './routes/cart.route.js';
 import addressRoute from './routes/address.route.js';
 import passport from "./utils/Passport.js";
+import orderRoute from './routes/order.route.js';
 
 dotenv.config();
 
@@ -28,6 +29,7 @@ app.use("/user", userRoute);
 app.use("/products", productsRoute);
 app.use("/cart", cartRoute);
 app.use("/address", addressRoute);
+app.use("/order", orderRoute);
 
 // MongoDB connection
 mongoose
