@@ -59,6 +59,12 @@ export const verifyPayment = async (req, res) => {
                 },
                 {new:true}
             );
+            if (!order) {
+                return res.status(404).json({
+                    status: "error",
+                    message: "Order not found in database."
+                });
+            }
             res.status(200).json({
                 status:"success",
                 message:"Payment verified successfully",
