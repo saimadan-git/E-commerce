@@ -33,7 +33,7 @@ const AddressForm = ({ initialData, onSave, onCancel }) => {
 
   const validateField = (name, value) => {
     let error = "";
-    if (!value && name !== "landmark" && name !== "alternateMobile") {
+    if (!value && name !== "landmark" && name !== "alternateMobile" && name !== "default") {
       if (name === "customType" && !customTypeEnabled) {
         return error; // Don't show error if customLabel is false
       }
@@ -64,7 +64,6 @@ const AddressForm = ({ initialData, onSave, onCancel }) => {
 
     setErrors(newErrors);
     if (Object.values(newErrors).some((error) => error)) return;
-
     onSave(formData);
   };
 
