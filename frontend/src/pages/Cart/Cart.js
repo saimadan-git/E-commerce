@@ -111,7 +111,7 @@ const Cart = () => {
                     </div>
                     <div className={styles.cartSummarySection}>
                         <h2 className={styles.totalPrice}>Total: ₹{totalPrice}</h2>
-                        <button className={styles.checkoutButton}>Proceed to Checkout</button>
+                        <Link to="/checkout"><button className={styles.checkoutButton}>Proceed to Checkout</button></Link>
                     </div>
                 </div>
             )}
