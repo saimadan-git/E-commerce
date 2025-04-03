@@ -13,6 +13,7 @@ const addressSchema = new mongoose.Schema({
       type: { type: String, required: true },
       customType: { type: String, default: null },
       default: { type: Boolean, default: false },
+      createdAt: { type: Date, default: Date.now },
     });
 const UserSchema = new mongoose.Schema({
   // name: { type: String, required: true },

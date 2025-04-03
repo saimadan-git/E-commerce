@@ -10,8 +10,11 @@ const orderSchema = new mongoose.Schema({
   ],
   orderId: { type: String, required: true },
   orderDate: { type: Date, default: Date.now },
-  deliveryDate: { type: Date, default: moment().tz("Asia/Kolkata").toDate() },
-  status: { type: String, default: 'Order Not Placed' ,
+  deliveryDate: { 
+    type: Date, 
+    default: () => moment().tz("Asia/Kolkata").toDate(),
+  },
+    status: { type: String, default: 'Order Not Placed' ,
   },
   paymentStatus: { type: String, default: 'Pending' },
   amount: { type: Number, required: true },

@@ -38,10 +38,11 @@ export const getAddressess = async (req, res) => {
                 message: "User not found",
             });
         }
+        const sortedAddressess = user.addressess.sort((a, b) => b.createdAt - a.createdAt);
         return res.status(200).json({
             status: "success",
             message: "User address",
-            data: user.addressess,
+            data: sortedAddressess,
         });
     } catch (err) {
         return res.status(500).json({
