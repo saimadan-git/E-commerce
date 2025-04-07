@@ -181,7 +181,7 @@ const CheckoutPage = () => {
               </div>
 
               {/* View All Addresses Button */}
-              {addresses.length > 3 && (
+              {addresses.length > 1 && (
                 <button
                   className={styles.viewAllButton}
                   onClick={() => setShowAllAddresses(true)}

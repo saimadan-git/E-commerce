@@ -1,0 +1,127 @@
+.aboutUsContainer {
+  font-family: 'Poppins', sans-serif;
+  color: #333;
+  background-color: #fffaf0;
+  text-align: center;
+}
+
+/* Hero Section */
+.heroSection {
+  background: url("../../assests/images/download\ \(2\).jpeg") no-repeat center center/cover;
+  color: white;
+  padding: 100px 20px;
+}
+
+.heroSection h1 {
+  font-size: 2.5rem;
+}
+
+.heroSection p {
+  font-size: 1.2rem;
+  margin: 10px 0;
+}
+
+.shopNowButton {
+  background-color: #ff6600;
+  color: white;
+  padding: 12px 24px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-size: 1.2rem;
+  transition: background 0.3s;
+}
+
+.shopNowButton:hover {
+  background: #cc5200;
+}
+
+/* Our Story Section */
+.storySection {
+  padding: 60px 20px;
+  background-color: #fff;
+}
+
+.storyContent {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.storyImage {
+  width: 50%;
+  border-radius: 10px;
+}
+
+.storyText {
+  text-align: left;
+  padding: 20px;
+  width: 50%;
+}
+
+.storyText h2 {
+  color: #cc5200;
+  font-size: 2rem;
+}
+
+/* What Makes Us Special */
+.specialSection {
+  background-color: #fffbf0;
+  padding: 60px 20px;
+}
+
+.specialGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.specialItem {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.specialItem span {
+  font-size: 2rem;
+}
+
+/* Our Commitment */
+.commitmentSection {
+  padding: 50px 20px;
+  background: linear-gradient(to right, #ffcc66, #ff9966);
+  color: white;
+}
+
+.commitmentSection h2 {
+  font-size: 2rem;
+}
+
+.commitmentSection p {
+  font-size: 1.2rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Call to Action */
+.ctaSection {
+  padding: 60px 20px;
+}
+
+.ctaButton {
+  background-color: #ff6600;
+  color: white;
+  padding: 14px 28px;
+  font-size: 1.4rem;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background 0.3s;
+}
+
+.ctaButton:hover {
+  background: #cc5200;
+}
