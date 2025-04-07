@@ -42,7 +42,14 @@ const sendEmail = async (user,order) => {
 }
 //Create Order With Razorpay Payment Gateway
 export const createOrder= async (req, res) => {
-    const { userId,items,amount } = req.body;
+    const { userId,items,amount,selectedAddress } = req.body;
+    const user = await User.findById(userId);
+    if (!user) {
+        return res.status(404).json({
+            status: "error",
+            message: "User not found"
+        });
+    }
     try{
         const options={
             amount:amount*100,
@@ -56,16 +63,11 @@ export const createOrder= async (req, res) => {
         amount,
         orderId:order.id,
         paymentStatus:"pending",
-        status:"pending"
+        status:"pending",
+        selectedAddress
     });
     const savedOrder = await newOrder.save();
-    const user = await User.findById(userId);
-    if (!user) {
-        return res.status(404).json({
-            status: "error",
-            message: "User not found"
-        });
-    }
+    
     sendEmail(user,savedOrder);
     res.status(201).json({
         status:"success",

@@ -19,5 +19,14 @@ const orderSchema = new mongoose.Schema({
   paymentStatus: { type: String, default: 'Pending' },
   amount: { type: Number, required: true },
   paymentId: { type: String },
+  selectedAddress: {
+    name: { type: String, required: true },
+    address: { type: String, required: true },
+    area: { type: String, required: true },
+    city: { type: String, required: true },
+    state: { type: String, required: true },
+    pincode: { type: String, required: true },
+    mobileNumber: { type: String, required: true },
+  },
   });
 export default mongoose.model("Order", orderSchema);
