@@ -7,6 +7,7 @@ import AuthContext from "../../context/AuthContext";
 import AddressForm from "../MyProfile/ManageAddresses/AddressForm";
 import Modal from "react-modal";
 import Loader from "../../components/Loader/Loader";
+import { useNavigate } from "react-router-dom";
 
 const CheckoutPage = () => {
   const [addresses, setAddresses] = useState([]);
@@ -21,6 +22,8 @@ const CheckoutPage = () => {
   const [paying, setPaying] = useState(false);
 
   const { user } = useContext(AuthContext);
+
+  const navigate = useNavigate();
 
   // Fetch address and cart details on page load
   useEffect(() => {
@@ -115,6 +118,40 @@ const CheckoutPage = () => {
       setPaying(false);
     };
   };
+
+  const handleOrder = async () => {
+    if (!selectedAddress) return notifyError("Please select a delivery address.");
+    if (!isChecked) return notifyError("Please agree to the Terms & Conditions.");
+    setLoading(true);
+     // API Call
+     try {
+      const response = await api.post("/order/createOrder", {
+        userId: user.id, items: cartItems, amount: totalAmount, selectedAddress
+      });
+
+      if (response.data.status === "success") {
+        // notifySuccess(response.data.message);
+        // navigate("/");
+        navigate("/order-confirmation", {
+          state: {
+            orderDetails: {
+              orderId: response.data.data._id,
+              address: selectedAddress,
+              items: cartItems,
+              totalAmount,
+            },
+          },
+        });
+      } else {
+        notifyError(response.data.message);
+      }
+    } catch (err) {
+      const errorMsg = err.response?.data?.message || "Something went wrong!";
+      notifyError(errorMsg);
+    } finally {
+      setLoading(false);
+    }
+  }
 
   const handleFormSubmit = async (newAddress) => {
     setLoading(true);
@@ -292,6 +329,9 @@ const CheckoutPage = () => {
             {/* Pay Now Button */}
             <button className={styles.payNowButton} onClick={handlePayment} disabled={paying}>
               {paying ? "Processing Payment..." : `💸 Pay Now ₹${totalAmount}`}
+            </button>
+            <button className={styles.payNowButton} onClick={handleOrder} disabled={paying}>
+              {paying ? "Placing Order..." : `Order Now`}
             </button>
           </>
         )}
