@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import styles from "./MyProfile.module.css";
 import ProfileInformation from "./ProfileInformation";
 import ManageAddresses from "./ManageAddresses";
-// import MyOrders from "./MyOrders";
+import MyOrders from "./MyOrders";
 import AuthContext from "../../context/AuthContext";
 
 const MyProfile = () => {
@@ -40,7 +40,7 @@ const MyProfile = () => {
       <main className={styles.profileContent}>
         {selectedTab === "profile" && <ProfileInformation user={user} />}
         {selectedTab === "addresses" && <ManageAddresses />}
-        {/* {selectedTab === "orders" && <MyOrders />} */}
+        {selectedTab === "orders" && <MyOrders />}
       </main>
     </div>
   );
