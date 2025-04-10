@@ -156,8 +156,9 @@ export const getAllOrders = async (req, res) => {
                 message: "No orders found for this user."
             });
         }
+        console.log(orders[0]);
          orders = orders.map(order => ({
-            orderId: order.orderId,
+            orderId: order._id,
             orderDate: order.orderDate,
             items: order.items.map(item => ({
                 ProductDetails: item.productId,
