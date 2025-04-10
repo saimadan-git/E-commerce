@@ -34,7 +34,7 @@ const MyOrdersPage = () => {
             <div key={order._id} className={styles.orderCard}>
               <div className={styles.orderHeader}>
                 <h3>Order #{index + 1}</h3>
-                <span className={styles.orderId}>🆔 {order._id}</span>
+                <span className={styles.orderId}>🆔 {order.orderId}</span>
               </div>
 
               <div className={styles.orderContent}>
@@ -43,12 +43,12 @@ const MyOrdersPage = () => {
                   <ul>
                     {order.items.map((item, idx) => (
                       <li key={idx}>
-                        {item.productId.name} x {item.quantity} — ₹{item.price * item.quantity}
+                        {item.ProductDetails.name} ({item.selectedWeight}g) x {item.quantity} — ₹{item.price}
                       </li>
                     ))}
                   </ul>
                   <p className={styles.total}>Total: ₹{order.amount}</p>
-                  <p>Payment Mode: {order.paymentMode}</p>
+                  {/* <p>Payment Mode: {order.paymentMode}</p> */}
                 </div>
 
                 <div className={styles.addressSection}>
@@ -57,12 +57,18 @@ const MyOrdersPage = () => {
                   <p>{order.selectedAddress.address}, {order.selectedAddress.area}, {order.selectedAddress.city}</p>
                   <p>{order.selectedAddress.state} - {order.selectedAddress.pincode}</p>
                   <p>📞 {order.selectedAddress.mobileNumber}</p>
+                  <p>{order.selectedAddress.type}</p>
                   <p>🏷️ {order.selectedAddress.type === "home" ? "Home" : order.selectedAddress.type === "office" ? "Office" : order.selectedAddress.customType}</p>
                 </div>
               </div>
 
               <div className={styles.footer}>
-                <p>Ordered On: {new Date(order.createdAt).toLocaleDateString()}</p>
+                <p>Ordered On: {new Date(order.orderDate).toLocaleDateString('en-GB', {
+                  day: '2-digit',
+                  month: 'short',
+                  year: 'numeric'
+                })}
+                </p>
               </div>
             </div>
           ))}

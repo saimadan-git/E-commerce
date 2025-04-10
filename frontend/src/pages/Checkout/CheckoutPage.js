@@ -46,7 +46,7 @@ const CheckoutPage = () => {
       const fetchedCartItems = cartResponse.data.data.cartItems;
       setCartItems(fetchedCartItems);
       setTotalAmount(
-        fetchedCartItems.reduce((acc, item) => acc + item.price * item.quantity, 0)
+        fetchedCartItems.reduce((acc, item) => acc + item.price, 0)
       );
     } catch {
       notifyError("Failed to load data.");

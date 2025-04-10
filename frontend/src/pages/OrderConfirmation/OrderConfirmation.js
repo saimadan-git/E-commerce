@@ -1,13 +1,12 @@
 import React from "react";
 import styles from "./OrderConfirmation.module.css";
 import { useLocation, useNavigate } from "react-router-dom";
-import successImage from "../../assests/images/success.jpeg";
+// import successImage from "../../assests/images/success.jpeg";
 
 const OrderConfirmationPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { orderDetails } = location.state || {};
-  console.log("Order Details:", orderDetails);
 
   if (!orderDetails) {
     return (
@@ -42,8 +41,8 @@ const OrderConfirmationPage = () => {
           <div className={styles.itemList}>
             {items?.map((item, idx) => (
               <div key={idx} className={styles.itemRow}>
-                <span>🧂 {item.productId.name}({item.selectedWeight}g) x {item.quantity}</span> 
-                <span>₹{item.price * item.quantity}</span>
+                <span>🧂 {item.name}({item.selectedWeight}g) x {item.quantity}</span> 
+                <span>₹{item.price}</span>
               </div>
             ))}
           </div>
@@ -67,7 +66,7 @@ const OrderConfirmationPage = () => {
 
       {/* Bottom Buttons */}
       <div className={styles.actions}>
-        <button onClick={() => navigate("/orders")} className={styles.secondaryBtn}>📦 View My Orders</button>
+        <button onClick={() => navigate("/profile", { state: { selectedTab: "orders"}} )} className={styles.secondaryBtn}>📦 View My Orders</button>
         <button onClick={() => navigate("/")} className={styles.primaryBtn}>🏠 Go to Home</button>
       </div>
     </div>

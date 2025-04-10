@@ -88,9 +88,9 @@ const Cart = () => {
                     <div className={styles.cartItemsSection}>
                         {cartItems.map(item => (
                             <div key={item._id} className={styles.cartItem}>
-                                <img src={item.productId.image} alt={item.productId.name} className={styles.productImage} />
+                                <img src={item.image} alt={item.name} className={styles.productImage} />
                                 <div className={styles.details}>
-                                    <h2 className={styles.productName}>{item.productId.name}</h2>
+                                    <h2 className={styles.productName}>{item.name}</h2>
                                     <div className={styles.selectedWeight}>Weight: {item.selectedWeight}g</div>
                                     <div className={styles.quantitySelector}>
                                         <button onClick={() => handleQuantityChange(item, "decrease")} className={styles.quantityButton}>

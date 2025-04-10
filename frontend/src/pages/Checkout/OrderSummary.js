@@ -6,11 +6,11 @@ const OrderSummary = ({ items, totalAmount }) => {
   return (
     <div className={styles.orderSummary}>
       {items.map((item) => (
-        <div key={item.productId._id} className={styles.orderItem}>
+        <div key={item._id} className={styles.orderItem}>
           <p>
-            {item.productId.name} ({item.selectedWeight}g) x {item.quantity}
+            {item.name} ({item.selectedWeight}g) x {item.quantity}
           </p>
-          <p>₹{item.price * item.quantity}</p>
+          <p>₹{item.price}</p>
         </div>
       ))}
       <hr />
