@@ -84,7 +84,7 @@ export const createOrder= async (req, res) => {
     res.status(201).json({
         status:"success",
         message:"Order created successfully",
-        data:order
+        data:savedOrder
     });
 }catch(err){
     res.status(500).json({

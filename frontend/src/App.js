@@ -23,6 +23,7 @@ import AdminRoute from "./components/AdminRoute.js";
 import ProductDetails from "./pages/ProductDetails";
 import MyProfile from "./pages/MyProfile/MyProfile.js";
 import CheckoutPage from "./pages/Checkout/CheckoutPage.js";
+import OrderConfirmation from "./pages/OrderConfirmation/OrderConfirmation.js";
 
 function App() {
   return (
@@ -46,6 +47,8 @@ function App() {
               <Route path="products-management" element={<AdminRoute><Products /></AdminRoute>} />
               <Route path="/product/:productId" element={<ProtectedRoute><ProductDetails /></ProtectedRoute>} />
               <Route path="/checkout" element={<ProtectedRoute><CheckoutPage /></ProtectedRoute>} />
+              <Route path="/order-confirmation" element={<ProtectedRoute><OrderConfirmation /></ProtectedRoute>} />
+              {/* <Route path="*" element={<h1>404 Not Found</h1>} /> */}
             </Routes>
           </div>
           <Footer />
