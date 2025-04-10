@@ -65,7 +65,7 @@ export const createOrder= async (req, res) => {
     const order = await razorpay.orders.create(options);
     const storedItems = items.map (item => ({
         productId: item.productId,
-        name: item.productId.name,
+        name: item.name,
         quantity: item.quantity,
         price: item.price,
         selectedWeight: item.selectedWeight
