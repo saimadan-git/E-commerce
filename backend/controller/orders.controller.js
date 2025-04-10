@@ -27,6 +27,12 @@ const sendEmail = async (user,order) => {
         html: `
         <h3>New Order Placed</h3>
         <p><strong>Customer:</strong> ${user.name} (${user.email})</p>
+        <p><strong>Mobile Number:</strong> ${user.mobileNumber}</p>
+        <p><strong>Address:</strong> ${order.selectedAddress.name}, ${order.selectedAddress.address}, ${order.selectedAddress.area}, ${order.selectedAddress.city}, ${order.selectedAddress.state}, ${order.selectedAddress.pincode}</p>
+        <p><strong>Order Items:</strong></p>
+        <ul>
+            ${order.items.map(item => `<li>${item.productId.name} - Quantity: ${item.quantity}, Weight: ${item.selectedWeight}g</li>`).join('')}
+        </ul>
         <p><strong>Order ID:</strong> ${order._id}</p>
         <p><strong>Order Amount:</strong> ₹${order.amount}</p>
         <p><strong>Payment Status:</strong> ${order.paymentStatus}</p>
@@ -57,9 +63,15 @@ export const createOrder= async (req, res) => {
             receipt:`receipt_order_${userId}`,
     };
     const order = await razorpay.orders.create(options);
+    const storedItems = items.map (item => ({
+        productId: item.productId,
+        quantity: item.quantity,
+        price: item.price,
+        selectedWeight: item.selectedWeight
+    }));
     const newOrder = new Order({
         userId,
-        items,
+        items :storedItems,
         amount,
         orderId:order.id,
         paymentStatus:"pending",
