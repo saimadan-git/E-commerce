@@ -85,15 +85,13 @@ export const getCart = async (req, res) => {
             _id: cart._id,
             userId: cart.userId,
             cartItems: cart.cartItems.map(item => ({
-                productId: {
-                    _id: item.productId._id,
-                    name: item.productId.name,
-                    image: item.productId.image || null // Handle cases where no image exists
-                },
+                productId: item.productId._id,
+                name: item.productId.name,
                 quantity: item.quantity,
                 selectedWeight: item.selectedWeight,
                 price: item.price,
-                _id: item._id
+                _id: item._id,
+                image: item.productId.image || null // Handle cases where no image exists
             })),
             totalPrice: cart.totalPrice,
             __v: cart.__v
