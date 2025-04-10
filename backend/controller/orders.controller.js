@@ -149,13 +149,29 @@ export const verifyPayment = async (req, res) => {
 export const getAllOrders = async (req, res) => {
     const { userId } = req.params;
     try{
-        const orders = await Order.find({userId}).populate('items.productId').sort({orderDate:-1}).lean();
+        let orders = await Order.find({userId}).populate('items.productId').sort({orderDate:-1}).lean();
         if (!orders || orders.length === 0) {
             return res.status(404).json({
                 status: "error",
                 message: "No orders found for this user."
             });
         }
+         orders = orders.map(order => ({
+            orderId: order.orderId,
+            orderDate: order.orderDate,
+            items: order.items.map(item => ({
+                ProductDetails: item.productId,
+                name: item.productId.name,
+                quantity: item.quantity,
+                price: item.price,
+                selectedWeight: item.selectedWeight,
+                image: item.productId.image || null // Handle cases where no image exists
+            })),
+            amount: order.amount,
+            paymentStatus: order.paymentStatus,
+            status: order.status,
+            selectedAddress: order.selectedAddress,
+        }));
         res.status(200).json({
             status:"success",
             message:"Orders retrieved successfully",
