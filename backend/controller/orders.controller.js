@@ -19,7 +19,7 @@ const sendEmail = async (user,order) => {
             user: process.env.EMAIL_USER,
             pass: process.env.EMAIL_PASS,
         },
-    });
+    })
         const mailOptions = {
         from: process.env.EMAIL_USER,
         to: process.env.EMAIL_USER,
@@ -31,7 +31,7 @@ const sendEmail = async (user,order) => {
         <p><strong>Address:</strong> ${order.selectedAddress.name}, ${order.selectedAddress.address}, ${order.selectedAddress.area}, ${order.selectedAddress.city}, ${order.selectedAddress.state}, ${order.selectedAddress.pincode}</p>
         <p><strong>Order Items:</strong></p>
         <ul>
-            ${order.items.map(item => `<li>${item.productId.name} - Quantity: ${item.quantity}, Weight: ${item.selectedWeight}g</li>`).join('')}
+            ${order.items.map(item => `<li>${item.name} - Quantity: ${item.quantity}, Weight: ${item.selectedWeight}g</li>`).join('')}
         </ul>
         <p><strong>Order ID:</strong> ${order._id}</p>
         <p><strong>Order Amount:</strong> ₹${order.amount}</p>
@@ -65,6 +65,7 @@ export const createOrder= async (req, res) => {
     const order = await razorpay.orders.create(options);
     const storedItems = items.map (item => ({
         productId: item.productId,
+        name: item.productId.name,
         quantity: item.quantity,
         price: item.price,
         selectedWeight: item.selectedWeight
