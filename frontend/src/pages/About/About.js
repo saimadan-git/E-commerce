@@ -1,74 +1,44 @@
 import React from "react";
-import styles from "./About.module.css"; // Create a CSS module for styling
-import pickleJar from "../../assests/images/Mango-pickle.png"; // Add an image in the assets folder
+import styles from "./About.module.css";
 
 const AboutUs = () => {
   return (
-    <div className={styles.aboutUsContainer}>
-      {/* Hero Section */}
-      <section className={styles.heroSection}>
-        <h1>A Taste of Tradition, Made with Love ❤️</h1>
-        <p>Bringing the authentic flavors of homemade pickles to your doorstep!</p>
-        <a href="/products" className={styles.shopNowButton}>Shop Now</a>
-      </section>
+    <div className={styles.aboutContainer}>
+      <h1 className={styles.heading}>About Us</h1>
+      <p className={styles.subheading}>Crafting Pickles with Passion & Purity</p>
 
-      {/* Our Story Section */}
-      <section className={styles.storySection}>
-        <div className={styles.storyContent}>
-          <img src={pickleJar} alt="Homemade Pickles" className={styles.storyImage} />
-          <div className={styles.storyText}>
-            <h2>Our Story</h2>
-            <p>
-              Our journey began with a simple passion—creating delicious, homemade pickles using time-tested family recipes.
-              Prepared in our own kitchen, each jar is a labor of love, made with the freshest ingredients and traditional methods.
-              What started as a small family tradition is now a mission to bring high-quality, authentic pickles to every home.
-            </p>
-          </div>
+      <p className={styles.description}>
+        Welcome to our pickle paradise! 🌶️
+        <br /><br />
+        We are a small, home-based brand dedicated to making high-quality pickles using
+        only natural, fresh ingredients. Every jar is handcrafted with care,
+        following age-old recipes that bring back the nostalgic taste of tradition.
+        Our mission is to deliver health, flavor, and love to your plate—one bite at a time.
+      </p>
+
+      <div className={styles.featureGrid}>
+        <div className={styles.feature}>
+          <span>🌿</span>
+          <p>100% Natural Ingredients</p>
         </div>
-      </section>
-
-      {/* What Makes Us Special */}
-      <section className={styles.specialSection}>
-        <h2>What Makes Us Special? 🌟</h2>
-        <div className={styles.specialGrid}>
-          <div className={styles.specialItem}>
-            <span>🌿</span>
-            <h3>100% Natural Ingredients</h3>
-            <p>No preservatives, only fresh spices & organic ingredients.</p>
-          </div>
-          <div className={styles.specialItem}>
-            <span>🏡</span>
-            <h3>Homemade with Love</h3>
-            <p>Crafted in small batches for an authentic taste.</p>
-          </div>
-          <div className={styles.specialItem}>
-            <span>📜</span>
-            <h3>Authentic Recipes</h3>
-            <p>Inspired by traditional family recipes.</p>
-          </div>
-          <div className={styles.specialItem}>
-            <span>🛡️</span>
-            <h3>Hygienic Preparation</h3>
-            <p>Maintaining the highest quality standards.</p>
-          </div>
+        <div className={styles.feature}>
+          <span>🏠</span>
+          <p>Homemade with Love</p>
         </div>
-      </section>
+        <div className={styles.feature}>
+          <span>📜</span>
+          <p>Authentic Family Recipes</p>
+        </div>
+        <div className={styles.feature}>
+          <span>❤️</span>
+          <p>Quality First, Always</p>
+        </div>
+      </div>
 
-      {/* Our Commitment */}
-      <section className={styles.commitmentSection}>
-        <h2>Our Commitment 🛡️</h2>
-        <p>
-          We don’t just make pickles; we make memories. Our mission is to deliver high-quality, homemade pickles 
-          that remind you of home. From ingredient selection to packaging, every step is done with care to ensure 
-          freshness and taste in every bite.
-        </p>
-      </section>
-
-      {/* Call to Action */}
-      <section className={styles.ctaSection}>
-        <h2>Ready to experience the taste of home?</h2>
-        <a href="/products" className={styles.ctaButton}>Order Your Pickles Now</a>
-      </section>
+      <div className={styles.ctaSection}>
+        <p>Ready to taste the tradition?</p>
+        <a href="/products" className={styles.ctaButton}>Explore Our Pickles</a>
+      </div>
     </div>
   );
 };

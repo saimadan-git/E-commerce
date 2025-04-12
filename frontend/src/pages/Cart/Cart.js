@@ -48,7 +48,7 @@ const Cart = () => {
         }
     };
 
-    const removeCartItem = async (itemId, selectedWeight) => {
+    const removeCartItem = async (itemId) => {
         setIsLoading(true);
         try {
             const response = await api.delete(`/cart/removeItem/${user.id}/${itemId}`);
@@ -67,7 +67,12 @@ const Cart = () => {
     };
 
     const handleQuantityChange = (item, type) => {
-        const newQuantity = type === "increase" ? item.quantity + 1 : Math.max(item.quantity - 1, 1);
+        const newQuantity = type === "increase" ? item.quantity + 1 : item.quantity - 1;
+        console.log("New Quantity:", newQuantity);
+        if (newQuantity === 0) {
+            removeCartItem(item._id);
+            return;
+        }
         updateCartItem(item._id, newQuantity, item.selectedWeight);
     };
 
@@ -103,7 +108,7 @@ const Cart = () => {
                                     </div>
                                 </div>
                                 <p className={styles.productPrice}>₹{item.price}</p>
-                                <button className={styles.removeButton} onClick={() => removeCartItem(item._id, item.selectedWeight)}>
+                                <button className={styles.removeButton} onClick={() => removeCartItem(item._id)}>
                                     <FaTrash />
                                 </button>
                             </div>
