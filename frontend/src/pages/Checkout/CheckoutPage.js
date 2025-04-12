@@ -7,9 +7,10 @@ import AuthContext from "../../context/AuthContext";
 import AddressForm from "../MyProfile/ManageAddresses/AddressForm";
 import Modal from "react-modal";
 import Loader from "../../components/Loader/Loader";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const CheckoutPage = () => {
+  const location = useLocation();
   const [addresses, setAddresses] = useState([]);
   // const [recentAddress, setRecentAddress] = useState([]);
   const [selectedAddress, setSelectedAddress] = useState({});
@@ -43,7 +44,7 @@ const CheckoutPage = () => {
       setSelectedAddress(fetchedAddresses[0]); // Set first address by default
       // setRecentAddress(fetchedAddresses.slice(0, 1));
 
-      const fetchedCartItems = cartResponse.data.data.cartItems;
+      const fetchedCartItems = location.state ? location.state.cartItems : cartResponse.data.data.cartItems;
       setCartItems(fetchedCartItems);
       setTotalAmount(
         fetchedCartItems.reduce((acc, item) => acc + item.price, 0)
@@ -123,8 +124,8 @@ const CheckoutPage = () => {
     if (!selectedAddress) return notifyError("Please select a delivery address.");
     if (!isChecked) return notifyError("Please agree to the Terms & Conditions.");
     setLoading(true);
-     // API Call
-     try {
+    // API Call
+    try {
       const response = await api.post("/order/createOrder", {
         userId: user.id, items: cartItems, amount: totalAmount, selectedAddress
       });
@@ -179,43 +180,45 @@ const CheckoutPage = () => {
             {/* Address Section */}
             <div className={styles.section}>
               <h3>Delivery Address</h3>
-              <div className={styles.addressList}>
-                {/* {recentAddress.map((address) => { */}
-                {/* return ( */}
-                <label
-                  key={selectedAddress._id}
-                  className={styles.selectedAddressCard}
-                >
-                  <div className={styles.selectedAddressContainer}>
-                    <div className={styles.addressIcon}>
-                      📍
-                    </div>
+              {selectedAddress && (
+                <div className={styles.addressList}>
+                  {/* {recentAddress.map((address) => { */}
+                  {/* return ( */}
+                  <label
+                    key={selectedAddress._id}
+                    className={styles.selectedAddressCard}
+                  >
+                    <div className={styles.selectedAddressContainer}>
+                      <div className={styles.addressIcon}>
+                        📍
+                      </div>
 
-                    <div className={styles.addressDetails}>
-                      <h4 className={styles.addressName}>{selectedAddress.name}</h4>
-                      <p className={styles.addressText}>
-                        {selectedAddress.address}, {selectedAddress.area}, {selectedAddress.city},
-                        {selectedAddress.state} - {selectedAddress.pincode}
-                      </p>
-                      <p className={styles.contact}>
-                        📞 <span>{selectedAddress.mobileNumber}</span>
-                      </p>
-                    </div>
+                      <div className={styles.addressDetails}>
+                        <h4 className={styles.addressName}>{selectedAddress.name}</h4>
+                        <p className={styles.addressText}>
+                          {selectedAddress.address}, {selectedAddress.area}, {selectedAddress.city},
+                          {selectedAddress.state} - {selectedAddress.pincode}
+                        </p>
+                        <p className={styles.contact}>
+                          📞 <span>{selectedAddress.mobileNumber}</span>
+                        </p>
+                      </div>
 
-                    <div className={styles.addressType}>
-                      {selectedAddress.type === "home"
-                        ? "🏡 Home"
-                        : selectedAddress.type === "office"
-                          ? "🏢 Office"
-                          : `🏷️ ${selectedAddress.customType}`}
+                      <div className={styles.addressType}>
+                        {selectedAddress.type === "home"
+                          ? "🏡 Home"
+                          : selectedAddress.type === "office"
+                            ? "🏢 Office"
+                            : `🏷️ ${selectedAddress.customType}`}
+                      </div>
                     </div>
-                  </div>
-                </label>
+                  </label>
 
-                {/* ) */}
-                {/* } */}
-                {/* )} */}
-              </div>
+                  {/* ) */}
+                  {/* } */}
+                  {/* )} */}
+                </div>
+              )}
 
               {/* View All Addresses Button */}
               {addresses.length > 1 && (

@@ -112,6 +112,31 @@ const ProductDetails = () => {
         }
     }
 
+    const handleBuyNow = async () => {
+        const USER_ID = user?.id;
+        if (product.availability) {
+            try {
+                const data = {
+                    userId: USER_ID,
+                    cartItems: [
+                        {
+                            productId: product._id,
+                            quantity: quantity,
+                            name: product.name,
+                            price: price * quantity,
+                            image: product.image,
+                            selectedWeight: selectedWeight
+                        }
+                    ],
+                    totalPrice: product.price
+                };
+                navigate("/checkout", { state: data });
+            } catch (error) {
+                notifyError("Please try again.");
+            }
+        }
+    }
+
     if (!product) return <p className={styles.loading}>Loading product details...</p>;
 
     return (
@@ -165,7 +190,7 @@ const ProductDetails = () => {
                         <button className={styles.addToCartButton} onClick={handleAddToCart} disabled={!product.availability}>
                             Add to Cart
                         </button>
-                        <button className={styles.buyNowButton} disabled={!product.availability}>
+                        <button className={styles.buyNowButton} onClick={handleBuyNow} disabled={!product.availability}>
                             Buy Now
                         </button>
                     </div>

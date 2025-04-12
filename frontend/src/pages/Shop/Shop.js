@@ -124,6 +124,36 @@ const Shop = () => {
         }
     }
 
+    const handleBuyNow = async (event, product) => {
+        event.stopPropagation();
+        const USER_ID = user?.id;
+        if (!USER_ID) {
+            notifyError("Please login to buy products.");
+            return
+        }
+        if(product.availability){
+            try {
+                const data = {
+                    userId: USER_ID,
+                    cartItems: [
+                        {
+                            productId: product._id,
+                            quantity: 1,
+                            name: product.name,
+                            price: product.price,
+                            image: product.image,
+                            selectedWeight: product.weight
+                        }
+                    ],
+                    totalPrice: product.price
+                };
+                navigate("/checkout", { state: data });
+            } catch (error) {
+                notifyError("Please try again.");
+            }
+        }
+    }
+
     return (
         <div className={styles.shopContainer}>
             {/* Sidebar for Filters */}
@@ -257,6 +287,7 @@ const Shop = () => {
                                         <button
                                             className={styles.buyNowButton}
                                             disabled={!product.availability}
+                                            onClick={(e) => handleBuyNow(e, product)}
                                         >
                                             Buy Now
                                         </button>
