@@ -63,18 +63,24 @@ const MyOrdersPage = () => {
               </div>
 
               <div className={styles.footer}>
-                <p>Ordered On: {new Date(order.orderDate).toLocaleDateString('en-GB', {
-                  day: '2-digit',
-                  month: 'short',
-                  year: 'numeric'
-                })}
-                </p>
-              </div>
+                <p>
+                  Ordered On:{" "}
+                  {new Date(order.orderDate).toLocaleString("en-GB", {
+                    day: "2-digit",
+                    month: "short",
+                    year: "numeric",
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    hour12: true,
+                  })}
+              </p>
             </div>
-          ))}
-        </div>
-      )}
+            </div>
+      ))}
     </div>
+  )
+}
+    </div >
   );
 };
 

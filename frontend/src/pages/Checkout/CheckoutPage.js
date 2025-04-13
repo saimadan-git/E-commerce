@@ -47,7 +47,7 @@ const CheckoutPage = () => {
       const fetchedCartItems = location.state ? location.state.cartItems : cartResponse.data.data.cartItems;
       setCartItems(fetchedCartItems);
       setTotalAmount(
-        fetchedCartItems.reduce((acc, item) => acc + item.price, 0)
+        fetchedCartItems.reduce((acc, item) => acc + item.price, 0).toFixed(2)
       );
     } catch {
       notifyError("Failed to load data.");
@@ -83,22 +83,22 @@ const CheckoutPage = () => {
     script.src = "https://checkout.razorpay.com/v1/checkout.js";
     script.async = true;
     document.body.appendChild(script);
-
     script.onload = async () => {
       try {
-        const { data } = await api.post("/order/createOrder", {
-          userId: user.id,
-          items: cartItems,
-          amount: totalAmount
-        });
+        // const { data } = await api.post("/order/createOrder", {
+        //   userId: user.id,
+        //   items: cartItems,
+        //   amount: totalAmount,
+        //   selectedAddress
+        // });
 
         const options = {
-          key: process.env.RAZORPAY_KEY_ID,
-          amount: data.data.amount,
+          key: process.env.REACT_APP_RAZORPAY_KEY_ID,
+          amount: totalAmount * 100, // Amount in paise
           currency: "INR",
           name: "Malini Foods",
           description: "Test Transaction",
-          order_id: data.data.id,
+          // order_id: data.data.id,
           handler: async (response) => {
             const { data } = await api.post("/order/verifyPayment", response);
             data.status === "success" ? notifySuccess("Payment Successful") : notifyError("Payment Failed");
@@ -112,7 +112,8 @@ const CheckoutPage = () => {
         };
 
         new window.Razorpay(options).open();
-      } catch {
+      } catch(error) {
+        console.error("Error initializing Razorpay:", error);
         notifyError("Error initializing payment.");
       }
 
@@ -133,6 +134,9 @@ const CheckoutPage = () => {
       if (response.data.status === "success") {
         // notifySuccess(response.data.message);
         // navigate("/");
+        if (!location.state) {
+          await api.delete(`/cart/clearCart/${user.id}`);
+        }
         navigate("/order-confirmation", {
           state: {
             orderDetails: {

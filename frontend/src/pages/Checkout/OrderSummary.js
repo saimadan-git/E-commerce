@@ -10,7 +10,7 @@ const OrderSummary = ({ items, totalAmount }) => {
           <p>
             {item.name} ({item.selectedWeight}g) x {item.quantity}
           </p>
-          <p>₹{item.price}</p>
+          <p>₹{(item.price).toFixed(2)}</p>
         </div>
       ))}
       <hr />
