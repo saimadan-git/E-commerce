@@ -1,15 +1,46 @@
-import React from "react";
+import React, {useContext, useEffect} from "react";
 import "./Home.css";
+import { notifyError, notifySuccess } from "../../utils/toastUtils";
+import {jwtDecode} from 'jwt-decode';
+import AuthContext from "../../context/AuthContext";
 
 const Home = () => {
+
+  const { login } = useContext(AuthContext);
+
+  useEffect(() => {
+    // Check if the URL contains query parameters for success or error messages
+    const urlParams = new URLSearchParams(window.location.search);
+    // If success parameter exists
+    if (urlParams.has("success")) {
+      notifySuccess("Successfully logged in with Google!");
+      const token = urlParams.get("token"); // Save the token if it's included
+      if (token) {
+        const user = jwtDecode(token); // Extract user details
+        login(user, token); // Log in the user
+      }
+      // Use a small delay before clearing the query params
+      setTimeout(() => {
+        window.history.replaceState(null, "", window.location.pathname);
+      }, 100); // Adjust delay if needed
+    }
+
+    // If error parameter exists
+    if (urlParams.has("error")) {
+      notifyError(urlParams.get("error"));
+      setTimeout(() => {
+        window.history.replaceState(null, "", window.location.pathname); // Clear the query params
+      }, 100); // Adjust delay if needed
+    }
+  }, []);
   return (
     <div className="home">
 
       {/* New Year Banner */}
-      <div className="new-year-banner">
+      {/* <div className="new-year-banner">
         <h1>🎉 Happy New Year 2025! 🎉</h1>
         <p>Celebrate this New Year with our special offers and exclusive pickles collection!</p>
-      </div>
+      </div> */}
 
       <header className="home-header">
         <div className="home-intro">
@@ -37,7 +68,7 @@ const Home = () => {
       </header>
 
       {/* Limited-Time Offer Section */}
-      <section className="home-new-year-offer">
+      {/* <section className="home-new-year-offer">
         <h2>🌟 New Year Special Offer! 🌟</h2>
         <p>
           Get <strong>25% off</strong> on all our products until January 15th, 2025. Start your year with the taste of home!
@@ -45,7 +76,7 @@ const Home = () => {
         <a href="/shop" className="btn-shop-special">
           Grab the Offer Now
         </a>
-      </section>
+      </section> */}
 
       <section className="home-features">
         <h2>Why Our Pickles?</h2>
@@ -111,8 +142,6 @@ const Home = () => {
           </div>
         </div>
       </section>
-
-
     </div>
   );
 };

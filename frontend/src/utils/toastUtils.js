@@ -9,6 +9,10 @@ const notifySuccess = (message) => {
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
+        // style: { 
+        //     background: "rgba(255, 255, 255, 0.5)", // Semi-transparent black
+        //     color: "black" // White text for visibility
+        // }
     });
 };
 

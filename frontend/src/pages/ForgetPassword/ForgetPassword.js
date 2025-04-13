@@ -7,35 +7,49 @@ import api from "../../utils/api.js";
 const ForgetPassword = () => {
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false); // Loading state
   const navigate = useNavigate();
 
   const validateEmail = (email) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
+    let error = "";
+    if (!email) {
+      error = "Email is required.";
+    } else if (!emailRegex.test(email)) {
+      error = "Please enter a valid email address.";
+    }
+    return error;
+  };
+
+  const handleInputChange = (e) => {
+    const { value } = e.target;
+    setEmail(value);
+    setError(validateEmail(value));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    if (!email) {
-      setError("Email is required.");
-      return;
-    } else if (!validateEmail(email)) {
-      setError("Please enter a valid email address.");
+    const newError = validateEmail(email);
+    setError(newError);
+    if (newError) {
       return;
     }
+
+    setLoading(true); // Set loading to true
 
     try {
       const response = await api.post("/auth/forgot-password", { email });
       if (response.data.status === "success") {
         notifySuccess("Email sent successfully! Please check your inbox.");
-        navigate("/reset-password");
+        navigate("/login");
       } else {
         notifyError("Failed to send the email. Try again later.");
       }
     } catch (err) {
       console.error(err.message);
       notifyError("An error occurred. Please try again.");
+    } finally {
+      setLoading(false); // Reset loading to false
     }
   };
 
@@ -53,12 +67,19 @@ const ForgetPassword = () => {
               name="email"
               placeholder=" "
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={handleInputChange}
+              disabled={loading} // Disable input during loading
             />
             <label htmlFor="email">Email Address</label>
             {error && <p className="error-message">{error}</p>}
           </div>
-          <button type="submit" className="button login-button">Send Email</button>
+          <button 
+            type="submit" 
+            className="button login-button"
+            disabled={loading} // Disable button during loading
+          >
+            {loading ? "Sending..." : "Send Email"} {/* Show loading text */}
+          </button>
         </form>
       </div>
     </div>
