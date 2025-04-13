@@ -1,10 +1,26 @@
 import Product from "../models/products.js";
-
+import path from "path";
 //Create Product
 export const createProduct = async (req, res) => {
-    const { name, price, weight, description, category, availability } = req.body;
-    const image = req.file.path;
     try {
+        const { name, price, weight, description, category, availability } = req.body;
+        const image = req.file.path;
+        // console.log(req.body);
+        // console.log(req.file);
+        // if (!req.file) {
+        //     return res.status(400).json({
+        //         status: "error",
+        //         message: "Image file is required!",
+        //     });
+        // }
+        // console.log(image);
+        const productExists = await Product.findOne({ name });
+        if (productExists) {
+            return res.status(400).json({
+                status: "error",
+                message: "Product already exists",
+            });
+        }
         const product = new Product({
             name,
             price,

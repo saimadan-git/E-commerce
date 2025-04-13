@@ -28,7 +28,8 @@
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    position: relative; /* Important for absolute positioning */
+    position: relative;
+    /* Important for absolute positioning */
     /* border-radius: 10px; */
     /* background: white; */
     /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
@@ -53,7 +54,8 @@
     font-weight: bold;
     border-radius: 20px;
     background: white;
-    z-index: 10; /* Ensures it stays above the image */
+    z-index: 10;
+    /* Ensures it stays above the image */
 }
 
 .vegTag {
@@ -236,6 +238,7 @@
 }
 
 /* Related Products Section */
+/* Related Products Section */
 .relatedProductsSection {
     margin-top: 50px;
     position: relative;
@@ -245,10 +248,10 @@
 /* Related Products List */
 .relatedProductsList {
     display: flex;
-    justify-content: center;
+    justify-content: space-around; /* Change from center to flex-start */
     gap: 15px;
     overflow-x: auto;
-    padding: 10px 0;
+    padding: 10px 10;
     scroll-behavior: smooth;
     scrollbar-width: none;
     white-space: nowrap;
@@ -285,7 +288,7 @@
     border-radius: 8px;
 }
 
-/* Scroll Buttons (Only Show When Needed) */
+/* Scroll Buttons */
 .scrollButton {
     position: absolute;
     top: 50%;
@@ -297,22 +300,22 @@
     padding: 10px;
     border-radius: 50%;
     font-size: 18px;
-    display: none; /* Initially Hidden */
+    display: none; /* Hide by default */
+    z-index: 10; /* Ensure it's above other elements */
 }
 
-/* Show Scroll Buttons Only When Needed */
-@media (max-width: 1200px) {
-    .scrollButton {
-        display: block;
-    }
+/* Buttons will only appear when JS adds 'showScrollButtons' class */
+.showScrollButtons .scrollButton {
+    display: block;
 }
 
-.scrollButton:first-child {
-    left: -30px;
+/* Adjust button position so they are inside the container */
+.scrollButton:first-of-type {
+    left: 10px;
 }
 
-.scrollButton:last-child {
-    right: -30px;
+.scrollButton:last-of-type {
+    right: 10px;
 }
 
 /* Loading Message */

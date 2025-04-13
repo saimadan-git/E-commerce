@@ -99,7 +99,10 @@ const Shop = () => {
     const handleAddToCart = async (event, product) => {
         event.stopPropagation();
         const USER_ID = user?.id;
-        console.log(product);
+        if (!USER_ID) {
+            notifyError("Please login to add products to cart.");
+            return
+        }
         if(product.availability){
             try {
                 const response = await api.post("/cart/addToCart", {
@@ -117,6 +120,36 @@ const Shop = () => {
                 }
             } catch (error) {
                 notifyError("Error adding product to cart. Please try again.");
+            }
+        }
+    }
+
+    const handleBuyNow = async (event, product) => {
+        event.stopPropagation();
+        const USER_ID = user?.id;
+        if (!USER_ID) {
+            notifyError("Please login to buy products.");
+            return
+        }
+        if(product.availability){
+            try {
+                const data = {
+                    userId: USER_ID,
+                    cartItems: [
+                        {
+                            productId: product._id,
+                            quantity: 1,
+                            name: product.name,
+                            price: product.price,
+                            image: product.image,
+                            selectedWeight: product.weight
+                        }
+                    ],
+                    totalPrice: product.price
+                };
+                navigate("/checkout", { state: data });
+            } catch (error) {
+                notifyError("Please try again.");
             }
         }
     }
@@ -254,6 +287,7 @@ const Shop = () => {
                                         <button
                                             className={styles.buyNowButton}
                                             disabled={!product.availability}
+                                            onClick={(e) => handleBuyNow(e, product)}
                                         >
                                             Buy Now
                                         </button>

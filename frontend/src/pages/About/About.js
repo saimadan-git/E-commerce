@@ -1,48 +1,42 @@
 import React from "react";
-import "./About.css"; // For styling
+import styles from "./About.module.css";
 
-const About = () => {
+const AboutUs = () => {
   return (
-    <div className="about-page">
-      <div className="about-hero">
-        <h1>About Us</h1>
-        <p>Discover the story behind our pickles.</p>
-      </div>
+    <div className={styles.aboutWrapper}>
+      <div className={styles.container}>
+        <h1 className={styles.title}>About Us</h1>
+        <p className={styles.tagline}>Made with ❤️ at Home. Served with 💫 to You.</p>
 
-      <div className="about-content">
-        <div className="about-section">
-          <h2>Our Story</h2>
-          <p>
-            At <strong>Pickle Paradise</strong>, we take pride in crafting the finest, most flavorful pickles using time-honored recipes and the freshest ingredients. 
-            Our journey began with a passion for preserving the rich tradition of pickling while adding our own unique twist.
-          </p>
+        <p className={styles.description}>
+          At <strong>Malini Pickles</strong>, every jar tells a story. Born from our kitchen, our pickles are
+          handcrafted with care using only <strong>natural ingredients</strong> — no preservatives, no shortcuts.
+          We follow <strong>traditional recipes</strong> passed down through generations, ensuring
+          each bite is packed with authentic flavor and homemade warmth.
+        </p>
+
+        <div className={styles.features}>
+          <div className={styles.featureCard}>
+            <span>🌿</span>
+            <p>100% Natural Ingredients</p>
+          </div>
+          <div className={styles.featureCard}>
+            <span>🏡</span>
+            <p>Prepared at Home</p>
+          </div>
+          <div className={styles.featureCard}>
+            <span>🍋</span>
+            <p>No Preservatives</p>
+          </div>
+          <div className={styles.featureCard}>
+            <span>⭐</span>
+            <p>Unmatched Quality</p>
+          </div>
         </div>
 
-        <div className="about-section">
-          <h2>Our Mission</h2>
+        <div className={styles.closingNote}>
           <p>
-            Our mission is to bring joy to every bite by offering pickles that are both delicious and made with love. 
-            From spicy to sweet, tangy to savory, we strive to cater to every pickle lover's taste.
-          </p>
-        </div>
-
-        <div className="about-section">
-          <h2>Why to Choose Us?</h2>
-          <ul>
-            <li>All-natural ingredients</li>
-            <li>Locally sourced produce</li>
-            <li>Handcrafted with care</li>
-            <li>Wide range of flavors</li>
-          </ul>
-        </div>
-
-        <div className="about-section">
-          <h2>Contact Us</h2>
-          <p>
-            Have questions or want to know more? We'd love to hear from you!
-          </p>
-          <p>
-            Email us at: <a href="mailto:info@pickleparadise.com">info@pickleparadise.com</a>
+            We're not just selling pickles — we're sharing our heritage. Thank you for making us a part of your meals.
           </p>
         </div>
       </div>
@@ -50,4 +44,4 @@ const About = () => {
   );
 };
 
-export default About;
+export default AboutUs;

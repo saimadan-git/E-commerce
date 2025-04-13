@@ -48,6 +48,8 @@
 .nav-links .active {
   font-weight: bold;
   color: #a3d977;
+  border: 1px solid #a3d977;
+  border-radius: 10px;
 }
 
 /* Hover Effect */

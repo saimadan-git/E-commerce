@@ -22,7 +22,7 @@ passport.use(
 
         if (user) {
           // Existing user: Generate a JWT token
-          const token = generateToken({ id: user._id, name: user.name, email: user.email, mobileNumber: user.mobileNumber, address: user.address, role: user.role });
+          const token = generateToken({ id: user._id, name: user.name, email: user.email, mobileNumber: user.mobileNumber, addressess: user.addressess, role: user.role });
           return done(null, { user, token }); // Pass user and token to the callback
         } else {
           // New user: Create a new record in the database
@@ -35,7 +35,7 @@ passport.use(
           await user.save();
 
           // Generate a JWT token for the new user
-          const token = generateToken({ id: user._id, name: user.name, email: user.email, mobileNumber: user.mobileNumber, address: user.address, role: user.role });
+          const token = generateToken({ id: user._id, name: user.name, email: user.email, mobileNumber: user.mobileNumber, addressess: user.addressess, role: user.role });
           return done(null, { user, token });
 
         }

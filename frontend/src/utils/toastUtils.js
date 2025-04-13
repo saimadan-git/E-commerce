@@ -9,10 +9,11 @@ const notifySuccess = (message) => {
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
-        // style: { 
-        //     background: "rgba(255, 255, 255, 0.5)", // Semi-transparent black
-        //     color: "black" // White text for visibility
-        // }
+        style: { 
+            marginTop: "30px",
+            // background: "rgba(255, 255, 255, 0.5)", // Semi-transparent black
+            // color: "black" // White text for visibility
+        }
     });
 };
 
@@ -25,6 +26,9 @@ const notifyError = (message) => {
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
+        style: {
+            marginTop: "30px"
+        }
     });
 };
 

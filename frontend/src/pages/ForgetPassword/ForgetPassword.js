@@ -57,7 +57,7 @@ const ForgetPassword = () => {
     <div className="auth-page">
       <div className="auth-card">
         <h2>Forgot Password</h2>
-        <p>Enter your email address and we’ll send you a link to reset your password.</p>
+        <p className="auth-card-text">Enter your email address and we’ll send you a link to reset your password.</p>
 
         <form onSubmit={handleSubmit}>
           <div className="form-group">

@@ -19,7 +19,7 @@ export const getUserProfile = async (req, res) => {
                 name: getUser.name,
                 email: getUser.email,
                 mobileNumber: getUser.mobileNumber,
-                address: getUser.address,
+                addressess: getUser.addressess,
             },
         });
     } catch (err) {
@@ -33,14 +33,13 @@ export const getUserProfile = async (req, res) => {
 //Profile Update
 export const updateProfile = async (req, res) => {
     const { userId } = req.params;
-    const { name, email, mobileNumber, address } = req.body;
+    const { name, email, mobileNumber } = req.body;
     try {
         //define the fields to be updated  
         const updatedData = {
             name: name,
             email: email,
             mobileNumber: mobileNumber,
-            address: address
         };
         const updatedUser = await User.findByIdAndUpdate(userId, updatedData, { new: true });
         if (!updatedUser) {
@@ -58,7 +57,6 @@ export const updateProfile = async (req, res) => {
                 name: updatedUser.name,
                 email: updatedUser.email,
                 mobileNumber: updatedUser.mobileNumber,
-                address: updatedUser.address,
             },
         });
     } catch (err) {

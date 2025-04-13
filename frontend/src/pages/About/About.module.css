@@ -1,0 +1,64 @@
+.aboutWrapper {
+  background-color: #fff8ed;
+  padding: 35px 20px;
+  font-family: 'Segoe UI', sans-serif;
+  color: #3e2f1c;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.title {
+  font-size: 36px;
+  margin-bottom: 10px;
+  color: #8c441c;
+  font-weight: bold;
+}
+
+.tagline {
+  font-size: 18px;
+  color: #5f4d38;
+  margin-bottom: 30px;
+}
+
+.description {
+  font-size: 17px;
+  line-height: 1.7;
+  margin-bottom: 40px;
+  color: #4b3d2e;
+}
+
+.features {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 25px;
+  margin-bottom: 40px;
+}
+
+.featureCard {
+  background-color: #fff3dc;
+  border: 1px solid #e8cfa1;
+  border-radius: 12px;
+  padding: 20px;
+  width: 180px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  font-size: 16px;
+}
+
+.featureCard span {
+  font-size: 30px;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.closingNote {
+  font-size: 16px;
+  background: #fdeccc;
+  padding: 20px;
+  border-radius: 10px;
+  color: #573e26;
+}

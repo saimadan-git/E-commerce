@@ -48,8 +48,8 @@ const Cart = () => {
         }
     };
 
-    const removeCartItem = async (itemId, selectedWeight) => {
-        // setIsLoading(true);
+    const removeCartItem = async (itemId) => {
+        setIsLoading(true);
         try {
             const response = await api.delete(`/cart/removeItem/${user.id}/${itemId}`);
             if (response.data.status === 'success') {
@@ -61,13 +61,18 @@ const Cart = () => {
         } catch (error) {
             console.error("Error removing cart item:", error);
         } 
-        // finally {
-        //     setIsLoading(false);
-        // }
+        finally {
+            setIsLoading(false);
+        }
     };
 
     const handleQuantityChange = (item, type) => {
-        const newQuantity = type === "increase" ? item.quantity + 1 : Math.max(item.quantity - 1, 1);
+        const newQuantity = type === "increase" ? item.quantity + 1 : item.quantity - 1;
+        console.log("New Quantity:", newQuantity);
+        if (newQuantity === 0) {
+            removeCartItem(item._id);
+            return;
+        }
         updateCartItem(item._id, newQuantity, item.selectedWeight);
     };
 
@@ -75,22 +80,22 @@ const Cart = () => {
         <div className={styles.cartContainer}>
             {/* <h1 className={styles.cartTitle}>Your Shopping Cart</h1> */}
 
-            {isLoading && <Loader />}
+            {isLoading && <div className={styles.loaderOverlay}><Loader /></div>}
 
             {!isLoading && cartItems.length === 0 ? (
                 <div className={styles.emptyCartContainer}>
                     <img src={emptyCartImage} alt="Empty Cart" className={styles.emptyCartImage} />
                     <p className={styles.emptyCartText}>Your cart is empty! Start shopping now.</p>
-                    <Link to="/" className={styles.shopNowButton}>Shop Now</Link>
+                    <Link to="/shop" className={styles.shopNowButton}>Shop Now</Link>
                 </div>
             ) : (
                 <div className={styles.cartLayout}>
                     <div className={styles.cartItemsSection}>
                         {cartItems.map(item => (
                             <div key={item._id} className={styles.cartItem}>
-                                <img src={item.productId.image} alt={item.productId.name} className={styles.productImage} />
+                                <img src={item.image} alt={item.name} className={styles.productImage} />
                                 <div className={styles.details}>
-                                    <h2 className={styles.productName}>{item.productId.name}</h2>
+                                    <h2 className={styles.productName}>{item.name}</h2>
                                     <div className={styles.selectedWeight}>Weight: {item.selectedWeight}g</div>
                                     <div className={styles.quantitySelector}>
                                         <button onClick={() => handleQuantityChange(item, "decrease")} className={styles.quantityButton}>
@@ -103,7 +108,7 @@ const Cart = () => {
                                     </div>
                                 </div>
                                 <p className={styles.productPrice}>₹{item.price}</p>
-                                <button className={styles.removeButton} onClick={() => removeCartItem(item._id, item.selectedWeight)}>
+                                <button className={styles.removeButton} onClick={() => removeCartItem(item._id)}>
                                     <FaTrash />
                                 </button>
                             </div>
@@ -111,7 +116,7 @@ const Cart = () => {
                     </div>
                     <div className={styles.cartSummarySection}>
                         <h2 className={styles.totalPrice}>Total: ₹{totalPrice}</h2>
-                        <button className={styles.checkoutButton}>Proceed to Checkout</button>
+                        <Link to="/checkout"><button className={styles.checkoutButton}>Proceed to Checkout</button></Link>
                     </div>
                 </div>
             )}

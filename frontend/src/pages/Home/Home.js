@@ -3,6 +3,7 @@ import "./Home.css";
 import { notifyError, notifySuccess } from "../../utils/toastUtils";
 import {jwtDecode} from 'jwt-decode';
 import AuthContext from "../../context/AuthContext";
+import { Link } from "react-router-dom";
 
 const Home = () => {
 
@@ -56,9 +57,9 @@ const Home = () => {
             <li>👌 Unmatched Quality and Taste in Every Jar</li>
             <li>❤️ Made with Love & Care</li>
           </ul>
-          <a href="/shop" className="btn-shop">
+          <Link to="/shop" className="btn-shop">
             Explore Our Collection
-          </a>
+          </Link>
         </div>
         <img
           src="https://img.tatacliq.com/images/i15//437Wx649H/MP000000020494121_437Wx649H_202312171246261.jpeg"

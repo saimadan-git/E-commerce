@@ -1,0 +1,56 @@
+.profileContainer {
+    display: flex;
+    min-height: calc(100vh - 50px - 40px);
+    background-color: #f1f3f6;
+    padding: 20px;
+  }
+  
+  /* Left Sidebar */
+  .profileSidebar {
+    width: 250px;
+    background: rgb(209, 240, 211);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    height: 80vh;
+  }
+  
+  .sidebarTitle {
+    font-size: 1.4rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    width: 250px;
+  }
+  
+  .sidebarMenu {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .sidebarMenu li {
+    padding: 10px 12px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: 0.3s;
+    border-radius: 4px;
+    margin: 5px;
+  }
+  
+  .sidebarMenu li:hover,
+  .activeTab {
+    background: #478047;
+    color: white;
+    font-weight: bold;
+  }
+  
+  /* Right Content */
+  .profileContent {
+    flex-grow: 1;
+    background:  rgb(221, 241, 222);
+    margin-left: 20px;
+    /* padding: 20px; */
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+  }
+  

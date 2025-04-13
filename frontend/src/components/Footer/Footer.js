@@ -4,7 +4,7 @@ import "./Footer.css";
 const Footer = () => {
   return (
     <footer className="footer">
-      <p>© 2024 Pickle Paradise. All Rights Reserved.</p>
+      <p>© 2025 Malini Foods. All Rights Reserved.</p>
     </footer>
   );
 };

@@ -1,6 +1,7 @@
 import User from '../models/Register.js';
 import nodemailer from 'nodemailer';
 import jwt from 'jsonwebtoken';
+import bcrypt from 'bcrypt';
 import { generateToken } from '../utils/generateToken.js';
 import { response } from 'express';
 import dotenv from 'dotenv';
@@ -17,6 +18,8 @@ export const register = async (req, res, next) => {
                 message: "User already exists",
             });
         }
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(password, salt);
         const adminEmail=["malinifoods123@gmail.com"]
         let role="user";
         if(adminEmail.includes(email)){
@@ -26,10 +29,10 @@ export const register = async (req, res, next) => {
             name,
             email,
             mobileNumber,
-            password,
+            password: hashedPassword,
             role,
         });
-        const token = generateToken({id: newUser._id,name: newUser.name,email: newUser.email,mobileNumber: newUser.mobileNumber,address: newUser.address,role:newUser.role});
+        const token = generateToken({id: newUser._id,name: newUser.name,email: newUser.email,mobileNumber: newUser.mobileNumber,addressess: newUser.addressess,role:newUser.role});
         const savedUser = await newUser.save();
         console.log(savedUser._id);
         res.cookie("token", token, { httpOnly: true });
@@ -41,7 +44,7 @@ export const register = async (req, res, next) => {
                 name: savedUser.name,
                 email: savedUser.email,
                 mobileNumber: savedUser.mobileNumber,
-                address: savedUser.address,
+                addressess: savedUser.addressess,
                 role: savedUser.role,
                 token,
                 //password: savedUser.password,
@@ -111,10 +114,15 @@ export const login = async (req, res, next) => {
                 data: {}
             });
         }
-        if (password != user.password) {
-            return res.status(401).json({ status: "error", message: "Invalid credentials.", data: {} });
+        const validPassword = await bcrypt.compare(password, user.password);
+        if (!validPassword) {
+            return res.status(400).json({
+                status: "error",
+                message: "Invalid password",
+                data: {}
+            });
         }
-        const token = generateToken({id: user._id,name: user.name,email: user.email,mobileNumber: user.mobileNumber,address: user.address,role: user.role});
+        const token = generateToken({id: user._id,name: user.name,email: user.email,mobileNumber: user.mobileNumber,addressess: user.addressess,role: user.role});
         res.cookie("token", token, { httpOnly: true });
         console.log(token);
         // Successful login
@@ -126,7 +134,7 @@ export const login = async (req, res, next) => {
                 name: user.name,
                 email: user.email,
                 mobileNumber: user.mobileNumber,
-                address: user.address,
+                addressess: user.addressess,
                 role: user.role,
                 token,
             },
@@ -142,12 +150,16 @@ export const forgotPassword = async (req, res) => {
     console.log(process.env.EMAIL_USER);
     console.log(process.env.EMAIL_PASS);
     const { email } = req.body;
-
+    try {
     const user = await User.findOne({ email });
-    const token = generateToken({id: user._id,name: user.name,email: user.email,mobileNumber: user.mobileNumber,address: user.address,role: user.role});
     if (!user) {
-        return res.status(404).json({ success: false, message: "User not found." });
+        return res.status(404).json({ 
+            status: "error", 
+            message: "User not found." 
+        });
     }
+    const token = generateToken({id: user._id,name: user.name,email: user.email,mobileNumber: user.mobileNumber,addressess: user.addressess,role: user.role});
+    console.log(user._id);
     const resetLink = `http://localhost:8854/reset-password/${user._id}/${token}`;
     const emailHtml = `
     <h3>Password Reset Request</h3>
@@ -155,7 +167,7 @@ export const forgotPassword = async (req, res) => {
     <a href="${resetLink}">${resetLink}</a>
   `;
 
-    try {
+    
         //console.log(process.env.EMAIL_USER);
         await tr.sendMail({
             from: "malinifoods123@gmail.com",
@@ -191,7 +203,10 @@ export const resetPassword = async (req, res) => {
                     return res.status(404).json({ status: "error", message: "User not found." });
                 }
                 // await User.updateOne({ email }, { password: newPass });
-                user.password = newPassword;
+                //user.password = newPassword;
+                const salt = await bcrypt.genSalt(10);
+                const hashedPassword = await bcrypt.hash(newPassword, salt);
+                user.password = hashedPassword;
                 await user.save();
                 res.status(200).json({ status: "success", message: "Password updated successfully." });
             

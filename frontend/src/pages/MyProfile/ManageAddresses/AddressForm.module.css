@@ -1,0 +1,161 @@
+.addressFormContainer {
+  background-color: white;
+  padding: 30px;
+  border-radius: 10px;
+  /* box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); */
+  width: 100%;
+  margin: 20px auto;
+}
+
+.addressFormTitle {
+  font-size: 1.5rem;
+  color: #2d572c;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.addressForm {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Flex row layout */
+.row {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.row .formGroup {
+  flex: 1;
+  position: relative;
+}
+
+/* Text Inputs, Textarea, and Dropdowns */
+.formGroup input,
+.formGroup textarea,
+.formGroup select {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.formGroup textarea {
+  resize: none;
+  height: 80px;
+}
+
+/* Focus effects */
+.formGroup input:focus,
+.formGroup textarea:focus,
+.formGroup select:focus {
+  border-color: #2d572c;
+  /* box-shadow: 0 0 5px rgba(45, 87, 44, 0.5); */
+  border: 2px solid #2d572c;
+}
+
+/* Floating Labels */
+.formGroup label {
+  position: absolute;
+  top: 0%;
+  left: 12px;
+  font-size: 16px;
+  transform: translateY(60%);
+  color: #999;
+  pointer-events: none;
+  transition: all 0.3s ease;
+  background-color: white;
+  padding: 0 5px;
+  z-index: 1;
+}
+
+.formGroup input:focus + label,
+.formGroup textarea:focus + label,
+.formGroup select:focus + label,
+.formGroup input:not(:placeholder-shown) + label,
+.formGroup textarea:not(:placeholder-shown) + label {
+  top: -12px;
+  font-size: 12px;
+  color: #333;
+}
+
+/* Address Type (Radio Buttons) */
+.radioGroup {
+  display: flex;
+  gap: 15px;
+  margin-top: 5px;
+}
+
+.radioGroup label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.radioGroup input {
+  accent-color: #2d572c;
+  margin-bottom: 5px;
+}
+
+/* Custom Type Input */
+.customTypeInput {
+  margin-top: 10px;
+}
+
+/* Button Container */
+.buttonContainer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.saveButton,
+.cancelButton {
+  padding: 10px 15px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.saveButton {
+  background-color: #2d572c;
+  color: white;
+}
+
+.saveButton:hover {
+  background-color: #1b3e1e;
+}
+
+.cancelButton {
+  background-color: #ccc;
+  color: black;
+}
+
+.cancelButton:hover {
+  background-color: #999;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  .row {
+    flex-direction: column;
+  }
+
+  .buttonContainer {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+.error {
+  color: red;
+  font-size: 0.9rem;
+}

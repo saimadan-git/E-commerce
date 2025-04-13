@@ -10,6 +10,7 @@ const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(null);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate(); // Make sure it's inside <Router>
 
   useEffect(() => {
@@ -21,6 +22,7 @@ export const AuthProvider = ({ children }) => {
       setToken(storedToken);
       api.defaults.headers.Authorization = `Bearer ${storedToken}`;
     }
+    setLoading(false);
   }, []);
 
   // Login function
@@ -44,7 +46,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, token, login, logout }}>
+    <AuthContext.Provider value={{ user, token, login, logout, loading }}>
       {children}
     </AuthContext.Provider>
   );
