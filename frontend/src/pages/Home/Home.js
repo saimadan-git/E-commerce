@@ -81,6 +81,7 @@ const Home = () => {
 
       <section className="home-features">
         <h2>Why Our Pickles?</h2>
+        <div class="scrollable-container">
         <div className="features-list">
           <div className="feature">
             <img src="https://img.freepik.com/premium-vector/premium-quality-stamp-seal-vector-template_917138-3961.jpg" alt="Quality" />
@@ -96,6 +97,7 @@ const Home = () => {
             <img src="https://www.nutmegnanny.com/wp-content/uploads/2011/11/homemade-pumpkin-butter-4-600x600.jpg" alt="Handcrafted" />
             <h3>Handcrafted</h3>
             <p>Made in small batches for an authentic taste.</p>
+            </div>
           </div>
         </div>
       </section>
