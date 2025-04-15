@@ -7,7 +7,7 @@ const LoginWithGoogle = () => {
   // const navigate = useNavigate();
   const handleLoginWithGoogle = () => {
     // Redirect the user to the backend's Google OAuth route
-    window.location.href = "http://localhost:3000/auth/google";
+    window.location.href = `${process.env.REACT_APP_BACKEND_URL}/auth/google`;
   };
 
   return (
