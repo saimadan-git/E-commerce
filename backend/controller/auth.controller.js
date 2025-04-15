@@ -160,7 +160,7 @@ export const forgotPassword = async (req, res) => {
     }
     const token = generateToken({id: user._id,name: user.name,email: user.email,mobileNumber: user.mobileNumber,addressess: user.addressess,role: user.role});
     console.log(user._id);
-    const resetLink = `http://localhost:8854/reset-password/${user._id}/${token}`;
+    const resetLink = `${process.env.Frontend_URL_Local}/reset-password/${user._id}/${token}`;
     const emailHtml = `
     <h3>Password Reset Request</h3>
     <p>Click the link below to reset your password:</p>
