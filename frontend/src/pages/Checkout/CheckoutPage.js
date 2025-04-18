@@ -334,9 +334,9 @@ const CheckoutPage = () => {
             </div>
 
             {/* Pay Now Button */}
-            <button className={styles.payNowButton} onClick={handlePayment} disabled={paying}>
+            {/* <button className={styles.payNowButton} onClick={handlePayment} disabled={paying}>
               {paying ? "Processing Payment..." : `💸 Pay Now ₹${totalAmount}`}
-            </button>
+            </button> */}
             <button className={styles.payNowButton} onClick={handleOrder} disabled={paying}>
               {paying ? "Placing Order..." : `Order Now`}
             </button>
