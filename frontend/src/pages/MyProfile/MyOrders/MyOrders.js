@@ -53,12 +53,12 @@ const MyOrdersPage = () => {
 
                 <div className={styles.addressSection}>
                   <h4>📍 Delivery Address:</h4>
-                  <p><strong>{order.selectedAddress.name}</strong></p>
-                  <p>{order.selectedAddress.address}, {order.selectedAddress.area}, {order.selectedAddress.city}</p>
-                  <p>{order.selectedAddress.state} - {order.selectedAddress.pincode}</p>
-                  <p>📞 {order.selectedAddress.mobileNumber}</p>
-                  <p>{order.selectedAddress.type}</p>
-                  <p>🏷️ {order.selectedAddress.type === "home" ? "Home" : order.selectedAddress.type === "office" ? "Office" : order.selectedAddress.customType}</p>
+                  <p><strong>{order.selectedAddress?.name}</strong></p>
+                  <p>{order.selectedAddress?.address}, {order.selectedAddress?.area}, {order.selectedAddress?.city}</p>
+                  <p>{order.selectedAddress?.state} - {order.selectedAddress?.pincode}</p>
+                  <p>📞 {order.selectedAddress?.mobileNumber}</p>
+                  <p>{order.selectedAddress?.type}</p>
+                  <p>🏷️ {order.selectedAddress?.type === "home" ? "Home" : order.selectedAddress?.type === "office" ? "Office" : order.selectedAddress?.customType}</p>
                 </div>
               </div>
 
